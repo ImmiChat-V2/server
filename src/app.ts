@@ -3,6 +3,7 @@ import cors from 'cors';
 import compression from 'compression';
 import { NODE_ENV, PORT, ORIGIN, CREDENTIALS } from '@config';
 import { Routes } from './interfaces/routes.interface';
+import ErrorMiddleware from './middlewares/error.middleware';
 
 class App {
   public app: express.Application;
@@ -15,6 +16,7 @@ class App {
     this.port = PORT || '5000';
     this.intializeRoutes(routes);
     this.initializeMiddlewares();
+    this.initializeErrorHandling();
   }
 
   public listen() {
@@ -38,6 +40,10 @@ class App {
     routes.forEach(route => {
       this.app.use('/', route.router);
     });
+  }
+
+  private initializeErrorHandling() {
+    this.app.use(ErrorMiddleware);
   }
 }
 
