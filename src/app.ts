@@ -2,18 +2,20 @@ import express from 'express';
 import cors from 'cors';
 import compression from 'compression';
 import { NODE_ENV, PORT, ORIGIN, CREDENTIALS } from '@config';
-import { Routes } from './interfaces/routes.interface';
-import ErrorMiddleware from './middlewares/error.middleware';
+import { Routes } from '@interfaces/routes.interface';
+import ErrorMiddleware from '@middlewares/error.middleware';
+import Datasource from '@databases';
 
 class App {
-  public app: express.Application;
-  public env: string;
-  public port: string;
+  public readonly app: express.Application;
+  public readonly env: string;
+  public readonly port: string;
 
   constructor(routes: Routes[]) {
     this.app = express();
     this.env = NODE_ENV || 'development';
     this.port = PORT || '5000';
+    this.env !== 'test' && this.initializeDataSource();
     this.intializeRoutes(routes);
     this.initializeMiddlewares();
     this.initializeErrorHandling();
@@ -44,6 +46,15 @@ class App {
 
   private initializeErrorHandling() {
     this.app.use(ErrorMiddleware);
+  }
+
+  private async initializeDataSource() {
+    try {
+      await Datasource.initialize();
+      console.log('initialized');
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
 
