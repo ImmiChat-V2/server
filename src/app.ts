@@ -6,9 +6,9 @@ import { Routes } from './interfaces/routes.interface';
 import ErrorMiddleware from './middlewares/error.middleware';
 
 class App {
-  public app: express.Application;
-  public env: string;
-  public port: string;
+  public readonly app: express.Application;
+  public readonly env: string;
+  public readonly port: string;
 
   constructor(routes: Routes[]) {
     this.app = express();

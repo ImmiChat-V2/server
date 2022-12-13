@@ -3,20 +3,12 @@ import { Routes } from '@interfaces/routes.interface';
 import IndexController from '@controllers/index.controller';
 
 class IndexRoute implements Routes {
-  private _path = '/';
-  private _router = Router();
+  public readonly path = '/';
+  public readonly router = Router();
   private indexController = new IndexController();
 
   constructor() {
     this.initializeRoutes();
-  }
-
-  get router() {
-    return this._router;
-  }
-
-  get path() {
-    return this._path;
   }
 
   private initializeRoutes() {
