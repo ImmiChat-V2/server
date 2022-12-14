@@ -5,6 +5,8 @@ import { NODE_ENV, PORT, ORIGIN, CREDENTIALS } from '@config';
 import { Routes } from '@interfaces/routes.interface';
 import ErrorMiddleware from '@middlewares/error.middleware';
 import Datasource from '@databases';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJSDoc from 'swagger-jsdoc';
 
 class App {
   public readonly app: express.Application;
@@ -17,6 +19,7 @@ class App {
     this.port = PORT || '5000';
     this.env !== 'test' && this.initializeDataSource();
     this.intializeRoutes(routes);
+    this.initializeSwagger();
     this.initializeMiddlewares();
     this.initializeErrorHandling();
   }
@@ -55,6 +58,22 @@ class App {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  private initializeSwagger() {
+    const options = {
+      swaggerDefinition: {
+        info: {
+          title: 'REST API',
+          version: '1.0.0',
+          description: 'Example docs',
+        },
+      },
+      apis: ['swagger.yaml'],
+    };
+
+    const specs = swaggerJSDoc(options);
+    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
   }
 }
 
