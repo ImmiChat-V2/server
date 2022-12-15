@@ -25,6 +25,7 @@ const validationMiddleware = ({
       whitelist,
       forbidNonWhitelisted,
     };
+    console.log(req.body);
     try {
       const errors = await validate(instance, validatorOptions);
       if (errors.length > 0) {

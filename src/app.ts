@@ -7,6 +7,9 @@ import ErrorMiddleware from '@middlewares/error.middleware';
 import Datasource from '@databases';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
+import hpp from 'hpp';
+import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 
 class App {
   public readonly app: express.Application;
@@ -18,9 +21,9 @@ class App {
     this.env = NODE_ENV || 'development';
     this.port = PORT || '5000';
     this.env !== 'test' && this.initializeDataSource();
+    this.initializeMiddlewares();
     this.intializeRoutes(routes);
     this.initializeSwagger();
-    this.initializeMiddlewares();
     this.initializeErrorHandling();
   }
 
@@ -36,9 +39,12 @@ class App {
 
   private initializeMiddlewares() {
     this.app.use(cors({ origin: ORIGIN, credentials: CREDENTIALS }));
+    this.app.use(hpp());
+    this.app.use(helmet());
+    this.app.use(compression());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
-    this.app.use(compression());
+    this.app.use(cookieParser());
   }
 
   private intializeRoutes(routes: Routes[]) {
