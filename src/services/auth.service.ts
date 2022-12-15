@@ -1,6 +1,6 @@
 import { hash } from 'bcrypt';
 // import { sign } from 'jsonwebtoken';
-import { EntityRepository, Repository } from 'typeorm';
+import { EntityRepository } from 'typeorm';
 // import { SECRET_KEY } from '@config';
 import { CreateUserDto } from '@dtos/users.dto';
 // import { HttpException } from '@exceptions/HttpException';
