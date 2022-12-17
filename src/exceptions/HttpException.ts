@@ -1,4 +1,4 @@
-export class HttpException extends Error {
+class HttpException extends Error {
   public readonly status: number;
   public readonly message: string;
 
@@ -8,3 +8,5 @@ export class HttpException extends Error {
     this.message = message;
   }
 }
+
+export default HttpException;
