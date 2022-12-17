@@ -1,15 +1,15 @@
 import express from 'express';
 import cors from 'cors';
 import compression from 'compression';
-import { NODE_ENV, PORT, ORIGIN, CREDENTIALS } from '@config';
-import { Routes } from '@interfaces';
-import { ErrorMiddleware } from '@middlewares';
-import Datasource from '@databases';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import hpp from 'hpp';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
+import { NODE_ENV, PORT, ORIGIN, CREDENTIALS } from '@config';
+import { Routes } from '@interfaces';
+import { ErrorMiddleware } from '@middlewares';
+import Datasource from '@databases';
 
 class App {
   public readonly app: express.Application;
