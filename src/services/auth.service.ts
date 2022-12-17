@@ -11,9 +11,8 @@ import { UserEntity } from '@entities/users.entity';
 @EntityRepository()
 class AuthService {
   public async signup({ password, ...userData }: CreateUserDto): Promise<User> {
-    // const findUser:
     const hashedPassword = await hash(password, 10);
-    const createUserData: User = await UserEntity.create({ ...userData, password: hashedPassword });
+    const createUserData: User = await UserEntity.create({ ...userData, password: hashedPassword }).save();
     return createUserData;
   }
 }
