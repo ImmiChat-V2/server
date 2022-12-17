@@ -5,7 +5,6 @@ import { User, DataStoredInToken, TokenData } from '@interfaces';
 import { UserEntity } from '@entities';
 import { HttpException } from '@exceptions';
 import { CreateUserDto } from '@dtos';
-
 import { SECRET_KEY } from '@config';
 
 class AuthService extends Repository<UserEntity> {
