@@ -1,12 +1,12 @@
 import { compare, hash } from 'bcrypt';
 import { Repository } from 'typeorm';
-import { CreateUserDto } from '@dtos/users.dto';
-import { User } from '@interfaces/users.interface';
-import { UserEntity } from '@entities/users.entity';
-import { HttpException } from '@exceptions/HttpException';
-import { DataStoredInToken, TokenData } from '@/interfaces/auth.interface';
-import { SECRET_KEY } from '@/config';
 import { sign } from 'jsonwebtoken';
+import { User, DataStoredInToken, TokenData } from '@interfaces';
+import { UserEntity } from '@entities';
+import { HttpException } from '@exceptions';
+import { CreateUserDto } from '@dtos';
+
+import { SECRET_KEY } from '@config';
 
 class AuthService extends Repository<UserEntity> {
   constructor() {

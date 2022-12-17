@@ -1,7 +1,7 @@
-import { CreateUserDto } from '@/dtos/users.dto';
-import { User } from '@/interfaces/users.interface';
 import { NextFunction, Request, Response } from 'express';
-import AuthService from '@/services/auth.service';
+import { AuthService } from '@services';
+import { CreateUserDto } from '@dtos';
+import { User } from '@interfaces';
 
 class AuthController {
   public authService = new AuthService();

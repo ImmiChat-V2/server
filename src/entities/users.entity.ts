@@ -3,7 +3,7 @@ import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateC
 import { User } from '@/interfaces/users.interface';
 
 @Entity()
-export class UserEntity extends BaseEntity implements User {
+class UserEntity extends BaseEntity implements User {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -24,3 +24,5 @@ export class UserEntity extends BaseEntity implements User {
   @UpdateDateColumn()
   updatedAt: Date;
 }
+
+export default UserEntity;
