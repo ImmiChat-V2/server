@@ -1,6 +1,6 @@
+import { NextFunction, Request, RequestHandler, Response } from 'express';
 import { plainToInstance } from 'class-transformer';
 import { validate, ValidationError, ValidatorOptions } from 'class-validator';
-import { NextFunction, Request, RequestHandler, Response } from 'express';
 import { HttpException } from '@exceptions';
 
 type validationMiddlewareParams = {

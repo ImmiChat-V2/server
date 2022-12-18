@@ -60,7 +60,6 @@ class App {
   private async initializeDataSource() {
     try {
       await Datasource.initialize();
-      console.log('initialized');
     } catch (error) {
       console.error(error);
     }
