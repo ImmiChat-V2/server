@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { Routes } from '@interfaces';
-import { ValidationMiddleware } from '@middlewares';
-import { CreateUserDto } from '@dtos';
-import { AuthController } from '@controllers';
+import { Routes } from '@/interfaces';
+import { ValidationMiddleware, AuthMiddleware } from '@/middlewares';
+import { CreateUserDto } from '@/dtos';
+import { AuthController } from '@/controllers';
 
 class AuthRoute implements Routes {
   public readonly path = '/';
@@ -30,6 +30,7 @@ class AuthRoute implements Routes {
       }),
       this.authController.login,
     );
+    this.router.post(`${this.path}logout`, AuthMiddleware, this.authController.logout);
   }
 }
 
