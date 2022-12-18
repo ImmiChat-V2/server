@@ -36,6 +36,14 @@ class AuthController {
       next(error);
     }
   };
+  public validateAuthentication = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      const { id } = req.user;
+      res.status(200).json({ id, message: 'Authenticated' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default AuthController;
