@@ -7,9 +7,9 @@ import hpp from 'hpp';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import { NODE_ENV, PORT, ORIGIN, CREDENTIALS } from '@config';
-import { Routes } from '@interfaces';
-import { ErrorMiddleware } from '@middlewares';
-import Datasource from '@databases';
+import { Routes } from '@/interfaces';
+import { ErrorMiddleware } from '@/middlewares';
+import Datasource from '@/databases';
 
 class App {
   public readonly app: express.Application;

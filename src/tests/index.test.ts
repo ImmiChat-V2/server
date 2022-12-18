@@ -1,6 +1,6 @@
 import request from 'supertest';
 import App from '@/app';
-import { IndexRoute } from '@routes';
+import { IndexRoute } from '@/routes';
 
 afterAll(async () => {
   await new Promise<void>(resolve => setTimeout(() => resolve(), 500));

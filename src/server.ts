@@ -1,6 +1,6 @@
 import App from '@/app';
 import validateEnv from '@utils/validateEnv';
-import { IndexRoute, AuthRoute } from '@routes';
+import { IndexRoute, AuthRoute } from '@/routes';
 
 validateEnv();
 
