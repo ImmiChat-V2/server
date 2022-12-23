@@ -1,10 +1,10 @@
 import { compare, hash } from 'bcrypt';
 import { Repository } from 'typeorm';
 import { sign } from 'jsonwebtoken';
-import { User, DataStoredInToken, TokenData } from '@/interfaces';
+import { DataStoredInToken, TokenData } from '@/interfaces';
 import { UserEntity } from '@/entities';
 import { HttpException } from '@/exceptions';
-import { CreateUserDto } from '@/dtos';
+import { RegisterUserRequestDto, RegisterUserResponseDto, BaseUserDto } from '@/dtos';
 import { SECRET_KEY } from '@/config';
 
 class AuthService extends Repository<UserEntity> {
@@ -14,7 +14,7 @@ class AuthService extends Repository<UserEntity> {
     super();
   }
 
-  private createToken({ id }: User): TokenData {
+  private createToken({ id }: RegisterUserResponseDto): TokenData {
     const dataStoredInToken: DataStoredInToken = { id };
     const expiresIn = 100;
     return { expiresIn, token: sign(dataStoredInToken, SECRET_KEY, { expiresIn }) };
@@ -24,26 +24,27 @@ class AuthService extends Repository<UserEntity> {
     return `Authorization=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn};`;
   }
 
-  public async register({ password, ...userData }: CreateUserDto): Promise<User> {
-    const foundUser: User = await UserEntity.findOne({ where: { email: userData.email } });
+  public async register({ password, ...userData }: RegisterUserRequestDto): Promise<RegisterUserResponseDto> {
+    const foundUser: RegisterUserResponseDto = await UserEntity.findOne({ where: { email: userData.email } });
     if (foundUser) throw new HttpException(409, `This email ${userData.email} already exists`);
     const hashedPassword = await hash(password, 10);
-    const createUserData: User = await UserEntity.create({ ...userData, password: hashedPassword }).save();
+    const createUserData: RegisterUserResponseDto = await UserEntity.create({ ...userData, password: hashedPassword }).save();
     return createUserData;
   }
 
-  public async login({ email, password }: CreateUserDto): Promise<{ cookie: string; foundUser: User }> {
-    const foundUser: User = await UserEntity.findOne({ where: { email: email } });
+  public async login({ email, password }: any): Promise<{ cookie: string; data: any }> {
+    const foundUser: BaseUserDto = await UserEntity.findOne({ where: { email: email } });
     if (!foundUser) {
       throw new HttpException(404, `This email ${email} doesn't exist`);
     }
-    const isCorrectPassword = await compare(password, foundUser.password);
+    const { password: foundPassword, ...userResponse} = foundUser;
+    const isCorrectPassword = await compare(password, foundPassword);
     if (!isCorrectPassword) {
       throw new HttpException(409, 'Password does not match');
     }
     const token = this.createToken(foundUser);
     const cookie = this.createCookie(token);
-    return { cookie, foundUser };
+    return { cookie, data: userResponse };
   }
 }
 
