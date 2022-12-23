@@ -1,14 +1,11 @@
-import { IsNotEmpty } from 'class-validator';
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { Category } from '@/interfaces/categories.interface';
 
 @Entity()
-class CategoryEntity extends BaseEntity implements Category {
+class CategoryEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  @IsNotEmpty()
+  @Column({ nullable: false })
   category_name: string;
 
   @Column()
