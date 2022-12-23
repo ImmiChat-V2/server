@@ -5,7 +5,7 @@ class CategoryEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: false })
+  @Column()
   category_name: string;
 
   @Column()
