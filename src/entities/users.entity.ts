@@ -1,10 +1,16 @@
-import { IsNotEmpty } from 'class-validator';
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateColumn, UpdateDateColumn} from 'typeorm';
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
-class UserEntity extends BaseEntity{
+class UserEntity extends BaseEntity {
+
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column()
+  firstName: string;
+
+  @Column()
+  lastName: string;
 
   @Column()
   @Unique(['email'])
@@ -13,6 +19,16 @@ class UserEntity extends BaseEntity{
   @Column()
   password: string;
 
+  @Column()
+  language: string;
+
+  @Column({nullable: true})
+  dateOfBirth: Date;
+
+  @Column({nullable: true})
+  profilePic: string;
+
+  @Column()
   @CreateDateColumn()
   createdAt: Date;
 
