@@ -22,7 +22,7 @@ class CommentEntity extends BaseEntity{
     @JoinColumn()
     user: UserEntity;
 
-    @Column()
+    @Column({nullable:true})
     media: string;
 
     @Column()
