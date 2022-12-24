@@ -3,8 +3,8 @@ import {BaseEntity,
         PrimaryGeneratedColumn,
         Column,
         ManyToOne,
-        JoinColumn, 
-        CreateDateColumn, 
+        JoinColumn,
+        CreateDateColumn,
         UpdateDateColumn } from 'typeorm';
 import UserEntity from './users.entity';
 // import PostEntity from './posts.entity';
