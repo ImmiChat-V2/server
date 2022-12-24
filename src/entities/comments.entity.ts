@@ -4,23 +4,27 @@ import {BaseEntity,
         Column,
         ManyToOne,
         JoinColumn,
+        ManyToMany,
+        JoinTable,
         CreateDateColumn,
         UpdateDateColumn } from 'typeorm';
-import UserEntity from './users.entity';
-// import PostEntity from './posts.entity';
+import { UserEntity, PostEntity } from '@/entities'
+
 
 @Entity()
 class CommentEntity extends BaseEntity{
     @PrimaryGeneratedColumn()
     id: number;
 
-    // @ManyToOne(()=>PostEntity, post=> post.comments)
-    // @JoinColumn()
-    // post: PostEntity;
+    @ManyToOne(()=>PostEntity, post=> post.comments)
+    post: PostEntity;
 
     @ManyToOne(()=>UserEntity, user => user.id)
-    @JoinColumn()
     user: UserEntity;
+
+    @ManyToMany(() => UserEntity, user => user.id)
+    @JoinTable({name: 'comment_likes'})
+    likes: UserEntity[]
 
     @Column({nullable:true})
     media: string;
