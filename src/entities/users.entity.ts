@@ -2,6 +2,7 @@ import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateC
 
 @Entity()
 class UserEntity extends BaseEntity {
+
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -31,7 +32,6 @@ class UserEntity extends BaseEntity {
   @CreateDateColumn()
   createdAt: Date;
 
-  @Column()
   @UpdateDateColumn()
   updatedAt: Date;
 }
