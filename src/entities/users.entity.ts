@@ -1,26 +1,16 @@
 import { IsNotEmpty } from 'class-validator';
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
-import { User } from '@/interfaces/users.interface';
-import { CommentEntity } from '@/entities';
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateColumn, UpdateDateColumn} from 'typeorm';
 
 @Entity()
-class UserEntity extends BaseEntity implements User {
+class UserEntity extends BaseEntity{
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToMany(() => CommentEntity, comment => comment.user)
-  comments: CommentEntity[]
-
-  // @OneToMany(()=>PostEntity, post => post.posts)
-  // posts: PostEntity[]
-
   @Column()
-  @IsNotEmpty()
   @Unique(['email'])
   email: string;
 
   @Column()
-  @IsNotEmpty()
   password: string;
 
   @Column()

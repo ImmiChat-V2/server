@@ -1,22 +1,14 @@
-import { IsDate, IsNumber, IsString } from 'class-validator';
-
-
-export class CreateCommentDto {
-    @IsNumber()
-    public post_id: number;
-
-    @IsNumber()
-    public user_id: number;
-
-    @IsString()
-    public media: string;
-
-    @IsString()
-    public context: string;
-
-    @IsDate()
-    public created_at: Date
-
-    @IsDate()
-    public updated_at: Date
+export type BaseCommentDto = {
+    readonly id: number;
+    readonly user: number;
+    readonly post: number;
+    readonly media?: string;
+    readonly content: string;
+    readonly createdAt: Date;
+    readonly updatedAt: Date;
 }
+
+// export type CreateCommentDto = Omit<BaseCommentDto, 'id'>
+// export type UpdateCommentDto = Omit<BaseCommentDto, 'created_at'>
+// export type DeleteCommentDto = Omit<BaseCommentDto, 'created_at'>
+// export type GetCommentsDto = BaseCommentDto[]

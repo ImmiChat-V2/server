@@ -1,5 +1,4 @@
 // import { Posts, User, Comments } from '@/interfaces';
-import { User, Comments } from '@/interfaces';
 import { IsNotEmpty } from 'class-validator';
 import { BaseEntity,
          Entity,
@@ -15,7 +14,7 @@ import UserEntity from './users.entity';
 // import PostEntity from './posts.entity';
 
 @Entity()
-class CommentEntity extends BaseEntity implements Comments {
+class CommentEntity extends BaseEntity{
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -23,7 +22,7 @@ class CommentEntity extends BaseEntity implements Comments {
     // @JoinColumn()
     // post: PostEntity;
 
-    @ManyToOne(()=>UserEntity, user => user.comments)
+    @ManyToOne(()=>UserEntity, user => user.id)
     @JoinColumn()
     user: UserEntity;
 
@@ -31,16 +30,13 @@ class CommentEntity extends BaseEntity implements Comments {
     media: string;
 
     @Column()
-    @IsNotEmpty()
     content: string
 
     @Column()
-    @IsNotEmpty()
-    created_at: Date
+    createdAt: Date
 
     @Column()
-    @IsNotEmpty()
-    updated_at: Date
+    updatedAt: Date
 }
 
 export default CommentEntity;

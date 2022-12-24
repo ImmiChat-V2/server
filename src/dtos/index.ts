@@ -1,2 +1,2 @@
 export { CreateUserDto } from './users.dto';
-export { CreateCommentDto } from './comments.dto';
+export { BaseCommentDto } from './comments.dto';

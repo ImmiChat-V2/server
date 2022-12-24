@@ -4,7 +4,6 @@ class IndexController {
   public index = (_req: Request, res: Response, next: NextFunction) => {
     try {
       res.sendStatus(200);
-      
     } catch (error) {
       next(error);
     }
