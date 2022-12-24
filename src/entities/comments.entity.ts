@@ -1,15 +1,11 @@
-// import { Posts, User, Comments } from '@/interfaces';
-import { IsNotEmpty } from 'class-validator';
-import { BaseEntity,
-         Entity,
-         PrimaryGeneratedColumn,
-         Column,
-         OneToOne,
-         ManyToOne,
-         JoinColumn, 
-         Unique, 
-         CreateDateColumn, 
-         UpdateDateColumn } from 'typeorm';
+import {BaseEntity,
+        Entity,
+        PrimaryGeneratedColumn,
+        Column,
+        ManyToOne,
+        JoinColumn, 
+        CreateDateColumn, 
+        UpdateDateColumn } from 'typeorm';
 import UserEntity from './users.entity';
 // import PostEntity from './posts.entity';
 
@@ -33,9 +29,11 @@ class CommentEntity extends BaseEntity{
     content: string
 
     @Column()
+    @CreateDateColumn()
     createdAt: Date
 
     @Column()
+    @UpdateDateColumn()
     updatedAt: Date
 }
 
