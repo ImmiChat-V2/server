@@ -7,7 +7,7 @@ class PostEntity extends BaseEntity {
   id: number;
 
   @Column({ nullable: true })
-  media?: string;
+  media: string | null;
 
   @ManyToOne(() => UserEntity)
   user: UserEntity;
