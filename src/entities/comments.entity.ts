@@ -28,11 +28,9 @@ class CommentEntity extends BaseEntity{
     @Column()
     content: string
 
-    @Column()
     @CreateDateColumn()
     createdAt: Date
 
-    @Column()
     @UpdateDateColumn()
     updatedAt: Date
 }
