@@ -8,7 +8,7 @@ export type BaseCommentDto = {
     readonly updatedAt: Date;
 }
 
-// export type CreateCommentDto = Omit<BaseCommentDto, 'id'>
-// export type UpdateCommentDto = Omit<BaseCommentDto, 'created_at'>
-// export type DeleteCommentDto = Omit<BaseCommentDto, 'created_at'>
-// export type GetCommentsDto = BaseCommentDto[]
+export type CreateCommentDto = Omit<BaseCommentDto, 'id'>
+export type UpdateCommentDto = Omit<BaseCommentDto, 'created_at'>
+export type DeleteCommentDto = Omit<BaseCommentDto, 'created_at'>
+export type GetCommentsDto = BaseCommentDto[]
