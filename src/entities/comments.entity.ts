@@ -22,7 +22,10 @@ class CommentEntity extends BaseEntity{
     @ManyToOne(()=>UserEntity, user => user.id)
     user: UserEntity;
 
-    @ManyToMany(() => UserEntity, user => user.id)
+    @ManyToMany(() => UserEntity, user => user.id,
+                {
+                cascade: true,
+                })
     @JoinTable({name: 'comment_likes'})
     likes: UserEntity[]
 

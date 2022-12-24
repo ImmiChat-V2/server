@@ -25,7 +25,10 @@ class PostEntity extends BaseEntity {
   @ManyToOne(() => UserEntity)
   user: UserEntity;
 
-  @ManyToMany(() => UserEntity, user => user.id)
+  @ManyToMany(() => UserEntity, user => user.id,
+              {
+              cascade: true,
+              })
   @JoinTable({name: 'post_likes'})
   likes: UserEntity[]
 
