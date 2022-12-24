@@ -1,15 +1,16 @@
-import {BaseEntity,
-        Entity,
-        PrimaryGeneratedColumn,
-        Column,
-        CreateDateColumn,
-        UpdateDateColumn,
-        ManyToOne,
-        ManyToMany,
-        JoinTable,
-        OneToMany,
-        JoinColumn } from 'typeorm';
-import { UserEntity, CommentEntity } from '@/entities'
+import {
+  BaseEntity,
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  ManyToMany,
+  JoinTable,
+  OneToMany,
+} from 'typeorm';
+import { UserEntity, CommentEntity } from '@/entities';
 
 @Entity()
 class PostEntity extends BaseEntity {
@@ -19,18 +20,17 @@ class PostEntity extends BaseEntity {
   @Column({ nullable: true })
   media: string | null;
 
-  @OneToMany(()=>CommentEntity, comments=> comments.post)
-  comments: CommentEntity[]
+  @OneToMany(() => CommentEntity, comments => comments.post)
+  comments: CommentEntity[];
 
   @ManyToOne(() => UserEntity)
   user: UserEntity;
 
-  @ManyToMany(() => UserEntity, user => user.id,
-              {
-              cascade: true,
-              })
-  @JoinTable({name: 'post_likes'})
-  likes: UserEntity[]
+  @ManyToMany(() => UserEntity, user => user.id, {
+    cascade: true,
+  })
+  @JoinTable({ name: 'post_likes' })
+  likes: UserEntity[];
 
   @Column()
   content: string;
