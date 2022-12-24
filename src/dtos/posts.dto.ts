@@ -6,10 +6,3 @@ export type BasePostDto = {
   readonly categoryName: string;
 };
 
-export type GetPostResponseDto = BasePostDto;
-
-export type CreatePostRequestDto = Omit<BasePostDto, 'id'>;
-
-export type UpdatePostRequestDto = Pick<BasePostDto, 'id' | 'userId' | 'content'>;
-
-export type DeletePostRequestDto = Pick<BasePostDto, 'id' | 'userId'>;
