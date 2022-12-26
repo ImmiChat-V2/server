@@ -5,4 +5,3 @@ export type BasePostDto = {
   readonly content: string;
   readonly categoryName: string;
 };
-
