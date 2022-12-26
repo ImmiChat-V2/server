@@ -1,16 +1,7 @@
-import {
-  BaseEntity,
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  Unique,
-  CreateDateColumn,
-  UpdateDateColumn
-} from 'typeorm';
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
 class UserEntity extends BaseEntity {
-
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -30,10 +21,10 @@ class UserEntity extends BaseEntity {
   @Column()
   language: string;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   dateOfBirth: Date;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   profilePic: string;
 
   @Column()

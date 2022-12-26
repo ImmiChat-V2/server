@@ -1,7 +1,2 @@
-export {LoginUserRequestDto,
-        RegisterUserRequestDto,
-        AuthenticateUserRequestDto,
-        RegisterUserResponseDto,
-        BaseUserDto,
-        LoginUserResponseDto } from './users.dto';
+export { LoginUserRequestDto, RegisterUserRequestDto, AuthenticateUserRequestDto, BaseUserResponseDTO, BaseUserDto } from './users.dto';
 export { BaseCommentDto } from './comments.dto';

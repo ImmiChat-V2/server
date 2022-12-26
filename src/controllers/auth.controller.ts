@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { AuthService } from '@/services';
-import { RegisterUserRequestDto, LoginUserRequestDto, RegisterUserResponseDto } from '@/dtos';
+import { RegisterUserRequestDto, LoginUserRequestDto } from '@/dtos';
 import { RequestWithUser } from '@/interfaces';
 
 class AuthController {
@@ -9,7 +9,7 @@ class AuthController {
   public register = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userData: RegisterUserRequestDto = req.body;
-      const { id }: RegisterUserResponseDto = await this.authService.register(userData);
+      const { id } = await this.authService.register(userData);
       res.status(201).json({ id, message: 'success' });
     } catch (error) {
       next(error);
@@ -19,11 +19,8 @@ class AuthController {
   public login = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userData: LoginUserRequestDto = req.body;
-      const {
-        cookie,
-        data: { id },
-      } = await this.authService.login(userData);
-      res.setHeader('Set-Cookie', [cookie]).status(200).json({ id, message: 'success' });
+      const { cookie, data } = await this.authService.login(userData);
+      res.setHeader('Set-Cookie', [cookie]).status(200).json({ data, message: 'success' });
     } catch (error) {
       next(error);
     }
