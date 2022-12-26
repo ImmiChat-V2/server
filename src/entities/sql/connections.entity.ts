@@ -1,5 +1,5 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
-import UserEntity from './users.entity';
+import { UserEntity } from '.';
 
 @Entity()
 class ConnectionsEntity extends BaseEntity {
@@ -22,7 +22,6 @@ class ConnectionsEntity extends BaseEntity {
     @Column()
     @UpdateDateColumn()
     updatedAt: Date;
-
 }
 
 export default ConnectionsEntity;
