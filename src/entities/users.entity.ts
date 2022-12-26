@@ -1,4 +1,6 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateColumn, UpdateDateColumn, OneToMany, JoinTable } from 'typeorm';
+import CommentEntity from './comments.entity';
+import ConnectionsEntity from './connections.entity';
 
 @Entity()
 class UserEntity extends BaseEntity {
@@ -34,6 +36,9 @@ class UserEntity extends BaseEntity {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => ConnectionsEntity, (connection) => connection.id)
+  connections: CommentEntity[];
 }
 
 export default UserEntity;
