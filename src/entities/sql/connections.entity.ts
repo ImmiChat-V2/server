@@ -6,10 +6,10 @@ class ConnectionsEntity extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
     
-    @ManyToOne(() => UserEntity, (user) => user.id)
+    @ManyToOne(() => UserEntity, (user) => user.senderId)
     sender: UserEntity;
     
-    @ManyToOne(() => UserEntity, (user) => user.connections)
+    @ManyToOne(() => UserEntity, (user) => user.receiverId)
     receiver: UserEntity;
     
     @Column()
