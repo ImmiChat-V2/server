@@ -1,9 +1,9 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateColumn, UpdateDateColumn, OneToMany, JoinTable } from 'typeorm';
-import CommentEntity from './comments.entity';
-import ConnectionsEntity from './connections.entity';
+import { ConnectionsEntity } from '.';
 
 @Entity()
 class UserEntity extends BaseEntity {
+
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -23,10 +23,10 @@ class UserEntity extends BaseEntity {
   @Column()
   language: string;
 
-  @Column({ nullable: true })
+  @Column({nullable: true})
   dateOfBirth: Date;
 
-  @Column({ nullable: true })
+  @Column({nullable: true})
   profilePic: string;
 
   @Column()
@@ -36,8 +36,11 @@ class UserEntity extends BaseEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => ConnectionsEntity, (connection) => connection.id)
-  connections: CommentEntity[];
+  @OneToMany(() => ConnectionsEntity, (connection) => connection.sender)
+  senderId: ConnectionsEntity[];
+
+  @OneToMany(() => ConnectionsEntity, (connection) => connection.receiver)
+  receiverId: ConnectionsEntity[];
 }
 
 export default UserEntity;
