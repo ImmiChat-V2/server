@@ -60,14 +60,12 @@ class App {
   private async initializeDataSource() {
     try {
       await pgDataSource.initialize();
-      console.log('pg init')
     } catch (error) {
       console.error(error);
     }
 
     try {
       await mongoDataSource.initialize();
-      console.log('mg init')
     } catch (error) {
       console.error(error);
     }
