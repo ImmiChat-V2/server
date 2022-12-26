@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { PostService } from '@/services';
-import { BasePostDto, CreatePostRequestDto, CreatePostResponseDto } from '@/dtos';
+import { BasePostDto, CreatePostRequestDto } from '@/dtos';
 
 class PostController {
   public postService = new PostService();
