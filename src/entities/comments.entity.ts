@@ -1,38 +1,44 @@
-import {BaseEntity,
-        Entity,
-        PrimaryGeneratedColumn,
-        Column,
-        ManyToOne,
-        JoinColumn,
-        CreateDateColumn,
-        UpdateDateColumn } from 'typeorm';
-import UserEntity from './users.entity';
-// import PostEntity from './posts.entity';
+import {
+  BaseEntity,
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  ManyToMany,
+  JoinTable,
+  CreateDateColumn,
+  UpdateDateColumn
+  } from 'typeorm';
+import { UserEntity, PostEntity } from '@/entities';
 
 @Entity()
-class CommentEntity extends BaseEntity{
-    @PrimaryGeneratedColumn()
-    id: number;
+class CommentEntity extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    // @ManyToOne(()=>PostEntity, post=> post.comments)
-    // @JoinColumn()
-    // post: PostEntity;
+  @ManyToOne(() => PostEntity, post => post.comments)
+  post: PostEntity;
 
-    @ManyToOne(()=>UserEntity, user => user.id)
-    @JoinColumn()
-    user: UserEntity;
+  @ManyToOne(() => UserEntity, user => user.id)
+  user: UserEntity;
 
-    @Column({nullable:true})
-    media: string;
+  @ManyToMany(() => UserEntity, user => user.id, {
+    cascade: true,
+  })
+  @JoinTable({ name: 'comment_likes' })
+  likes: UserEntity[];
 
-    @Column()
-    content: string
+  @Column({ nullable: true })
+  media: string;
 
-    @CreateDateColumn()
-    createdAt: Date
+  @Column()
+  content: string;
 
-    @UpdateDateColumn()
-    updatedAt: Date
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
 
 export default CommentEntity;
