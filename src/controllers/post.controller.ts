@@ -16,6 +16,17 @@ class PostController {
       next(error);
     }
   };
-}
+
+  public updatePost = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      const userId = req.user.id
+      const updatedPostData: BasePostDto = req.body;
+      const update: BasePostDto = await this.postService.updatePost({...updatedPostData, userId});
+      res.status(201).json({ update, message: 'success'})
+    } catch (error) {
+      next(error)
+    }
+  }
+};
 
 export default PostController
