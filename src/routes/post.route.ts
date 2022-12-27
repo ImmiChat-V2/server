@@ -13,7 +13,6 @@ class PostRoute implements Routes {
   }
 
   private initializeRoutes() {
-    // test
     this.router.post(`${this.path}`, AuthMiddleware, this.postController.createPost);
   }
 }
