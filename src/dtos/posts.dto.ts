@@ -6,3 +6,5 @@ export type BasePostDto = {
   readonly categoryName: string;
 };
 
+export type CreatePostRequestDto = Omit<BasePostDto, 'id'>;
+
