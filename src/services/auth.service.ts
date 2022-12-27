@@ -16,8 +16,8 @@ class AuthService extends Repository<UserEntity> {
 
   private createToken({ id }: RegisterUserResponseDto): TokenData {
     const dataStoredInToken: DataStoredInToken = { id };
-    const expiresIn = 100;
-    return { expiresIn, token: sign(dataStoredInToken, SECRET_KEY, { expiresIn: "10h" }) };
+    const expiresIn = 10;
+    return { expiresIn, token: sign(dataStoredInToken, SECRET_KEY, { expiresIn }) };
   }
 
   private createCookie(tokenData: TokenData): string {
