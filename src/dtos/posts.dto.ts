@@ -5,3 +5,6 @@ export type BasePostDto = {
   readonly content: string;
   readonly categoryName: string;
 };
+
+export type CreatePostRequestDto = Omit<BasePostDto, 'id'>;
+export type CreatePostResponseDto = Pick<BasePostDto, 'id'>;
