@@ -1,7 +1,6 @@
 import { BaseUserDto } from '@/dtos';
 import { UserEntity } from '@/entities';
 import { HttpException } from '@/exceptions';
-import { isEmpty } from '@/utils/util';
 
 class UserService {
   public async getUsersFromDB(): Promise<BaseUserDto[]> {
@@ -9,11 +8,9 @@ class UserService {
     return users;
   }
 
-  public async getSpecificUserFromDB(ID: number): Promise<BaseUserDto> {
-    // if (isEmpty(ID)) throw new HttpException(400, 'USER ID IS EMPTY');
-
-    const user: BaseUserDto = await UserEntity.findOne({ where: { id: ID } });
-    if (!user) throw new HttpException(409, `USER WITH ID ${ID} DOES NOT EXIST`);
+  public async getSpecificUserFromDB(user_id: number): Promise<BaseUserDto> {
+    const user: BaseUserDto = await UserEntity.findOne({ where: { id: user_id } });
+    if (!user) throw new HttpException(409, `USER WITH ID ${user_id} DOES NOT EXIST`);
 
     return user;
   }
