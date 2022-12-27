@@ -7,8 +7,8 @@ class UsersController {
 
   public getUsers = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const userData: BaseUserDto[] = await this.usersService.getUsersFromDB();
-      res.status(200).json({ data: userData });
+      const data: BaseUserDto[] = await this.usersService.getUsersFromDB();
+      res.status(200).json({ data });
     } catch (error) {
       next(error);
     }

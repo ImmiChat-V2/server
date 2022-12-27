@@ -5,8 +5,8 @@ import { Router } from 'express';
 
 class UserRoute implements Routes {
   public readonly path = '/users';
-  public router = Router();
-  public usersController = new UsersController();
+  public readonly router = Router();
+  private usersController = new UsersController();
 
   constructor() {
     this.initializeRoutes();
