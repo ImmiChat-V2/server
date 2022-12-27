@@ -1,8 +1,7 @@
 import { Router } from 'express';
 import { Routes } from '@/interfaces';
-import { ValidationMiddleware } from '@/middlewares';
-import { BasePostDto } from '@/dtos'
-
+import { AuthMiddleware } from '@/middlewares';
+import { PostController } from '@/controllers';
 
 class PostRoute implements Routes {
   public readonly path = '/posts/';
@@ -15,14 +14,7 @@ class PostRoute implements Routes {
 
   private initializeRoutes() {
     // test
-    this.router.post(
-        `${this.path}`,
-        ValidationMiddleware({
-            type: BasePostDto,
-            value: 'body',
-        }),
-        this.postController.posts,
-    );
+    this.router.post(`${this.path}`, AuthMiddleware, this.postController.createPost);
   }
 }
 
