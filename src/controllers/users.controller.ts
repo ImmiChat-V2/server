@@ -23,6 +23,7 @@ class UsersController {
       next(error);
     }
   };
+
 }
 
 export default UsersController;
