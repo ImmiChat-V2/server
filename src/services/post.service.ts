@@ -12,6 +12,11 @@ class PostService{
     const posted: BasePostDto = await pgDataSource.manager.save(post);
     return posted;
   }
+
+  public async updatePost(postData: BasePostDto) : Promise<BasePostDto> { 
+    
+    return
+  }
 }
 
 export default PostService;
