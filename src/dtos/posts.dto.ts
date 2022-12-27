@@ -7,4 +7,4 @@ export type BasePostDto = {
 };
 
 export type CreatePostRequestDto = Omit<BasePostDto, 'id'>;
-export type CreatePostResponseDto = Pick<BasePostDto, 'id'>;
+
