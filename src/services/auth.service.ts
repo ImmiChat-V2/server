@@ -1,7 +1,7 @@
 import { compare, hash } from 'bcrypt';
 import { Repository } from 'typeorm';
 import { sign } from 'jsonwebtoken';
-import { DataStoredInToken, TokenData } from '@/interfaces';
+import { TokenData } from '@/interfaces';
 import { UserEntity } from '@/entities';
 import { HttpException } from '@/exceptions';
 import { RegisterUserRequestDto, BaseUserResponseDTO, BaseUserDto, LoginUserRequestDto } from '@/dtos';
@@ -14,11 +14,10 @@ class AuthService extends Repository<UserEntity> {
     super();
   }
 
-  private createToken({ id }: BaseUserResponseDTO): TokenData {
-    const dataStoredInToken: DataStoredInToken = { id };
-    const time = 3600 * 100
+  private createToken(data: BaseUserResponseDTO): TokenData {
+    const time = 3600 * 100;
     const expiresIn = String(time);
-    return { expiresIn, token: sign(dataStoredInToken, SECRET_KEY, { expiresIn }) };
+    return { expiresIn, token: sign({ ...data }, SECRET_KEY, { expiresIn }) };
   }
 
   private createCookie(tokenData: TokenData): string {
