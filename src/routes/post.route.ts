@@ -4,7 +4,7 @@ import { AuthMiddleware } from '@/middlewares';
 import { PostController } from '@/controllers';
 
 class PostRoute implements Routes {
-  public readonly path = '/posts/';
+  public readonly path = '/posts';
   public readonly router = Router();
   private postController = new PostController();
 
@@ -15,6 +15,8 @@ class PostRoute implements Routes {
   private initializeRoutes() {
     // test
     this.router.post(`${this.path}`, AuthMiddleware, this.postController.createPost);
+    this.router.get(`${this.path}`, AuthMiddleware, this.postController.getPosts);
+    
   }
 }
 

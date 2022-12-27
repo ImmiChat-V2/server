@@ -16,6 +16,16 @@ class PostController {
       next(error);
     }
   };
+
+  public getPosts = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      const posts : BasePostDto[] = await this.postService.getPostsFromDB();
+      res.status(200).json({ posts });
+    } catch (error) {
+      next(error);
+    }
+  };
+  
 }
 
 export default PostController;
