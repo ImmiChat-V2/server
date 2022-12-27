@@ -13,6 +13,16 @@ class UsersController {
       next(error);
     }
   };
+
+  public getSpecificUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const ID = Number(req.params.id);
+      const userData: BaseUserDto = await this.usersService.getSpecificUserFromDB(ID);
+      res.status(200).json({ data: userData });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default UsersController;
