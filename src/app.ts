@@ -64,11 +64,11 @@ class App {
       console.error(error);
     }
 
-    try {
-      await mongoDataSource.initialize();
-    } catch (error) {
-      console.error(error);
-    }
+    // try {
+    //   await mongoDataSource.initialize();
+    // } catch (error) {
+    //   console.error(error);
+    // }
   }
 
   private initializeSwagger() {
