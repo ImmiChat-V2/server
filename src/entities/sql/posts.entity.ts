@@ -43,6 +43,8 @@ class PostEntity extends BaseEntity {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  userId : number;
 }
 
 export default PostEntity;

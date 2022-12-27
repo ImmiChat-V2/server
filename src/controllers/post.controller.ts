@@ -1,15 +1,17 @@
 import { NextFunction, Request, Response } from 'express';
 import { PostService } from '@/services';
-import { BasePostDto, CreatePostRequestDto, CreatePostResponseDto } from '@/dtos';
+import { BasePostDto, CreatePostRequestDto } from '@/dtos';
+import { RequestWithUser } from '@/interfaces';
 
 class PostController {
-  public postService = new PostService();
+  private postService = new PostService();
 
-  public createPost = async (req: Request, res: Response, next: NextFunction) => {
+  public createPost = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
+      const userId = req.user.id
       const postData: CreatePostRequestDto = req.body;
-      const { id }: CreatePostResponseDto = await this.postService.createPosts(postData);
-      res.status(201).json({ id, message: 'success' });
+      const post : BasePostDto = await this.postService.createPosts({...postData, userId:userId});
+      res.status(201).json({ post, message: 'success' });
     } catch (error) {
       next(error);
     }
