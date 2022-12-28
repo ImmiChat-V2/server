@@ -13,7 +13,7 @@ class PostService {
     post.media = postData.media;
     const posted: BasePostDto = await pgDataSource.manager.save(post);
     return posted;
-  };
+  }
 
   public async updatePost(id: number, postData: UpdatePostRequestDto, userId: number): Promise<BasePostDto> {
     const findPost = await PostEntity.findOne({ where: { id } });
