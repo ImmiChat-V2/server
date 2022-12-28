@@ -21,7 +21,7 @@ class PostController {
     try {
       const userId = req.user.id
       const updatedPostData: BasePostDto = req.body;
-      const update: BasePostDto = await this.postService.updatePost({...updatedPostData, userId});
+      const update: BasePostDto = await this.postService.updatePost({...updatedPostData, userId}, userId);
       res.status(201).json({ update, message: 'success'})
     } catch (error) {
       next(error)

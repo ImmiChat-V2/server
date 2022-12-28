@@ -1,7 +1,6 @@
 import { PostEntity } from '@/entities';
 import { CreatePostRequestDto, BasePostDto} from '@/dtos';
 import { pgDataSource } from '@/databases';
-import { resolve } from 'path';
 import { HttpException } from '@/exceptions';
 
 class PostService{
@@ -15,16 +14,17 @@ class PostService{
     return posted;
   }
 
-  public async updatePost(postData: BasePostDto) : Promise<BasePostDto> {
+  public async updatePost(postData: BasePostDto, userId: number) : Promise<BasePostDto> {
     const currentPost = postData.id
-    const findPost = await PostEntity.findOne({where:{id:currentPost}})
+    const currentUser = userId
+    const findPost = await PostEntity.findOne({where:{id:currentPost, userId: currentUser}})
     console.log(findPost)
     if (!findPost){
       throw new HttpException(404,'Post Not Found')
     }
-    findPost.content = postData.content
-    findPost.categoryName = postData.categoryName
-    findPost.media = postData.media
+    if (postData.content.length > 1) findPost.content = postData.content
+    if (postData.categoryName.length > 1) findPost.categoryName = postData.categoryName
+    if (postData.media.length > 1) findPost.media = postData.media
     findPost.save()
     console.log(findPost)
     return findPost
