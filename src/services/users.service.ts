@@ -8,9 +8,9 @@ class UserService {
     return users;
   }
 
-  public async getSpecificUserFromDB(user_id: number): Promise<BaseUserDto> {
-    const user: BaseUserDto = await UserEntity.findOne({ where: { id: user_id } });
-    if (!user) throw new HttpException(409, `USER WITH ID ${user_id} DOES NOT EXIST`);
+  public async getSpecificUserFromDB(userId: number): Promise<BaseUserDto> {
+    const user: BaseUserDto = await UserEntity.findOne({ where: { id: userId } });
+    if (!user) throw new HttpException(409, `USER WITH ID ${userId} DOES NOT EXIST`);
 
     return user;
   }
