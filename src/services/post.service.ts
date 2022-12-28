@@ -29,6 +29,7 @@ class PostService {
     if (userId !== findPost.userId) throw new HttpException(401, 'Unauthorized to delete post');
     await PostEntity.delete(id);
   }
+  
 }
 
 export default PostService;

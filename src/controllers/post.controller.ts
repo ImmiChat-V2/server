@@ -49,6 +49,7 @@ class PostController {
       next(error);
     }
   };
+  
 }
 
 export default PostController;
