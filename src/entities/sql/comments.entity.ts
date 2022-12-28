@@ -7,7 +7,8 @@ import {
   ManyToMany,
   JoinTable,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
+  JoinColumn
   } from 'typeorm';
 import { UserEntity, PostEntity } from '@/entities';
 
@@ -17,9 +18,11 @@ class CommentEntity extends BaseEntity {
   id: number;
 
   @ManyToOne(() => PostEntity, post => post.comments)
+  @JoinColumn()
   post: PostEntity;
 
   @ManyToOne(() => UserEntity, user => user.id)
+  @JoinColumn()
   user: UserEntity;
 
   @ManyToMany(() => UserEntity, user => user.id, {
@@ -40,7 +43,10 @@ class CommentEntity extends BaseEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  @Column()
   userId: number;
+
+  @Column()
   postId: number;
 }
 
