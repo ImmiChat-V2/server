@@ -33,7 +33,7 @@ class PostController {
     try {
       const postId = req.body;
       const getPost: BasePostDto = await this.postService.getSinglePost(postId);
-      res.status(201).json({ getPost, message: 'success' });
+      res.status(200).json({ getPost, message: 'success' });
     } catch (error) {
       next(error);
     }
