@@ -9,6 +9,7 @@ import {
   ManyToMany,
   JoinTable,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { UserEntity, CommentEntity } from '@/entities';
 
@@ -24,6 +25,7 @@ class PostEntity extends BaseEntity {
   comments: CommentEntity[];
 
   @ManyToOne(() => UserEntity)
+  @JoinColumn()
   user: UserEntity;
 
   @ManyToMany(() => UserEntity, user => user.id, {
@@ -44,6 +46,7 @@ class PostEntity extends BaseEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  @Column()
   userId : number;
 }
 

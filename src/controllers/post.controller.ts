@@ -1,6 +1,6 @@
 import { NextFunction, Response } from 'express';
 import { PostService } from '@/services';
-import { BasePostDto, CreatePostRequestDto } from '@/dtos';
+import { BasePostDto, CreatePostRequestDto, UpdatePostRequestDto } from '@/dtos';
 import { RequestWithUser } from '@/interfaces';
 
 class PostController {
@@ -10,8 +10,8 @@ class PostController {
     try {
       const userId = req.user.id
       const postData: CreatePostRequestDto = req.body;
-      const post : BasePostDto = await this.postService.createPosts({...postData, userId});
-      res.status(201).json({ post, message: 'success' });
+      const data : BasePostDto = await this.postService.createPosts({...postData, userId});
+      res.status(200).json({ data, message: 'Success' });
     } catch (error) {
       next(error);
     }
@@ -19,14 +19,15 @@ class PostController {
 
   public updatePost = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
-      const userId = req.user.id
-      const updatedPostData: BasePostDto = req.body;
-      const update: BasePostDto = await this.postService.updatePost({...updatedPostData, userId}, userId);
-      res.status(201).json({ update, message: 'success'})
+      const userId = req.user.id;
+      const updatedPostData: UpdatePostRequestDto = req.body;
+      const id = Number(req.params.post_id);
+      const update: BasePostDto = await this.postService.updatePost(id, { ...updatedPostData }, userId);
+      res.status(200).json({ update, message: 'Success' });
     } catch (error) {
-      next(error)
+      next(error);
     }
-  }
+  };
 };
 
 export default PostController

@@ -2,6 +2,7 @@ import { PostEntity } from '@/entities';
 import { CreatePostRequestDto, BasePostDto} from '@/dtos';
 import { pgDataSource } from '@/databases';
 import { HttpException } from '@/exceptions';
+import { UpdatePostRequestDto } from '@/dtos/posts.dto';
 
 class PostService{
   public async createPosts(postData: CreatePostRequestDto): Promise<BasePostDto> {
@@ -14,16 +15,12 @@ class PostService{
     return posted;
   }
 
-  public async updatePost(postData: BasePostDto, userId: number) : Promise<BasePostDto> {
-    const currentPost = postData.id
-    const currentUser = userId
-    const findPost = await PostEntity.findOne({where:{id:currentPost, userId: currentUser}})
-    if (!findPost) throw new HttpException(404,'Post Not Found')
-    if (postData.content.length > 1) findPost.content = postData.content
-    if (postData.categoryName.length > 1) findPost.categoryName = postData.categoryName
-    if (postData.media.length > 1) findPost.media = postData.media
-    findPost.save()
-    return findPost
+  public async updatePost(id: number, postData: UpdatePostRequestDto, userId: number): Promise<BasePostDto> {
+    const findPost = await PostEntity.findOne({ where: { id } });
+    if (!findPost) throw new HttpException(404, 'Post Not Found');
+    if (findPost.userId !== userId) throw new HttpException(401, 'Unauthorized to update post');
+    await PostEntity.update(id, { ...postData });
+    return findPost;
   }
 }
 
