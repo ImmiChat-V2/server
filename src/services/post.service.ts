@@ -18,15 +18,11 @@ class PostService{
     const currentPost = postData.id
     const currentUser = userId
     const findPost = await PostEntity.findOne({where:{id:currentPost, userId: currentUser}})
-    console.log(findPost)
-    if (!findPost){
-      throw new HttpException(404,'Post Not Found')
-    }
+    if (!findPost) throw new HttpException(404,'Post Not Found')
     if (postData.content.length > 1) findPost.content = postData.content
     if (postData.categoryName.length > 1) findPost.categoryName = postData.categoryName
     if (postData.media.length > 1) findPost.media = postData.media
     findPost.save()
-    console.log(findPost)
     return findPost
   }
 }
