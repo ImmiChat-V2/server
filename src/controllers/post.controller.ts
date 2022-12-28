@@ -1,4 +1,4 @@
-import { NextFunction, Response } from 'express';
+import { NextFunction, Response, Request } from 'express';
 import { PostService } from '@/services';
 import { BasePostDto, CreatePostRequestDto, UpdatePostRequestDto } from '@/dtos';
 import { RequestWithUser } from '@/interfaces';
@@ -29,7 +29,7 @@ class PostController {
     }
   };
 
-  public getSinglePost = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+  public getSinglePost = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = Number(req.params.post_id)
       const data: BasePostDto = await this.postService.getSinglePost(id);
