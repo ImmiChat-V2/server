@@ -16,7 +16,7 @@ class PostService{
 
   public async getPostsFromDB(): Promise<BasePostDto[]> {
     const posts: BasePostDto[] = await PostEntity.find();
-    if (!posts) throw new HttpException(409, 'THERE ARE CURRENTLY NO POSTS');
+    if (posts.length < 1) throw new HttpException(409, 'THERE ARE CURRENTLY NO POSTS');
     return posts;
   }
   
