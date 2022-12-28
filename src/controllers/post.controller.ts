@@ -31,9 +31,9 @@ class PostController {
 
   public getSinglePost = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
-      const postId = req.body;
-      const getPost: BasePostDto = await this.postService.getSinglePost(postId);
-      res.status(200).json({ getPost, message: 'success' });
+      const id = Number(req.params.post_id)
+      const data: BasePostDto = await this.postService.getSinglePost(id);
+      res.status(200).json({ data, message: 'Success' });
     } catch (error) {
       next(error);
     }
