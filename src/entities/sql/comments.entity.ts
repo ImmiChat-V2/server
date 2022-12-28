@@ -39,6 +39,9 @@ class CommentEntity extends BaseEntity {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  userId: number;
+  postId: number;
 }
 
 export default CommentEntity;
