@@ -8,7 +8,7 @@ class PostController {
 
   public createPost = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
-      const userId = req.user.id
+      const userId = req.user.id;
       const postData: CreatePostRequestDto = req.body;
       const data : BasePostDto = await this.postService.createPosts({...postData, userId});
       res.status(200).json({ data, message: 'Success' });
@@ -31,13 +31,13 @@ class PostController {
 
   public getSinglePost = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
-      const postId = req.body
-      const getPost: BasePostDto = await this.postService.getSinglePost(postId)
-      res.status(201).json({ getPost, message: 'success'})
+      const postId = req.body;
+      const getPost: BasePostDto = await this.postService.getSinglePost(postId);
+      res.status(201).json({ getPost, message: 'success' });
     } catch (error) {
-      next(error)
+      next(error);
     }
   };
-};
+}
 
 export default PostController;
