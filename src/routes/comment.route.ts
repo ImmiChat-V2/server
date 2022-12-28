@@ -4,7 +4,7 @@ import { AuthMiddleware } from '@/middlewares';
 import { CommentController } from '@/controllers';
 
 class CommentRoute implements Routes {
-  public readonly path = '/comment';
+  public readonly path = '/comments';
   public readonly router = Router();
   private commentController = new CommentController();
 
