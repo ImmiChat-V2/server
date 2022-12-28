@@ -1,12 +1,12 @@
 import { PostEntity } from '@/entities';
-import { CreatePostRequestDto, BasePostDto } from '@/dtos';
+import { CreatePostRequestDto, BasePostDto, DeletePostRequestDto } from '@/dtos';
 import { HttpException } from '@/exceptions';
 import { UpdatePostRequestDto } from '@/dtos/posts.dto';
 
 class PostService {
   public async createPosts(postData: CreatePostRequestDto): Promise<BasePostDto> {
     const posted: BasePostDto = await PostEntity.create({ ...postData }).save();
-    return posted
+    return posted;
   }
 
   public async updatePost(id: number, postData: UpdatePostRequestDto, userId: number): Promise<BasePostDto> {
@@ -21,6 +21,13 @@ class PostService {
     const findPost = await PostEntity.findOne({ where: { id } });
     if (!findPost) throw new HttpException(404, 'Post Not Found');
     return findPost;
+  }
+
+  public async deletePostFromDB({ id, userId }: DeletePostRequestDto): Promise<void> {
+    const findPost = await PostEntity.findOne({ where: { id } });
+    if (!findPost) throw new HttpException(404, 'Post Not Found');
+    if (userId !== findPost.userId) throw new HttpException(401, 'Unauthorized to delete post');
+    await PostEntity.delete(id);
   }
 }
 
