@@ -49,7 +49,15 @@ class PostController {
       next(error);
     }
   };
-  
+
+  public getPosts = async (_req: Request, res: Response, next: NextFunction) => {
+    try {
+      const data = await this.postService.getAllPostsFromDB();
+      res.status(200).json({ data });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default PostController;

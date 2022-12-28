@@ -13,12 +13,11 @@ class PostRoute implements Routes {
   }
 
   private initializeRoutes() {
-    // test
+    this.router.get(`${this.path}`, AuthMiddleware, this.postController.getPosts);
+    this.router.get(`${this.path}/:post_id`, AuthMiddleware, this.postController.getSinglePost);
     this.router.post(`${this.path}`, AuthMiddleware, this.postController.createPost);
     this.router.put(`${this.path}/:post_id`, AuthMiddleware, this.postController.updatePost);
-    this.router.get(`${this.path}/:post_id`, AuthMiddleware, this.postController.getSinglePost);
     this.router.delete(`${this.path}/:post_id`, AuthMiddleware, this.postController.deletePost);
-    
   }
 }
 

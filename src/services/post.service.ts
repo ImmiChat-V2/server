@@ -29,7 +29,12 @@ class PostService {
     if (userId !== findPost.userId) throw new HttpException(401, 'Unauthorized to delete post');
     await PostEntity.delete(id);
   }
-  
+
+  public async getAllPostsFromDB(): Promise<BasePostDto[]> {
+    const posts = await PostEntity.find();
+    if (posts.length < 1) throw new HttpException(404, 'There are currently no posts');
+    return posts;
+  }
 }
 
 export default PostService;
