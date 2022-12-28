@@ -7,4 +7,3 @@ export type BasePostDto = {
 };
 
 export type CreatePostRequestDto = Omit<BasePostDto, 'id'>;
-
