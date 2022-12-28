@@ -13,4 +13,4 @@ export type UpdatePostRequestDto = {
 };
 
 export type CreatePostRequestDto = Omit<BasePostDto, 'id'>;
-
+export type GetSinglePostRequestDto = Pick<BasePostDto, 'id'>;

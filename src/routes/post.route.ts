@@ -16,6 +16,7 @@ class PostRoute implements Routes {
     // test
     this.router.post(`${this.path}`, AuthMiddleware, this.postController.createPost);
     this.router.put(`${this.path}/:post_id`, AuthMiddleware, this.postController.updatePost);
+    this.router.get(`${this.path}/:post_id`, AuthMiddleware, this.postController.getSinglePost);
   }
 }
 

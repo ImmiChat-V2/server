@@ -28,6 +28,16 @@ class PostController {
       next(error);
     }
   };
+
+  public getSinglePost = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      const postId = req.body
+      const getPost: BasePostDto = await this.postService.getSinglePost(postId)
+      res.status(201).json({ getPost, message: 'success'})
+    } catch (error) {
+      next(error)
+    }
+  };
 };
 
-export default PostController
+export default PostController;
