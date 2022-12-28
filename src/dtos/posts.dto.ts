@@ -6,5 +6,10 @@ export type BasePostDto = {
   readonly categoryName: string;
 };
 
-export type CreatePostRequestDto = Omit<BasePostDto, 'id'>;
+export type UpdatePostRequestDto = {
+  readonly content?: string;
+  readonly media?: string;
+  readonly categoryName?: string;
+};
 
+export type CreatePostRequestDto = Omit<BasePostDto, 'id'>;
