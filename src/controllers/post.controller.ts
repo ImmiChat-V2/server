@@ -19,8 +19,8 @@ class PostController {
 
   public getPosts = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
-      const posts : BasePostDto[] = await this.postService.getPostsFromDB();
-      res.status(200).json({ posts });
+      const data : BasePostDto[] = await this.postService.getPostsFromDB();
+      res.status(200).json({ data });
     } catch (error) {
       next(error);
     }
