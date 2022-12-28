@@ -31,7 +31,7 @@ class PostService {
   }
 
   public async getAllPostsFromDB(): Promise<BasePostDto[]> {
-    const posts = await PostEntity.find();
+    const posts: BasePostDto[] = await PostEntity.find();
     if (posts.length < 1) throw new HttpException(404, 'There are currently no posts');
     return posts;
   }
