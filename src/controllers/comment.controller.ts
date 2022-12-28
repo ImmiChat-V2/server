@@ -8,8 +8,8 @@ class CommentController {
 
     public getComments = async ( req: RequestWithUser, res: Response, next:NextFunction) => {
         try {
-            const comments : BaseCommentDto[] = await this.commentService.getComments();
-            res.status(200).json({ comments, message: 'success' });
+            const data : BaseCommentDto[] = await this.commentService.getComments();
+            res.status(200).json({ data, message: 'success' });
         } catch (error) {
             next(error);
         }
