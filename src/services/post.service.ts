@@ -24,8 +24,7 @@ class PostService {
   }
 
   public async getSinglePost(id: number): Promise<BasePostDto> {
-    const currentPost = id;
-    const findPost = await PostEntity.findOne({ where: { id: currentPost } });
+    const findPost = await PostEntity.findOne({ where: { id } });
     if (!findPost) throw new HttpException(404, 'Post Not Found');
     return findPost;
   }
