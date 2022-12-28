@@ -7,7 +7,6 @@ export type BasePostDto = {
 };
 
 export type UpdatePostRequestDto = {
-  readonly id: number;
   readonly content?: string;
   readonly media?: string;
   readonly categoryName?: string;
