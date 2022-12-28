@@ -24,12 +24,16 @@ class AuthService extends Repository<UserEntity> {
     return `Authorization=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn};`;
   }
 
-  public async register({ password, ...userData }: RegisterUserRequestDto): Promise<BaseUserResponseDTO> {
+  public async register({ password, ...userData }: RegisterUserRequestDto): Promise<{ cookie: string; data: BaseUserResponseDTO }> {
     const foundUser: BaseUserResponseDTO = await UserEntity.findOne({ where: { email: userData.email } });
     if (foundUser) throw new HttpException(409, `This email ${userData.email} already exists`);
     const hashedPassword = await hash(password, 10);
-    const createUserData: BaseUserResponseDTO = await UserEntity.create({ ...userData, password: hashedPassword }).save();
-    return createUserData;
+    // Extract out the password from the response
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password: foundPassword, ...data }: BaseUserDto = await UserEntity.create({ ...userData, password: hashedPassword }).save();
+    const token = this.createToken(data);
+    const cookie = this.createCookie(token);
+    return { cookie, data };
   }
 
   public async login({ email, password }: LoginUserRequestDto): Promise<{ cookie: string; data: BaseUserResponseDTO }> {
