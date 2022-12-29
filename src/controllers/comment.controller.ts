@@ -19,10 +19,21 @@ class CommentController {
 
   public updateComment = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const commentId = Number(req.params.comment_id);
+      const id = Number(req.params.comment_id);
       const updatedCommentData: UpdateCommentRequestDto = req.body;
-      const data: BaseCommentDto = await this.commentService.updateCommentFromDB(commentId, updatedCommentData);
+      const data: BaseCommentDto = await this.commentService.updateComment(id, updatedCommentData);
       res.status(200).json({ data });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public deleteComment = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      const id = Number(req.params.comment_id);
+      const userId = req.user.id;
+      await this.commentService.deleteComment({ id, userId });
+      res.status(202).json({ message: 'Successfully deleted' });
     } catch (error) {
       next(error);
     }
