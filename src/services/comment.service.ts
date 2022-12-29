@@ -9,6 +9,7 @@ class CommentService {
     if (comments.length === 0) throw new HttpException(404, 'No Comments Found');
     return comments;
   }
+<<<<<<< HEAD
 
   public async updateComment(id: number, commentData: UpdateCommentRequestDto): Promise<BaseCommentDto> {
     const findComment = await CommentEntity.findOne({ where: { id } });
@@ -28,6 +29,8 @@ class CommentService {
     const posted: BaseCommentDto = await CommentEntity.create({ ...commentData }).save();
     return posted;
   }
+=======
+>>>>>>> 559239d (get comments for a post)
   public async getCommentsForPost(postId: number): Promise<BaseCommentDto[]> {
     const postComments: BaseCommentDto[] = await CommentEntity.find({ where: { postId: postId } });
     return postComments;

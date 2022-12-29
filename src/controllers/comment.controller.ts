@@ -25,6 +25,15 @@ class CommentController {
       next(error);
     }
   };
+  public getCommentsForPost = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const postId = Number(req.params.post_id);
+      const data: BaseCommentDto[] = await this.commentService.getCommentsForPost(postId);
+      res.status(200).json({ data });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default CommentController;
