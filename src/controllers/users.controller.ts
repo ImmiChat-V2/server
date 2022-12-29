@@ -23,7 +23,8 @@ class UsersController {
     } catch (error) {
       next(error)
     }
-    }
+  }
+
   public updateUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const userId = Number(req.params.user_id);
