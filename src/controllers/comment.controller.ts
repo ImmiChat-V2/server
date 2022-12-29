@@ -1,5 +1,4 @@
-import { BaseCommentDto } from '@/dtos';
-import { UpdateCommentRequestDto } from '@/dtos/comments.dto';
+import { BaseCommentDto, CreateCommentRequestDto, UpdateCommentRequestDto, CreatePostRequestDto } from '@/dtos';
 import { RequestWithUser } from '@/interfaces';
 import { CommentService } from '@/services';
 import { NextFunction, Response } from 'express';
@@ -11,7 +10,7 @@ class CommentController {
   public getComments = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
       const data: BaseCommentDto[] = await this.commentService.getComments();
-      res.status(200).json({ data, message: 'success' });
+      res.status(200).json({ data, message: 'Success' });
     } catch (error) {
       next(error);
     }
@@ -34,6 +33,18 @@ class CommentController {
       const userId = req.user.id;
       await this.commentService.deleteComment({ id, userId });
       res.status(202).json({ message: 'Successfully deleted' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public postComment = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      const postId = Number(req.params.post_id);
+      const id = req.user.id;
+      const commentData: CreateCommentRequestDto = req.body;
+      const data: BaseCommentDto = await this.commentService.postComment({ ...commentData, postId, id });
+      res.status(201).json({ data });
     } catch (error) {
       next(error);
     }
