@@ -11,8 +11,9 @@ class AuthRoute implements Routes {
 
   constructor() {
     this.initializeRoutes();
+    this.authController.authService.register
   }
-
+  
   private initializeRoutes() {
     this.router.post(
       `${this.path}register`,
