@@ -22,7 +22,7 @@ class CommentService {
   public async deleteCommentFromDB({ id, userId }: DeleteCommentRequestDto): Promise<void> {
     const findComment = await CommentEntity.findOne({ where: { id } });
     if (!findComment) throw new HttpException(404, 'Comment Not Found');
-    if (userId !== findComment.userId) throw new HttpException(401, 'Unauthorized to delete post');
+    if (userId !== findComment.userId) throw new HttpException(401, 'Unauthorized to delete comment');
     await CommentEntity.delete(id);
   }
 }
