@@ -17,8 +17,8 @@ class CommentService {
     const updatedComment = await updateAndReturn<BaseCommentDto, UpdateCommentRequestDto>(comment_id, commentData, CommentEntity);
     return updatedComment;
   }
-  public async getCommentsForPost(postId: number): Promise<BaseCommentDto[]> {
-    const postComments: BaseCommentDto[] = await CommentEntity.find({ where: { postId: postId } });
+  public async getCommentsForPost(id: number): Promise<BaseCommentDto[]> {
+    const postComments: BaseCommentDto[] = await CommentEntity.find({ where: { postId: id } });
     return postComments;
   }
 }
