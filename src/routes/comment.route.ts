@@ -16,6 +16,7 @@ class CommentRoute implements Routes {
     this.router.get(`${this.path}`, AuthMiddleware, this.commentController.getComments);
     this.router.put(`${this.path}/:comment_id`, AuthMiddleware, this.commentController.updateComment);
     this.router.delete(`${this.path}/:comment_id`, AuthMiddleware, this.commentController.deleteComment);
+    this.router.post(`/posts/:post_id${this.path}`, AuthMiddleware, this.commentController.postComment);
   }
 }
 

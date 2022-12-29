@@ -1,5 +1,5 @@
 import { CommentEntity } from '@/entities';
-import { BaseCommentDto, DeleteCommentRequestDto, UpdateCommentRequestDto } from '@/dtos';
+import { BaseCommentDto, DeleteCommentRequestDto, UpdateCommentRequestDto, CreateCommentRequestDto } from '@/dtos';
 import { HttpException } from '@/exceptions';
 import { updateAndReturn } from '@/utils/queryBuilderUtils';
 
@@ -22,6 +22,11 @@ class CommentService {
     if (!findComment) throw new HttpException(404, 'Comment Not Found');
     if (userId !== findComment.userId) throw new HttpException(401, 'Unauthorized to delete post');
     await CommentEntity.delete(id);
+  }
+
+  public async postCommentInDB(commentData: CreateCommentRequestDto): Promise<BaseCommentDto> {
+    const posted: BaseCommentDto = await CommentEntity.create({ ...commentData }).save();
+    return posted;
   }
 }
 
