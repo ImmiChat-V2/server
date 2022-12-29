@@ -1,7 +1,7 @@
-import { Router } from 'express';
+import { CommentController } from '@/controllers';
 import { Routes } from '@/interfaces';
 import { AuthMiddleware } from '@/middlewares';
-import { CommentController } from '@/controllers';
+import { Router } from 'express';
 
 class CommentRoute implements Routes {
   public readonly path = '/comments';
@@ -13,8 +13,8 @@ class CommentRoute implements Routes {
   }
 
   private initializeRoutes() {
-    // test
     this.router.get(`${this.path}`, AuthMiddleware, this.commentController.getComments);
+    this.router.put(`${this.path}/:comment_id`, AuthMiddleware, this.commentController.updateComment);
   }
 }
 
