@@ -1,6 +1,6 @@
-import { BaseUserDto } from '@/dtos';
+import { BaseUserDto, BasePostDto } from '@/dtos';
+import { UserEntity, PostEntity } from '@/entities';
 import { UpdateUserRequestDto } from '@/dtos/users.dto';
-import { UserEntity } from '@/entities';
 import { HttpException } from '@/exceptions';
 import { updateAndReturn } from '@/utils/queryBuilderUtils';
 
@@ -8,6 +8,15 @@ class UserService {
   public async getUsersFromDB(): Promise<BaseUserDto[]> {
     const users: BaseUserDto[] = await UserEntity.find();
     return users;
+  }
+
+  public async getPostsByUser(userId: number): Promise<BasePostDto[]> {
+    const posts: BasePostDto[] = await PostEntity.find({
+      where: {
+        id: userId,
+      },
+    });
+    return posts;
   }
 
   public async getSpecificUserFromDB(userId: number): Promise<BaseUserDto> {
