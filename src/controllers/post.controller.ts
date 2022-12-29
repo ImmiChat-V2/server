@@ -1,6 +1,6 @@
 import { NextFunction, Response, Request } from 'express';
 import { PostService } from '@/services';
-import { BasePostDto, CreatePostRequestDto, UpdatePostRequestDto } from '@/dtos';
+import { BasePostDto, CreatePostRequestDto, UpdatePostRequestDto, UsersLikedPostDto } from '@/dtos';
 import { RequestWithUser } from '@/interfaces';
 
 class PostController {
@@ -62,7 +62,7 @@ class PostController {
   public getLikesFromPost = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = Number(req.params.post_id);
-      const data: any = await this.postService.getLikesFromPost(id);
+      const data: UsersLikedPostDto[] = await this.postService.getLikesFromPost(id);
       res.status(200).json({ data });
     } catch (error) {
       next(error);
