@@ -10,14 +10,14 @@ class CommentService {
     return comments;
   }
 
-  public async updateCommentFromDB(comment_id: number, commentData: UpdateCommentRequestDto): Promise<BaseCommentDto> {
-    const findComment = await CommentEntity.findOne({ where: { id: comment_id } });
+  public async updateComment(id: number, commentData: UpdateCommentRequestDto): Promise<BaseCommentDto> {
+    const findComment = await CommentEntity.findOne({ where: { id } });
     if (!findComment) throw new HttpException(404, 'Comment Not Found');
-    const updatedComment = await updateAndReturn<BaseCommentDto, UpdateCommentRequestDto>(comment_id, commentData, CommentEntity);
+    const updatedComment = await updateAndReturn<BaseCommentDto, UpdateCommentRequestDto>(id, commentData, CommentEntity);
     return updatedComment;
   }
 
-  public async deleteCommentFromDB({ id, userId }: DeleteCommentRequestDto): Promise<void> {
+  public async deleteComment({ id, userId }: DeleteCommentRequestDto): Promise<void> {
     const findComment = await CommentEntity.findOne({ where: { id } });
     if (!findComment) throw new HttpException(404, 'Comment Not Found');
     if (userId !== findComment.userId) throw new HttpException(401, 'Unauthorized to delete post');
