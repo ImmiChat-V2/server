@@ -1,3 +1,4 @@
+import { BasePostOfFeedDTO } from '@/dtos/feed.dto';
 import { FeedService } from '@/services';
 import { NextFunction, Request, Response } from 'express';
 
@@ -6,7 +7,7 @@ class FeedController {
 
   public getFeed = async (_req: Request, res: Response, next: NextFunction) => {
     try {
-      const data = await this.feedService.getFeed();
+      const data: BasePostOfFeedDTO[] = await this.feedService.getFeed();
       res.status(200).json({ data });
     } catch (err) {
       next(err);
