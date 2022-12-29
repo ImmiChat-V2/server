@@ -1,5 +1,5 @@
 import { PostEntity } from '@/entities';
-import { CreatePostRequestDto, BasePostDto, DeletePostRequestDto } from '@/dtos';
+import { CreatePostRequestDto, BasePostDto, DeletePostRequestDto, UsersLikedPostDto } from '@/dtos';
 import { HttpException } from '@/exceptions';
 import { UpdatePostRequestDto } from '@/dtos/posts.dto';
 import { updateAndReturn } from '@/utils/queryBuilderUtils';
@@ -35,6 +35,15 @@ class PostService {
     const posts: BasePostDto[] = await PostEntity.find();
     if (posts.length < 1) throw new HttpException(404, 'There are currently no posts');
     return posts;
+  }
+
+  public async getLikesFromPost(id: number): Promise<UsersLikedPostDto[]> {
+    const getLikes = await PostEntity.find({
+      relations: ['likes'],
+      where: { id: id },
+      select: { likes: { firstName: true, lastName: true, profilePic: true } },
+    });
+    return getLikes[0].likes;
   }
 }
 

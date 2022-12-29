@@ -14,3 +14,4 @@ export type UpdatePostRequestDto = {
 
 export type CreatePostRequestDto = Omit<BasePostDto, 'id'>;
 export type DeletePostRequestDto = Pick<BasePostDto, 'id' | 'userId'>;
+

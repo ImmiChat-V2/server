@@ -58,6 +58,16 @@ class PostController {
       next(error);
     }
   };
+
+  public getLikesFromPost = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = Number(req.params.post_id);
+      const data: any = await this.postService.getLikesFromPost(id);
+      res.status(200).json({ data });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default PostController;

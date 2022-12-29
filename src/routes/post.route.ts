@@ -18,6 +18,7 @@ class PostRoute implements Routes {
     this.router.post(`${this.path}`, AuthMiddleware, this.postController.createPost);
     this.router.put(`${this.path}/:post_id`, AuthMiddleware, this.postController.updatePost);
     this.router.delete(`${this.path}/:post_id`, AuthMiddleware, this.postController.deletePost);
+    this.router.get(`${this.path}/:post_id/likes`, AuthMiddleware, this.postController.getLikesFromPost);
   }
 }
 

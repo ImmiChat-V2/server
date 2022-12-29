@@ -1,5 +1,5 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
-import { ConnectionsEntity } from '.';
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToMany } from 'typeorm';
+import { ConnectionsEntity, PostEntity } from '.';
 
 @Entity()
 class UserEntity extends BaseEntity {
