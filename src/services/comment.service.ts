@@ -13,7 +13,7 @@ class CommentService {
 
   public async updateCommentFromDB(comment_id: number, commentData: UpdateCommentRequestDto): Promise<BaseCommentDto> {
     const findComment = await CommentEntity.findOne({ where: { id: comment_id } });
-    if (!findComment) throw new HttpException(404, 'Comment Not Fount');
+    if (!findComment) throw new HttpException(404, 'Comment Not Found');
     const updatedComment = await updateAndReturn<BaseCommentDto, UpdateCommentRequestDto>(comment_id, commentData, CommentEntity);
     return updatedComment;
   }
