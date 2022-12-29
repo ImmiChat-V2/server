@@ -27,8 +27,8 @@ class CommentController {
   };
   public getCommentsForPost = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const postId = Number(req.params.post_id);
-      const data: BaseCommentDto[] = await this.commentService.getCommentsForPost(postId);
+      const id = Number(req.params.post_id);
+      const data: BaseCommentDto[] = await this.commentService.getCommentsForPost(id);
       res.status(200).json({ data });
     } catch (error) {
       next(error);
