@@ -41,9 +41,9 @@ class CommentController {
   public postComment = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
       const postId = Number(req.params.post_id);
-      const id = req.user.id;
+      const userId = req.user.id;
       const commentData: CreateCommentRequestDto = req.body;
-      const data: BaseCommentDto = await this.commentService.postComment({ ...commentData, postId, id });
+      const data: BaseCommentDto = await this.commentService.postComment({ ...commentData, postId, userId });
       res.status(201).json({ data });
     } catch (error) {
       next(error);
