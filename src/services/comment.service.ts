@@ -28,6 +28,10 @@ class CommentService {
     const posted: BaseCommentDto = await CommentEntity.create({ ...commentData }).save();
     return posted;
   }
+  public async getCommentsForPost(postId: number): Promise<BaseCommentDto[]> {
+    const postComments: BaseCommentDto[] = await CommentEntity.find({ where: { postId: postId } });
+    return postComments;
+  }
 }
 
 export default CommentService;

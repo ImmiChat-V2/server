@@ -1,8 +1,8 @@
-import { BaseCommentDto, CreateCommentRequestDto, UpdateCommentRequestDto, CreatePostRequestDto } from '@/dtos';
-import { RequestWithUser } from '@/interfaces';
+import { NextFunction, Request, Response } from 'express';
 import { CommentService } from '@/services';
-import { NextFunction, Response } from 'express';
-import { Request } from 'express-serve-static-core';
+import { BaseCommentDto } from '@/dtos';
+import { UpdateCommentRequestDto } from '@/dtos/comments.dto';
+import { RequestWithUser } from '@/interfaces';
 
 class CommentController {
   private commentService = new CommentService();
@@ -15,36 +15,12 @@ class CommentController {
       next(error);
     }
   };
-
   public updateComment = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = Number(req.params.comment_id);
       const updatedCommentData: UpdateCommentRequestDto = req.body;
       const data: BaseCommentDto = await this.commentService.updateComment(id, updatedCommentData);
       res.status(200).json({ data });
-    } catch (error) {
-      next(error);
-    }
-  };
-
-  public deleteComment = async (req: RequestWithUser, res: Response, next: NextFunction) => {
-    try {
-      const id = Number(req.params.comment_id);
-      const userId = req.user.id;
-      await this.commentService.deleteComment({ id, userId });
-      res.status(202).json({ message: 'Successfully deleted' });
-    } catch (error) {
-      next(error);
-    }
-  };
-
-  public postComment = async (req: RequestWithUser, res: Response, next: NextFunction) => {
-    try {
-      const postId = Number(req.params.post_id);
-      const userId = req.user.id;
-      const commentData: CreateCommentRequestDto = req.body;
-      const data: BaseCommentDto = await this.commentService.postComment({ ...commentData, postId, userId });
-      res.status(201).json({ data });
     } catch (error) {
       next(error);
     }
