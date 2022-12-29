@@ -24,7 +24,7 @@ class CommentService {
     await CommentEntity.delete(id);
   }
 
-  public async postCommentInDB(commentData: CreateCommentRequestDto): Promise<BaseCommentDto> {
+  public async postComment(commentData: CreateCommentRequestDto): Promise<BaseCommentDto> {
     const posted: BaseCommentDto = await CommentEntity.create({ ...commentData }).save();
     return posted;
   }
