@@ -1,9 +1,8 @@
+import { NextFunction, Request, Response } from 'express';
+import { CommentService } from '@/services';
 import { BaseCommentDto } from '@/dtos';
 import { UpdateCommentRequestDto } from '@/dtos/comments.dto';
 import { RequestWithUser } from '@/interfaces';
-import { CommentService } from '@/services';
-import { NextFunction, Response } from 'express';
-import { Request } from 'express-serve-static-core';
 
 class CommentController {
   private commentService = new CommentService();
@@ -16,12 +15,21 @@ class CommentController {
       next(error);
     }
   };
-
   public updateComment = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const commentId = Number(req.params.comment_id);
       const updatedCommentData: UpdateCommentRequestDto = req.body;
       const data: BaseCommentDto = await this.commentService.updateCommentFromDB(commentId, updatedCommentData);
+      res.status(200).json({ data });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public getCommentsForPost = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const postId = Number(req.params.post_id);
+      const data: BaseCommentDto[] = await this.commentService.getCommentsForPost(postId);
       res.status(200).json({ data });
     } catch (error) {
       next(error);
