@@ -1,6 +1,8 @@
 import { BaseUserDto } from '@/dtos';
+import { UpdateUserRequestDto } from '@/dtos/users.dto';
 import { UserEntity } from '@/entities';
 import { HttpException } from '@/exceptions';
+import { updateAndReturn } from '@/utils/queryBuilderUtils';
 
 class UserService {
   public async getUsersFromDB(): Promise<BaseUserDto[]> {
@@ -15,6 +17,12 @@ class UserService {
     return user;
   }
 
+  public async updateUserFromDB(userId: number, userData: UpdateUserRequestDto): Promise<BaseUserDto> {
+    const findUser = await UserEntity.findOne({ where: { id: userId } });
+    if (!findUser) throw new HttpException(409, 'User Not Found');
+    const updatedUser = await updateAndReturn<BaseUserDto, UpdateUserRequestDto>(userId, userData, UserEntity);
+    return updatedUser;
+  }
 }
 
 export default UserService;

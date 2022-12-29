@@ -2,6 +2,7 @@ import { PostEntity } from '@/entities';
 import { CreatePostRequestDto, BasePostDto, DeletePostRequestDto } from '@/dtos';
 import { HttpException } from '@/exceptions';
 import { UpdatePostRequestDto } from '@/dtos/posts.dto';
+import { updateAndReturn } from '@/utils/queryBuilderUtils';
 
 class PostService {
   public async createPosts(postData: CreatePostRequestDto): Promise<BasePostDto> {
@@ -13,8 +14,8 @@ class PostService {
     const findPost = await PostEntity.findOne({ where: { id } });
     if (!findPost) throw new HttpException(404, 'Post Not Found');
     if (findPost.userId !== userId) throw new HttpException(401, 'Unauthorized to update post');
-    await PostEntity.update(id, { ...postData });
-    return findPost;
+    const updatedPost = await updateAndReturn<BasePostDto, UpdatePostRequestDto>(id, postData, PostEntity);
+    return updatedPost;
   }
 
   public async getSinglePost(id: number): Promise<BasePostDto> {
