@@ -8,8 +8,8 @@ import {
   JoinTable,
   CreateDateColumn,
   UpdateDateColumn,
-  JoinColumn
-  } from 'typeorm';
+  JoinColumn,
+} from 'typeorm';
 import { UserEntity, PostEntity } from '@/entities';
 
 @Entity()

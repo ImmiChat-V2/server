@@ -17,4 +17,4 @@ export type LoginUserRequestDto = Pick<BaseUserRequestDTO, 'email' | 'password'>
 export type RegisterUserRequestDto = Omit<BaseUserRequestDTO, 'id'>;
 export type AuthenticateUserRequestDto = Pick<BaseUserRequestDTO, 'id'>;
 
-export type UpdateUserRequestDto = Omit<BaseUserRequestDTO, 'email' | 'password' | 'createdAt'>
+export type UpdateUserRequestDto = Omit<BaseUserRequestDTO, 'email' | 'password' | 'createdAt'>;
