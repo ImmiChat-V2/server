@@ -1,7 +1,6 @@
 import App from '@/app';
 import validateEnv from '@utils/validateEnv';
-import { IndexRoute, AuthRoute, UserRoute, PostRoute, CommentRoute } from '@/routes';
-import FeedRoute from './routes/feed.route';
+import { IndexRoute, AuthRoute, UserRoute, PostRoute, CommentRoute, FeedRoute } from '@/routes';
 
 validateEnv();
 

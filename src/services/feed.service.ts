@@ -1,4 +1,4 @@
-import { BasePostOfFeedDTO } from '@/dtos/feed.dto';
+import { BasePostOfFeedDTO } from '@/dtos';
 import { PostEntity } from '@/entities';
 
 class FeedService {
