@@ -37,7 +37,7 @@ class CommentService {
   public async getLikesFromComment(id: number): Promise<UsersLikedCommentsDto[]> {
     const getLikes = await CommentEntity.find({
       relations: ['likes'],
-      where: { id: 6 },
+      where: { id: id },
       select: { likes: { firstName: true, lastName: true, profilePic: true } },
     });
     return getLikes?.[0].likes || [];
