@@ -40,6 +40,7 @@ class CommentService {
       where: { id },
       select: { likes: { firstName: true, lastName: true, profilePic: true } },
     });
+    if (getLikes.length === 0) throw new HttpException(404, '0 likes');
     return getLikes?.[0].likes || [];
   }
 }
