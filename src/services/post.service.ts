@@ -1,8 +1,9 @@
 import { PostEntity } from '@/entities';
 import { CreatePostRequestDto, BasePostDto, DeletePostRequestDto, UsersLikedPostDto } from '@/dtos';
 import { HttpException } from '@/exceptions';
-import { UpdatePostRequestDto } from '@/dtos/posts.dto';
+import { LikePostDto, UpdatePostRequestDto } from '@/dtos/posts.dto';
 import { updateAndReturn } from '@/utils/queryBuilderUtils';
+import { pgDataSource } from '@/databases';
 
 class PostService {
   public async createPosts(postData: CreatePostRequestDto): Promise<BasePostDto> {
@@ -44,6 +45,10 @@ class PostService {
       select: { likes: { firstName: true, lastName: true, profilePic: true } },
     });
     return getLikes?.[0].likes || [];
+  }
+
+  public async likePost({ id, userId }: LikePostDto): Promise<void> {
+    await pgDataSource.createQueryBuilder().relation(PostEntity, 'likes').of(id).add(userId);
   }
 }
 

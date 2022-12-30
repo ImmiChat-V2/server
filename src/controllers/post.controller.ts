@@ -68,6 +68,17 @@ class PostController {
       next(error);
     }
   };
+
+  public likePost = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      const userId = req.user.id;
+      const id = Number(req.params.post_id);
+      await this.postService.likePost({ userId, id });
+      res.status(200).json({ message: 'Post Liked' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default PostController;
