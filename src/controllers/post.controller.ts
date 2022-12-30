@@ -1,6 +1,6 @@
 import { NextFunction, Response, Request } from 'express';
 import { PostService } from '@/services';
-import { BasePostDto, CreatePostRequestDto, UpdatePostRequestDto } from '@/dtos';
+import { BasePostDto, CreatePostRequestDto, UpdatePostRequestDto, UsersLikedPostDto } from '@/dtos';
 import { RequestWithUser } from '@/interfaces';
 
 class PostController {
@@ -53,6 +53,16 @@ class PostController {
   public getPosts = async (_req: Request, res: Response, next: NextFunction) => {
     try {
       const data: BasePostDto[] = await this.postService.getAllPostsFromDB();
+      res.status(200).json({ data });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public getLikesFromPost = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = Number(req.params.post_id);
+      const data: UsersLikedPostDto[] = await this.postService.getLikesFromPost(id);
       res.status(200).json({ data });
     } catch (error) {
       next(error);
