@@ -14,6 +14,7 @@ const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFun
   }
 
   try {
+    /* jscpd:ignore-start */
     const { id } = (await verify(accessToken, ACCESS_TOKEN_SECRET_KEY)) as DataStoredInToken;
     const userInfo = await UserEntity.findOne({
       where: { id },
@@ -32,6 +33,7 @@ const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFun
       select: ['id', 'email', 'firstName', 'lastName', 'dateOfBirth', 'language', 'profilePic', 'updatedAt', 'createdAt'],
     });
     req.user = userInfo;
+    /* jscpd:ignore-end */
     const authService = new AuthService();
     const newAccessToken = authService.createToken(userInfo, 'access');
     const newAccessTokenCookie = authService.createCookie(newAccessToken, 'access');
