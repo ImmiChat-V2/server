@@ -40,7 +40,6 @@ class CommentService {
       where: { id: 6 },
       select: { likes: { firstName: true, lastName: true, profilePic: true } },
     });
-    console.log(getLikes[0].likes);
     return getLikes?.[0].likes || [];
   }
 }
