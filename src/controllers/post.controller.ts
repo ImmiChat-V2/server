@@ -2,6 +2,7 @@ import { NextFunction, Response, Request } from 'express';
 import { PostService } from '@/services';
 import { BasePostDto, CreatePostRequestDto, UpdatePostRequestDto, UsersLikedPostDto } from '@/dtos';
 import { RequestWithUser } from '@/interfaces';
+import { HttpException } from '@/exceptions';
 
 class PostController {
   private postService = new PostService();
@@ -74,9 +75,9 @@ class PostController {
       const userId = req.user.id;
       const id = Number(req.params.post_id);
       await this.postService.likePost({ userId, id });
-      res.status(200).json({ message: 'Post Liked' });
+      res.status(201).json({ message: 'Post Liked' });
     } catch (error) {
-      next(error);
+      next(new HttpException(400, 'Already liked'));
     }
   };
 }
