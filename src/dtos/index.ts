@@ -2,3 +2,4 @@ export { BaseCommentDto, DeleteCommentRequestDto, UpdateCommentRequestDto, Creat
 export { BasePostDto, CreatePostRequestDto, UpdatePostRequestDto, DeletePostRequestDto } from './posts.dto';
 export { RegisterUserRequestDto, BaseUserResponseDTO, BaseUserDto, LoginUserRequestDto, AuthenticateUserRequestDto, UsersLikedPostDto } from './users.dto';
 export { BaseConnectionsDto } from './connections.dto';
+export { BasePostOfFeedDTO } from './feed.dto';
