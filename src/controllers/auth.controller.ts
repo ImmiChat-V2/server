@@ -28,7 +28,7 @@ class AuthController {
 
   public logout = async (_req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
-      res.setHeader('Set-Cookie', ['Authorization=; Max-age=0']).status(200).json({ message: 'logout' });
+      res.setHeader('Set-Cookie', ['AccessToken=; Max-age=0', 'RefreshToken=; Max-age=0']).status(200).json({ message: 'logout' });
     } catch (error) {
       next(error);
     }

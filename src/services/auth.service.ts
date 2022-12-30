@@ -14,10 +14,9 @@ class AuthService extends Repository<UserEntity> {
     super();
   }
 
-  private createToken(data: BaseUserResponseDTO, type: 'access' | 'refresh'): TokenData {
+  public createToken(data: BaseUserResponseDTO, type: 'access' | 'refresh'): TokenData {
     if (type === 'access') {
-      const time = 600;
-      const expiresIn = String(time);
+      const expiresIn = '600000';
       return { expiresIn, token: sign({ ...data }, ACCESS_TOKEN_SECRET_KEY, { expiresIn }) };
     } else {
       const expiresIn = '30 days';
@@ -25,7 +24,7 @@ class AuthService extends Repository<UserEntity> {
     }
   }
 
-  private createCookie(tokenData: TokenData, type: 'access' | 'refresh'): string {
+  public createCookie(tokenData: TokenData, type: 'access' | 'refresh'): string {
     if (type === 'access') return `AccessToken=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn};`;
     else {
       return `RefreshToken=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn};`;
