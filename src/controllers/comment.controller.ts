@@ -75,7 +75,7 @@ class CommentController {
       const id = Number(req.params.comment_id);
       const userId = req.user.id;
       await this.commentService.likeComment({ id, userId });
-      res.status(200).json('Comment Liked');
+      res.status(201).json('Comment Liked');
     } catch (error) {
       next(error);
     }
