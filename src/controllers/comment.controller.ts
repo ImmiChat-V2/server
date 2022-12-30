@@ -69,6 +69,16 @@ class CommentController {
       next(error);
     }
   };
+
+  public likeComment = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      const id = Number(req.params.comment_id);
+      const commentLiked: any = await this.commentService.likeComment();
+      res.status(201).json('Success');
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default CommentController;
