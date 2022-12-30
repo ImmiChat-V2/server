@@ -1,5 +1,5 @@
 import { CommentEntity } from '@/entities';
-import { BaseCommentDto, DeleteCommentRequestDto, UpdateCommentRequestDto, CreateCommentRequestDto } from '@/dtos';
+import { BaseCommentDto, DeleteCommentRequestDto, UpdateCommentRequestDto, CreateCommentRequestDto, UsersLikedCommentsDto } from '@/dtos';
 import { HttpException } from '@/exceptions';
 import { updateAndReturn } from '@/utils/queryBuilderUtils';
 
@@ -32,6 +32,15 @@ class CommentService {
   public async postComment(commentData: CreateCommentRequestDto): Promise<BaseCommentDto> {
     const posted: BaseCommentDto = await CommentEntity.create({ ...commentData }).save();
     return posted;
+  }
+
+  public async getLikesFromComment(id: number): Promise<UsersLikedCommentsDto[]> {
+    const getLikes = await CommentEntity.find({
+      relations: ['likes'],
+      where: { id },
+      select: { likes: { firstName: true, lastName: true, profilePic: true } },
+    });
+    return getLikes?.[0].likes || [];
   }
 }
 

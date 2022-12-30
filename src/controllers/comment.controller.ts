@@ -1,4 +1,4 @@
-import { BaseCommentDto, CreateCommentRequestDto, UpdateCommentRequestDto, CreatePostRequestDto } from '@/dtos';
+import { BaseCommentDto, CreateCommentRequestDto, UpdateCommentRequestDto, UsersLikedCommentsDto } from '@/dtos';
 import { RequestWithUser } from '@/interfaces';
 import { CommentService } from '@/services';
 import { NextFunction, Response } from 'express';
@@ -55,6 +55,16 @@ class CommentController {
       const commentData: CreateCommentRequestDto = req.body;
       const data: BaseCommentDto = await this.commentService.postComment({ ...commentData, postId, userId });
       res.status(201).json({ data });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public getLikesFromComment = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = Number(req.params.comment_id);
+      const data: UsersLikedCommentsDto[] = await this.commentService.getLikesFromComment(id);
+      res.status(200).json({ data });
     } catch (error) {
       next(error);
     }
