@@ -1,4 +1,4 @@
-import { BaseCommentDto, CreateCommentRequestDto, UpdateCommentRequestDto, CreatePostRequestDto } from '@/dtos';
+import { BaseCommentDto, CreateCommentRequestDto, UpdateCommentRequestDto, UsersLikedCommentsDto } from '@/dtos';
 import { RequestWithUser } from '@/interfaces';
 import { CommentService } from '@/services';
 import { NextFunction, Response } from 'express';
