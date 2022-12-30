@@ -10,6 +10,11 @@ class CommentService {
     return comments;
   }
 
+  public async getCommentsForPost(id: number): Promise<BaseCommentDto[]> {
+    const postComments: BaseCommentDto[] = await CommentEntity.find({ where: { postId: id } });
+    return postComments;
+  }
+
   public async updateComment(id: number, commentData: UpdateCommentRequestDto): Promise<BaseCommentDto> {
     const findComment = await CommentEntity.findOne({ where: { id } });
     if (!findComment) throw new HttpException(404, 'Comment Not Found');
