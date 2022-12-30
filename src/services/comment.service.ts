@@ -1,7 +1,15 @@
 import { CommentEntity } from '@/entities';
-import { BaseCommentDto, DeleteCommentRequestDto, UpdateCommentRequestDto, CreateCommentRequestDto, UsersLikedCommentsDto } from '@/dtos';
+import {
+  BaseCommentDto,
+  DeleteCommentRequestDto,
+  UpdateCommentRequestDto,
+  CreateCommentRequestDto,
+  UsersLikedCommentsDto,
+  LikeCommentDto,
+} from '@/dtos';
 import { HttpException } from '@/exceptions';
 import { updateAndReturn } from '@/utils/queryBuilderUtils';
+import { pgDataSource } from '@/databases';
 
 class CommentService {
   public async getComments(): Promise<BaseCommentDto[]> {
@@ -41,6 +49,10 @@ class CommentService {
       select: { likes: { firstName: true, lastName: true, profilePic: true } },
     });
     return getLikes?.[0].likes || [];
+  }
+
+  public async likeComment({ id, userId }: any): Promise<void> {
+    await pgDataSource.createQueryBuilder().relation(CommentEntity, 'likes').of(id).add(userId);
   }
 }
 

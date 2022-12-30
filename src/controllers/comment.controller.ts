@@ -73,8 +73,9 @@ class CommentController {
   public likeComment = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
       const id = Number(req.params.comment_id);
-      const commentLiked: any = await this.commentService.likeComment();
-      res.status(201).json('Success');
+      const userId = req.user.id;
+      await this.commentService.likeComment({ id, userId });
+      res.status(200).json('Comment Liked');
     } catch (error) {
       next(error);
     }
