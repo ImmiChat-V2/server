@@ -59,6 +59,16 @@ class CommentController {
       next(error);
     }
   };
+
+  public getLikesFromComment = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = Number(req.params.post_id);
+      const data: UsersLikedCommentsDto[] = await this.commentService.getLikesFromComment(id);
+      res.status(200).json({ data });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default CommentController;

@@ -16,7 +16,7 @@ export type BaseUserResponseDTO = Omit<BaseUserDto, 'password'>;
 export type LoginUserRequestDto = Pick<BaseUserRequestDTO, 'email' | 'password'>;
 export type RegisterUserRequestDto = Omit<BaseUserRequestDTO, 'id'>;
 export type AuthenticateUserRequestDto = Pick<BaseUserRequestDTO, 'id'>;
-
 export type UpdateUserRequestDto = Omit<BaseUserRequestDTO, 'email' | 'password' | 'createdAt'>;
 
-export type UsersLikedPostDto = Pick<BaseUserDto, 'firstName' | 'lastName' | 'profilePic' >;
+export type UsersLikedPostDto = Pick<BaseUserDto, 'firstName' | 'lastName' | 'profilePic'>;
+export type UsersLikedCommentsDto = Pick<BaseUserDto, 'firstName' | 'lastName' | 'profilePic'>;

@@ -33,6 +33,16 @@ class CommentService {
     const posted: BaseCommentDto = await CommentEntity.create({ ...commentData }).save();
     return posted;
   }
+
+  public async getLikesFromComment(id: number): Promise<UsersLikedCommentDto[]> {
+    const getLikes = await CommentEntity.find({
+      relations: ['likes'],
+      where: { id: id },
+      select: { likes: { firstName: true, lastName: true, profilePic: true } },
+    });
+    if (getLikes.length === 0) throw new HttpException(404, '0 likes');
+    return getLikes[0].likes;
+  }
 }
 
 export default CommentService;
