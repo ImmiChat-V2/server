@@ -51,7 +51,7 @@ class CommentService {
     return getLikes?.[0].likes || [];
   }
 
-  public async likeComment({ id, userId }: any): Promise<void> {
+  public async likeComment({ id, userId }: LikeCommentDto): Promise<void> {
     await pgDataSource.createQueryBuilder().relation(CommentEntity, 'likes').of(id).add(userId);
   }
 }
