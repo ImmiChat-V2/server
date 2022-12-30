@@ -8,7 +8,7 @@ import { DataStoredInToken, RequestWithUser } from '@/interfaces';
 const authMiddleware = async (req: RequestWithUser, _res: Response, next: NextFunction) => {
   try {
     const Authorization = req.cookies['Authorization'] || (req.header('Authorization') ? req.header('Authorization').split('Bearer ')[1] : null);
-
+    
     if (Authorization) {
       const { id } = (await verify(Authorization, SECRET_KEY)) as DataStoredInToken;
       const foundUser = await UserEntity.findOne({
