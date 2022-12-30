@@ -14,17 +14,18 @@ class AuthService extends Repository<UserEntity> {
     super();
   }
 
-  private createAccessToken(data: BaseUserResponseDTO): TokenData {
-    const time = 600;
-    const expiresIn = String(time);
-    return { expiresIn, token: sign({ ...data }, ACCESS_TOKEN_SECRET_KEY, { expiresIn }) };
+  private createToken(data: BaseUserResponseDTO, type: 'access' | 'refresh'): TokenData {
+    if (type === 'access') {
+      const time = 600;
+      const expiresIn = String(time);
+      return { expiresIn, token: sign({ ...data }, ACCESS_TOKEN_SECRET_KEY, { expiresIn }) };
+    } else {
+      const expiresIn = '30 days';
+      return { expiresIn, token: sign({ ...data }, REFRESH_TOKEN_SECRET_KEY, { expiresIn }) };
+    }
   }
 
-  private createRefreshToken(data: BaseUserResponseDTO): TokenData {
-    const expiresIn = '30 days';
-    return { expiresIn, token: sign({ ...data }, REFRESH_TOKEN_SECRET_KEY, { expiresIn }) };
-  }
-  private createCookie(tokenData: TokenData, type: string): string {
+  private createCookie(tokenData: TokenData, type: 'access' | 'refresh'): string {
     if (type === 'access') return `AccessToken=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn};`;
     else {
       return `RefreshToken=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn};`;
@@ -41,8 +42,8 @@ class AuthService extends Repository<UserEntity> {
     // Extract out the password from the response
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password: foundPassword, ...data }: BaseUserDto = await UserEntity.create({ ...userData, password: hashedPassword }).save();
-    const accessToken = this.createAccessToken(data);
-    const refreshToken = this.createRefreshToken(data);
+    const accessToken = this.createToken(data, 'access');
+    const refreshToken = this.createToken(data, 'refresh');
     const accessTokenCookie = this.createCookie(accessToken, 'access');
     const refreshTokenCookie = this.createCookie(refreshToken, 'refresh');
     return { accessTokenCookie, refreshTokenCookie, data };
@@ -61,8 +62,8 @@ class AuthService extends Repository<UserEntity> {
     if (!isCorrectPassword) {
       throw new HttpException(409, 'Password does not match');
     }
-    const accessToken = this.createAccessToken(foundUser);
-    const refreshToken = this.createRefreshToken(foundUser);
+    const accessToken = this.createToken(foundUser, 'access');
+    const refreshToken = this.createToken(foundUser, 'refresh');
     const accessTokenCookie = this.createCookie(accessToken, 'access');
     const refreshTokenCookie = this.createCookie(refreshToken, 'refresh');
     return { accessTokenCookie, refreshTokenCookie, data: userResponse };
