@@ -86,7 +86,7 @@ class PostController {
       const id = Number(req.params.post_id);
       const userId = req.user.id;
       await this.postService.deletePostLike(id, userId);
-      res.status(202).json({ message: 'Post deleted' });
+      res.status(202).json({ message: `Like on post ${id} deleted` });
     } catch (error) {
       next(error);
     }
