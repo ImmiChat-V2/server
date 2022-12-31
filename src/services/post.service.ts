@@ -1,5 +1,5 @@
 import { PostEntity } from '@/entities';
-import { CreatePostRequestDto, BasePostDto, DeletePostRequestDto, UsersLikedPostDto, LikePostDto, UpdatePostRequestDto } from '@/dtos';
+import { CreatePostRequestDto, BasePostDto, DeletePostRequestDto, UsersLikedPostDto, UpdatePostRequestDto, LikePostDto } from '@/dtos';
 import { HttpException } from '@/exceptions';
 import { updateAndReturn } from '@/utils/queryBuilderUtils';
 import { pgDataSource } from '@/databases';
