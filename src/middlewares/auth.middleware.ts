@@ -7,8 +7,8 @@ import { AuthService } from '@/services';
 import { DataStoredInToken, RequestWithUser } from '@/interfaces';
 
 const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFunction) => {
-  const refreshToken = req.cookies['RefreshToken'] || null;
-  const accessToken = req.cookies['AccessToken'] || null;
+  const refreshToken = req.cookies['RefreshToken'];
+  const accessToken = req.cookies['AccessToken'];
   if (!accessToken && !refreshToken) {
     return next(new HttpException(401, 'Authentication token missing'));
   }
