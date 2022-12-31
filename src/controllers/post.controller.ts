@@ -88,7 +88,7 @@ class PostController {
       await this.postService.deletePostLike(id, userId);
       res.status(202).json({ message: `Like on post ${id} deleted` });
     } catch (error) {
-      next(error);
+      next(new HttpException(400, 'User has not liked this post'));
     }
   };
 }
