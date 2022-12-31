@@ -49,6 +49,10 @@ class PostService {
   public async likePost({ id, userId }: LikePostDto): Promise<void> {
     await pgDataSource.createQueryBuilder().relation(PostEntity, 'likes').of(id).add(userId);
   }
+
+  public async deletePostLike(id: number, userId: number): Promise<void> {
+    await pgDataSource.createQueryBuilder().relation(PostEntity, 'likes').of(id).remove(userId);
+  }
 }
 
 export default PostService;
