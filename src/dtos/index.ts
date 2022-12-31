@@ -1,4 +1,4 @@
-export { BaseCommentDto, DeleteCommentRequestDto, UpdateCommentRequestDto, CreateCommentRequestDto } from './comments.dto';
+export { BaseCommentDto, DeleteCommentRequestDto, UpdateCommentRequestDto, CreateCommentRequestDto, LikeCommentDto } from './comments.dto';
 export { BasePostDto, CreatePostRequestDto, UpdatePostRequestDto, DeletePostRequestDto, LikePostDto } from './posts.dto';
 export {
   RegisterUserRequestDto,
