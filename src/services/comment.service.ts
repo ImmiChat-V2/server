@@ -54,6 +54,10 @@ class CommentService {
   public async likeComment({ id, userId }: LikeCommentDto): Promise<void> {
     await pgDataSource.createQueryBuilder().relation(CommentEntity, 'likes').of(id).add(userId);
   }
+
+  public async deleteCommentLike(id: number, userId: number): Promise<void> {
+    await pgDataSource.createQueryBuilder().relation(CommentEntity, 'likes').of(id).remove(userId);
+  }
 }
 
 export default CommentService;
