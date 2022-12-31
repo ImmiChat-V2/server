@@ -1,5 +1,13 @@
 import { PostEntity } from '@/entities';
-import { CreatePostRequestDto, BasePostDto, DeletePostRequestDto, UsersLikedPostDto, UpdatePostRequestDto, LikePostDto } from '@/dtos';
+import {
+  CreatePostRequestDto,
+  BasePostDto,
+  DeletePostRequestDto,
+  UsersLikedPostDto,
+  LikePostDto,
+  UpdatePostRequestDto,
+  DeletePostLikeDto,
+} from '@/dtos';
 import { HttpException } from '@/exceptions';
 import { updateAndReturn } from '@/utils/queryBuilderUtils';
 import { pgDataSource } from '@/databases';
@@ -50,7 +58,7 @@ class PostService {
     await pgDataSource.createQueryBuilder().relation(PostEntity, 'likes').of(id).add(userId);
   }
 
-  public async deletePostLike(id: number, userId: number): Promise<void> {
+  public async deletePostLike({ id, userId }: DeletePostLikeDto): Promise<void> {
     await pgDataSource.createQueryBuilder().relation(PostEntity, 'likes').of(id).remove(userId);
   }
 }

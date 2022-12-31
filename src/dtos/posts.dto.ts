@@ -16,3 +16,4 @@ export type CreatePostRequestDto = Omit<BasePostDto, 'id'>;
 export type DeletePostRequestDto = Pick<BasePostDto, 'id' | 'userId'>;
 
 export type LikePostDto = Pick<BasePostDto, 'id' | 'userId'>;
+export type DeletePostLikeDto = Pick<BasePostDto, 'id' | 'userId'>;
