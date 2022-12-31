@@ -86,7 +86,7 @@ class CommentController {
     try {
       const id = Number(req.params.post_id);
       const userId = req.user.id;
-      await this.commentService.deleteCommentLike(id, userId);
+      await this.commentService.deleteCommentLike({ id, userId });
       res.status(202).json({ message: `Like on comment ${id} deleted` });
     } catch (error) {
       next(new HttpException(400, 'User has not liked this comment'));
