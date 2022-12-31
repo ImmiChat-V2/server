@@ -12,7 +12,7 @@ import {
 } from 'typeorm';
 import { UserEntity, PostEntity } from '@/entities';
 
-@Entity()
+@Entity('comments')
 class CommentEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;

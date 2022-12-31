@@ -1,7 +1,7 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
 import { UserEntity } from '.';
 
-@Entity()
+@Entity('connections')
 class ConnectionsEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
