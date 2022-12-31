@@ -11,3 +11,5 @@ export type BaseCommentDto = {
 export type UpdateCommentRequestDto = Pick<BaseCommentDto, 'media' | 'content'>;
 export type DeleteCommentRequestDto = Pick<BaseCommentDto, 'id' | 'userId'>;
 export type CreateCommentRequestDto = Omit<BaseCommentDto, 'id' | 'createdAt' | 'updatedAt'>;
+
+export type LikeCommentDto = Pick<BaseCommentDto, 'id' | 'userId'>;

@@ -1,4 +1,5 @@
 import { BaseCommentDto, CreateCommentRequestDto, UpdateCommentRequestDto, UsersLikedCommentsDto } from '@/dtos';
+import { HttpException } from '@/exceptions';
 import { RequestWithUser } from '@/interfaces';
 import { CommentService } from '@/services';
 import { NextFunction, Response } from 'express';
@@ -67,6 +68,17 @@ class CommentController {
       res.status(200).json({ data });
     } catch (error) {
       next(error);
+    }
+  };
+
+  public likeComment = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      const id = Number(req.params.comment_id);
+      const userId = req.user.id;
+      await this.commentService.likeComment({ id, userId });
+      res.status(201).json('Comment Liked');
+    } catch (error) {
+      next(new HttpException(400, 'Already liked'));
     }
   };
 }
