@@ -4,3 +4,4 @@ export { default as CommentService } from './comment.service';
 export { default as UserService } from './users.service';
 export { default as FeedService } from './feed.service';
 export { default as ConnectionService } from './connection.service';
+export { default as ChatroomService } from './chatroom.service';
