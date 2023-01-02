@@ -81,6 +81,17 @@ class CommentController {
       next(new HttpException(400, 'Already liked'));
     }
   };
+
+  public deleteCommentLike = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      const id = Number(req.params.post_id);
+      const userId = req.user.id;
+      await this.commentService.deleteCommentLike({ id, userId });
+      res.status(202).json({ message: `Like on comment ${id} deleted` });
+    } catch (error) {
+      next(new HttpException(400, 'User has not liked this comment'));
+    }
+  };
 }
 
 export default CommentController;
