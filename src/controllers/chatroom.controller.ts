@@ -22,7 +22,7 @@ class ChatroomController {
       const userId = req.user.id;
       const receiverId = req.body.receiverId;
       await this.chatroomService.createChatroom(userId, receiverId);
-      res.status(200).json({ message: 'Chatroom Created' });
+      res.status(201).json({ message: 'Chatroom Created' });
     } catch (error) {
       next(error);
     }
