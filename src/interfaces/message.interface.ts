@@ -6,4 +6,5 @@ export interface Message {
   media?: string;
   content: string;
   createdDate: Date;
+  updatedDate: Date;
 }
