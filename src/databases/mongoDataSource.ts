@@ -1,16 +1,11 @@
-import { join } from 'path';
-import { DataSource, DataSourceOptions } from 'typeorm';
 import { mDB_HOST, mDB_PORT, DB_DATABASE } from '@/config';
+import mongoose from 'mongoose';
 
-const mongoDataSource = new DataSource({
-  type: 'mongodb',
-  host: mDB_HOST,
-  port: mDB_PORT as unknown as number,
-  database: DB_DATABASE,
-  synchronize: true,
-  logging: false,
-  entities: [join(__dirname, '../entities/nosql/*.entity{.ts,.js}')],
-  migrations: [join(__dirname, '../**/*.migration{.ts,.js}')],
-} as DataSourceOptions);
-
-export default mongoDataSource;
+const initialize = async () => {
+  const type = 'mongodb';
+  const host = mDB_HOST;
+  const port = mDB_PORT as unknown as number;
+  const database = DB_DATABASE;
+  return await mongoose.connect(`${type}://${host}:${port}/${database}`);
+};
+export default { initialize };
