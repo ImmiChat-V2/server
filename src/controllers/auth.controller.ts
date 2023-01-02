@@ -9,8 +9,8 @@ class AuthController {
   public register = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userData: RegisterUserRequestDto = req.body;
-      const { cookie, data } = await this.authService.register(userData);
-      res.setHeader('Set-Cookie', [cookie]).status(200).json({ data, message: 'success' });
+      const { accessTokenCookie, refreshTokenCookie, data } = await this.authService.register(userData);
+      res.setHeader('Set-Cookie', [accessTokenCookie, refreshTokenCookie]).status(200).json({ data, message: 'success' });
     } catch (error) {
       next(error);
     }
@@ -19,8 +19,9 @@ class AuthController {
   public login = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userData: LoginUserRequestDto = req.body;
-      const { cookie, data } = await this.authService.login(userData);
-      res.setHeader('Set-Cookie', [cookie]).status(200).json({ data, message: 'success' });
+      const { accessTokenCookie, refreshTokenCookie, data } = await this.authService.login(userData);
+      console.log(accessTokenCookie, refreshTokenCookie)
+      res.setHeader('Set-Cookie', [accessTokenCookie, refreshTokenCookie]).status(200).json({ data, message: 'success' });
     } catch (error) {
       next(error);
     }
@@ -28,7 +29,7 @@ class AuthController {
 
   public logout = async (_req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
-      res.setHeader('Set-Cookie', ['Authorization=; Max-age=0']).status(200).json({ message: 'logout' });
+      res.setHeader('Set-Cookie', ['AccessToken=; Max-age=0', 'RefreshToken=; Max-age=0']).status(200).json({ message: 'logout' });
     } catch (error) {
       next(error);
     }
