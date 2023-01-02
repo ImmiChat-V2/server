@@ -1,5 +1,4 @@
 import { ConnectedUserInfoResponseDto } from './users.dto';
-import { UserEntity } from '@/entities';
 
 export type BaseConnectionsDto = {
   readonly id: number;

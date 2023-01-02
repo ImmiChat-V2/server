@@ -13,7 +13,7 @@ class ConnectionRoute implements Routes {
   }
 
   private initializeRoutes() {
-    this.router.get(`/users/:user_id${this.path}`, this.connectionController.getUserConnections);
+    this.router.get(`/users/:user_id${this.path}`, AuthMiddleware, this.connectionController.getUserConnections);
   }
 }
 
