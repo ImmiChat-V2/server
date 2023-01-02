@@ -1,1 +1,1 @@
-export { PostEntity, CommentEntity, UserEntity } from './sql'
+export { PostEntity, CommentEntity, UserEntity, ConnectionsEntity } from './sql';

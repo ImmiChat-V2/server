@@ -20,3 +20,4 @@ export type UpdateUserRequestDto = Omit<BaseUserRequestDTO, 'email' | 'password'
 
 export type UsersLikedPostDto = Pick<BaseUserDto, 'firstName' | 'lastName' | 'profilePic'>;
 export type UsersLikedCommentsDto = Pick<BaseUserDto, 'firstName' | 'lastName' | 'profilePic'>;
+export type ConnectedUserInfoResponseDto = Pick<BaseUserDto, 'firstName' | 'lastName' | 'profilePic' | 'id'>;
