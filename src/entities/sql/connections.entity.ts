@@ -6,14 +6,11 @@ class ConnectionsEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => UserEntity, user => user.senderId)
-  @JoinColumn()
-  sender: UserEntity;
-  
+  @Column()
+  senderId: number;
 
-  @ManyToOne(() => UserEntity, user => user.receiverId)
-  @JoinColumn()
-  receiver: UserEntity;
+  @Column()
+  receiverId: number;
 
   @Column()
   connected: boolean;
@@ -25,6 +22,14 @@ class ConnectionsEntity extends BaseEntity {
   @Column()
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @ManyToOne(() => UserEntity)
+  @JoinColumn()
+  sender: UserEntity;
+
+  @ManyToOne(() => UserEntity)
+  @JoinColumn()
+  receiver: UserEntity;
 }
 
 export default ConnectionsEntity;

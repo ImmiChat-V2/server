@@ -34,12 +34,6 @@ class UserEntity extends BaseEntity {
 
   @UpdateDateColumn()
   updatedAt: Date;
-
-  @OneToMany(() => ConnectionsEntity, connection => connection.sender)
-  senderId: ConnectionsEntity[];
-
-  @OneToMany(() => ConnectionsEntity, connection => connection.receiver)
-  receiverId: ConnectionsEntity[];
 }
 
 export default UserEntity;
