@@ -25,8 +25,9 @@ class AuthService extends Repository<UserEntity> {
   }
 
   public createCookie(tokenData: TokenData, type: 'access' | 'refresh'): string {
+    const { token, expiresIn } = tokenData;
     const tokenType = type === 'access' ? 'AccessToken' : 'RefreshToken';
-    return `${tokenType}=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn};`;
+    return `${tokenType}=${token}; HttpOnly; Max-Age=${expiresIn};`;
   }
 
   public async register({

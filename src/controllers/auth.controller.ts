@@ -20,7 +20,6 @@ class AuthController {
     try {
       const userData: LoginUserRequestDto = req.body;
       const { accessTokenCookie, refreshTokenCookie, data } = await this.authService.login(userData);
-      console.log(accessTokenCookie, refreshTokenCookie)
       res.setHeader('Set-Cookie', [accessTokenCookie, refreshTokenCookie]).status(200).json({ data, message: 'success' });
     } catch (error) {
       next(error);
