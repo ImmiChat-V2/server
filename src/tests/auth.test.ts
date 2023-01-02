@@ -29,11 +29,7 @@ describe('Testing Authentication Endpoints', () => {
       UserEntity.findOne = jest.fn().mockReturnValue(null);
       UserEntity.save = jest.fn().mockReturnValue({
         id: 1,
-        email: userData.email,
-        password: userData.password,
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-        language: userData.language,
+        ...userData,
       });
       return request(app.getServer()).post(`${authRoute.path}register`).send(userData).expect(201);
     });
