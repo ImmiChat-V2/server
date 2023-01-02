@@ -5,6 +5,7 @@ const MessageSchema = new Schema<Message>({
   userId: { type: Number },
   content: { type: String },
   createdDate: { type: Date },
+  updatedDate: { type: Date },
   media: { type: String },
 });
 
