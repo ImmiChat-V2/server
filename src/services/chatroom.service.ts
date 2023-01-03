@@ -6,15 +6,14 @@ import { model } from 'mongoose';
 class ChatroomService {
   public async createChatroom({ userId, receiverId, isGroup }: CreateChatroomDto): Promise<void> {
     const chatroom = model('Chatroom', Chatroom);
-    const createChat = new chatroom({
+    const checkExist = await chatroom.exists({ users: [userId, receiverId] });
+    if (checkExist) throw new HttpException(409, 'Chatroom Exists');
+    await new chatroom({
       isGroup: isGroup,
       users: [userId, receiverId],
       message: [],
       createdDate: Date.now(),
-    });
-    const checkExist = await chatroom.exists({ users: createChat.users });
-    if (checkExist) throw new HttpException(409, 'Chatroom Exists');
-    createChat.save();
+    }).save();
   }
 }
 
