@@ -1,11 +1,12 @@
 import { RequestWithUser } from '@/interfaces';
 import { NextFunction, Response } from 'express';
 import { ChatroomService } from '@/services';
+import { BaseChatroomDto } from '@/dtos';
 
 class ChatroomController {
   private chatroomService = new ChatroomService();
 
-  public createChatroom = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+  public getAllChatrooms = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
       const userId = req.user.id;
       const receiverIds = req.body.receiverIds;

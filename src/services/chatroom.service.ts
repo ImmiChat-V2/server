@@ -1,4 +1,4 @@
-import { CreateChatroomDto } from '@/dtos';
+import { CreateChatroomDto, BaseChatroomDto } from '@/dtos';
 import { ChatroomSchema } from '@/entities/nosql';
 import { HttpException } from '@/exceptions';
 import { model } from 'mongoose';
@@ -15,6 +15,11 @@ class ChatroomService {
       message: [],
       createdDate: Date.now(),
     }).save();
+  }
+  public async getAllChatrooms(userId: number): Promise<BaseChatroomDto[]> {
+    const chatroom = model('Chatroom', ChatroomSchema);
+    const getAllChat: BaseChatroomDto[] = await chatroom.find({ users: { $in: userId } });
+    return getAllChat;
   }
 }
 
