@@ -9,5 +9,5 @@ export {
   UsersLikedCommentsDto,
   UsersLikedPostDto,
 } from './users.dto';
-export { BaseConnectionsDto, GetUserConnectionsResponseDto } from './connections.dto';
+export { BaseConnectionsDto, GetUserConnectionsResponseDto, SendConnectionRequestDto, AcceptConnectionRequestDto } from './connections.dto';
 export { BasePostOfFeedDTO } from './feed.dto';
