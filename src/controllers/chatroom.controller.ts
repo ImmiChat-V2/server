@@ -21,7 +21,8 @@ class ChatroomController {
     try {
       const userId = req.user.id;
       const receiverId = req.body.receiverId;
-      await this.chatroomService.createChatroom(userId, receiverId);
+      const isGroup = req.body.isGroup;
+      await this.chatroomService.createChatroom(userId, receiverId, isGroup);
       res.status(201).json({ message: 'Chatroom Created' });
     } catch (error) {
       next(error);
