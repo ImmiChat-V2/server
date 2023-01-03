@@ -20,10 +20,8 @@ class ChatroomController {
   public createChatroom = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
       const userId = req.user.id;
-      const receiverId = req.body.receiverId;
-      const isGroup = req.body.isGroup;
-      await this.chatroomService.createChatroom({ userId, receiverId, isGroup });
-      res.status(201).json({ message: 'Chatroom Created' });
+      const data: BaseChatroomDto[] = await this.chatroomService.getAllChatrooms(userId);
+      res.status(200).json({ data, message: 'Success' });
     } catch (error) {
       next(error);
     }
