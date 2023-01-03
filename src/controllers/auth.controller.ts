@@ -10,7 +10,7 @@ class AuthController {
     try {
       const userData: RegisterUserRequestDto = req.body;
       const { accessTokenCookie, refreshTokenCookie, data } = await this.authService.register(userData);
-      res.setHeader('Set-Cookie', [accessTokenCookie, refreshTokenCookie]).status(200).json({ data, message: 'success' });
+      res.setHeader('Set-Cookie', [accessTokenCookie, refreshTokenCookie]).status(201).json({ data, message: 'success' });
     } catch (error) {
       next(error);
     }

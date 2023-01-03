@@ -1,14 +1,15 @@
 import { join } from 'path';
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_DATABASE } from '@/config';
+import { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_DATABASE, DB_DROPSCHEMA } from '@/config';
 
 const pgDataSource = new DataSource({
   type: 'postgres',
   host: DB_HOST,
-  port: DB_PORT as unknown as number,
+  port: Number(DB_PORT),
   username: DB_USER,
   password: DB_PASSWORD,
   database: DB_DATABASE,
+  dropSchema: JSON.parse(DB_DROPSCHEMA),
   synchronize: true,
   logging: false,
   entities: [join(__dirname, '../entities/sql/*.entity{.ts,.js}')],
