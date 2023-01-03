@@ -51,14 +51,14 @@ class ConnectionService {
 
   public async removeConnection(data: CUDConnectionRequestDto): Promise<BaseConnectionsDto> {
     const { senderId, receiverId } = data;
-    const connection = await ConnectionsEntity.find({
+    const connection = await ConnectionsEntity.findOne({
       where: [
         { senderId, receiverId },
         { senderId: receiverId, receiverId: senderId },
       ],
     });
-    if (connection.length < 1) throw new HttpException(404, "This connection doesn't exist");
-    const { id } = connection[0];
+    if (!connection) throw new HttpException(404, "This connection doesn't exist");
+    const { id } = connection;
     const removedConnection = await deleteAndReturn<BaseConnectionsDto>(id, ConnectionsEntity);
     return removedConnection;
   }
