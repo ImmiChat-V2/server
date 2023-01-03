@@ -6,3 +6,4 @@ export { default as CommentRoute } from './comment.route';
 export { default as FeedRoute } from './feed.route';
 export { default as ConnectionRoute } from './connection.route';
 export { default as ChatroomRoute } from './chatroom.route';
+export { default as MessageRoute } from './message.route';
