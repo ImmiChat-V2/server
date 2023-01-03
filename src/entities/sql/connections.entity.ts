@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { UserEntity } from '.';
 
 @Entity()
@@ -7,9 +7,12 @@ class ConnectionsEntity extends BaseEntity {
   id: number;
 
   @ManyToOne(() => UserEntity, user => user.senderId)
+  @JoinColumn()
   sender: UserEntity;
+  
 
   @ManyToOne(() => UserEntity, user => user.receiverId)
+  @JoinColumn()
   receiver: UserEntity;
 
   @Column()

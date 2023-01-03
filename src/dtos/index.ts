@@ -9,7 +9,7 @@ export {
   UsersLikedCommentsDto,
   UsersLikedPostDto,
 } from './users.dto';
-export { BaseConnectionsDto } from './connections.dto';
+export { BaseConnectionsDto, GetUserConnectionsResponseDto } from './connections.dto';
 export { BasePostOfFeedDTO } from './feed.dto';
 export { BaseChatroomDto } from './chatroom.dto';
 export { BaseMessageDto, CreateMessageDto } from './messages.dto';

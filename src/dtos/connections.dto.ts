@@ -1,3 +1,5 @@
+import { ConnectedUserInfoResponseDto } from './users.dto';
+
 export type BaseConnectionsDto = {
   readonly id: number;
   readonly senderId: number;
@@ -6,3 +8,9 @@ export type BaseConnectionsDto = {
   readonly createdAt: Date;
   readonly updatedAt: Date;
 };
+
+export type GetUserConnectionsResponseDto = {
+  id: number;
+  connected: boolean;
+  connectionInfo: ConnectedUserInfoResponseDto;
+}[];
