@@ -7,3 +7,9 @@ export type BaseChatroomDto = {
   messages: BaseMessageDto[];
   createdDate: Date;
 };
+
+export type CreateChatroomDto = {
+  userId: number;
+  receiverId: number;
+  isGroup: boolean;
+};

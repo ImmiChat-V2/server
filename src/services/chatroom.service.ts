@@ -1,9 +1,10 @@
+import { CreateChatroomDto } from '@/dtos';
 import { Chatroom } from '@/entities/nosql';
 import { HttpException } from '@/exceptions';
 import { model } from 'mongoose';
 
 class ChatroomService {
-  public async createChatroom(userId: number, receiverId: number, isGroup: boolean): Promise<void> {
+  public async createChatroom({ userId, receiverId, isGroup }: CreateChatroomDto): Promise<void> {
     const chatroom = model('Chatroom', Chatroom);
     const createChat = new chatroom({
       isGroup: isGroup,
