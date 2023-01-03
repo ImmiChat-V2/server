@@ -1,8 +1,5 @@
 {
   "compileOnSave": false,
-  // "ts-node": {
-  //   "swc": true
-  // },
   "compilerOptions": {
     "target": "es2017",
     "lib": ["es2017", "esnext.asynciterable"],
