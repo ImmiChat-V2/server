@@ -15,6 +15,4 @@ export type GetUserConnectionsResponseDto = {
   connectionInfo: ConnectedUserInfoResponseDto;
 }[];
 
-export type SendConnectionRequestDto = Pick<BaseConnectionsDto, 'senderId' | 'receiverId'>;
-
-export type AcceptConnectionRequestDto = Pick<BaseConnectionsDto, 'senderId' | 'receiverId'>;
+export type SendOrAcceptConnectionRequestDto = Pick<BaseConnectionsDto, 'senderId' | 'receiverId'>;

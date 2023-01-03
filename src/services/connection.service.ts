@@ -1,5 +1,5 @@
 import { ConnectionsEntity } from '@/entities';
-import { BaseConnectionsDto, GetUserConnectionsResponseDto, SendConnectionRequestDto, AcceptConnectionRequestDto } from '@/dtos';
+import { BaseConnectionsDto, GetUserConnectionsResponseDto, SendOrAcceptConnectionRequestDto } from '@/dtos';
 import { HttpException } from '@/exceptions';
 import { updateAndReturn } from '@/utils/queryBuilderUtils';
 
@@ -25,7 +25,7 @@ class ConnectionService {
     return userConnections;
   }
 
-  public async sendConnectionRequest(data: SendConnectionRequestDto): Promise<BaseConnectionsDto> {
+  public async sendConnectionRequest(data: SendOrAcceptConnectionRequestDto): Promise<BaseConnectionsDto> {
     const { senderId, receiverId } = data;
     const connectionRequest = await ConnectionsEntity.find({
       where: [
@@ -38,7 +38,7 @@ class ConnectionService {
     return newRequest;
   }
 
-  public async acceptConnectionRequest(data: AcceptConnectionRequestDto): Promise<BaseConnectionsDto> {
+  public async acceptConnectionRequest(data: SendOrAcceptConnectionRequestDto): Promise<BaseConnectionsDto> {
     const { senderId, receiverId } = data;
     const connectionRequest = await ConnectionsEntity.find({
       where: { senderId, receiverId },
