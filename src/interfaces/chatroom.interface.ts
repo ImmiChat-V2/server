@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import { Message } from '@/interfaces';
+import { Message } from '.';
 
 export interface Chatroom {
   _id: Types.ObjectId;
