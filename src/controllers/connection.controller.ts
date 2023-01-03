@@ -34,26 +34,6 @@ class ConnectionController {
       next(error);
     }
   };
-  public sendConnectionRequest = async (req: RequestWithUser, res: Response, next: NextFunction) => {
-    try {
-      const senderId = req.user.id;
-      const receiverId = Number(req.params.user_id);
-      const data = await this.connectionSerivce.sendConnectionRequest({ senderId, receiverId });
-      return res.status(201).json({ data });
-    } catch (error) {
-      next(error);
-    }
-  };
-  public acceptConnectionRequest = async (req: RequestWithUser, res: Response, next: NextFunction) => {
-    try {
-      const senderId = Number(req.params.user_id);
-      const receiverId = req.user.id;
-      const data = await this.connectionSerivce.acceptConnectionRequest({ senderId, receiverId });
-      return res.status(201).json({ data });
-    } catch (error) {
-      next(error);
-    }
-  };
 }
 
 export default ConnectionController;
