@@ -3,10 +3,10 @@ import { HttpException } from '@/exceptions';
 import { model } from 'mongoose';
 
 class ChatroomService {
-  public async createChatroom(userId: number, receiverId: number): Promise<void> {
+  public async createChatroom(userId: number, receiverId: number, isGroup: boolean): Promise<void> {
     const chatroom = model('Chatroom', Chatroom);
     const createChat = new chatroom({
-      isGroup: true,
+      isGroup: isGroup,
       users: [userId, receiverId],
       message: [],
       createdDate: Date.now(),
