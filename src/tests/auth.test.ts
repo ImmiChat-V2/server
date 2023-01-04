@@ -1,18 +1,19 @@
 import App from '@/app';
 import request from 'supertest';
 import { AuthRoute } from '@/routes';
-import { pgDataSource, testpgDataSource } from '@databases';
+import { testpgDataSource } from '@databases';
 import { RegisterUserRequestDto } from '@dtos';
 import { UserEntity } from '@entities';
+import bodyParser from 'body-parser';
 
 const app = new App([new AuthRoute()]);
 const authRoute = new AuthRoute();
 
-beforeEach(async () => {
+beforeAll(async () => {
   await testpgDataSource.initialize();
 });
 
-afterEach(async () => {
+afterAll(async () => {
   await testpgDataSource.destroy();
 });
 
