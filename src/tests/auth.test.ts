@@ -8,17 +8,10 @@ import { UserEntity } from '@entities';
 const app = new App([new AuthRoute()]);
 const authRoute = new AuthRoute();
 
-beforeEach(async () => {
-  testpgDataSource.initialize().then(() => {
-    console.log('testing data source connected');
-  });
-});
-
-afterEach(async () => {
-  await testpgDataSource.destroy();
-});
-
 describe('Testing Authentication Endpoints', () => {
+  beforeAll(async () => {
+    await testpgDataSource.initialize();
+  });
   describe('[POST] /register', () => {
     const userData: RegisterUserRequestDto = {
       email: `test@email.com`,
@@ -39,5 +32,8 @@ describe('Testing Authentication Endpoints', () => {
       UserEntity.findOne = jest.fn().mockReturnValue(true);
       return request(app.getServer()).post(`${authRoute.path}register`).send(userData).expect(409);
     });
+  });
+  afterAll(async () => {
+    await testpgDataSource.destroy();
   });
 });
