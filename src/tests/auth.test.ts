@@ -4,17 +4,18 @@ import { AuthRoute } from '@/routes';
 import { testpgDataSource } from '@databases';
 import { RegisterUserRequestDto } from '@dtos';
 import { UserEntity } from '@entities';
-import bodyParser from 'body-parser';
 
 const app = new App([new AuthRoute()]);
 const authRoute = new AuthRoute();
 
-beforeAll(async () => {
+beforeEach(async () => {
   await testpgDataSource.initialize();
+  console.log('test db initialized');
 });
 
-afterAll(async () => {
+afterEach(async () => {
   await testpgDataSource.destroy();
+  console.log('test db destroyed');
 });
 
 describe('Testing Authentication Endpoints', () => {
