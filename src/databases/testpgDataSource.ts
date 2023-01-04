@@ -14,6 +14,7 @@ const testpgDataSource = new DataSource({
   logging: false,
   entities: [join(__dirname, '../entities/sql/*.entity{.ts,.js}')],
   migrations: [join(__dirname, '../**/*.migration{.ts,.js}')],
+  ssl: true
 } as DataSourceOptions);
 
 export default testpgDataSource;
