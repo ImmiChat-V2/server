@@ -16,6 +16,7 @@ beforeEach(async () => {
 afterEach(async () => {
   await testpgDataSource.destroy();
   console.log('test db destroyed');
+  await new Promise<void>(resolve => setTimeout(() => resolve(), 500));
 });
 
 describe('Testing Authentication Endpoints', () => {

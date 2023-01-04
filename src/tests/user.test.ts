@@ -4,9 +4,8 @@ import { UserRoute } from '@/routes';
 import { testpgDataSource } from '@databases';
 import { BaseUserDto } from '@dtos';
 import { UserEntity } from '@entities';
-
-const app = new App([new UserRoute()]);
 const userRoute = new UserRoute();
+const app = new App([userRoute]);
 
 beforeEach(async () => {
   await testpgDataSource.initialize();
@@ -16,4 +15,13 @@ beforeEach(async () => {
 afterEach(async () => {
   await testpgDataSource.destroy();
   console.log('test db destroyed');
+});
+
+describe('Testing User Endpoints', () => {
+  describe('[GET] /users', () => {
+    it('successfully get all users', async () => {
+      const response = await request(app.getServer()).get(`${userRoute.path}`);
+      expect(response.statusCode).toBe(200);
+    });
+  });
 });
