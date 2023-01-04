@@ -19,6 +19,7 @@ jobs:
       DB_PASSWORD: 728u0NaBqjkKDthf1Kf3BamuFHPnCMdM
       DB_PORT: 5432
       DB_DROPSCHEMA: true
+      DB_SSL: true
       ACCESS_TOKEN_SECRET_KEY: asfsadf
       REFRESH_TOKEN_SECRET_KEY: njkvnfa
     steps:
