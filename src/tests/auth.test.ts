@@ -10,13 +10,10 @@ const authRoute = new AuthRoute();
 
 beforeEach(async () => {
   await testpgDataSource.initialize();
-  console.log('test db initialized');
 });
 
 afterEach(async () => {
   await testpgDataSource.destroy();
-  console.log('test db destroyed');
-  await new Promise<void>(resolve => setTimeout(() => resolve(), 500));
 });
 
 describe('Testing Authentication Endpoints', () => {
