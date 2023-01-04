@@ -18,7 +18,7 @@ jobs:
       tDB_USER: immi_user
       tDB_PASSWORD: 728u0NaBqjkKDthf1Kf3BamuFHPnCMdM
       tDB_PORT: 5432
-      DB_DROPSCHEMA: false
+      tDB_DROPSCHEMA: true
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3

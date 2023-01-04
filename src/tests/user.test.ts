@@ -25,12 +25,10 @@ const cookie = authService.createCookie(token, 'access');
 
 beforeEach(async () => {
   await testpgDataSource.initialize();
-  console.log('test db initialized');
 });
 
 afterEach(async () => {
   await testpgDataSource.destroy();
-  console.log('test db destroyed');
 });
 
 describe('Testing User Endpoints', () => {
