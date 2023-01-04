@@ -13,7 +13,7 @@ class MessageRoute implements Routes {
   }
 
   private initializeRoutes() {
-    this.router.get(`/chatroom/:chat_id`, AuthMiddleware, this.messageController.getChatroomMessages);
+    this.router.get(`/chatroom/:chat_id${this.path}`, AuthMiddleware, this.messageController.getChatroomMessages);
   }
 }
 
