@@ -1,7 +1,7 @@
 import App from '@/app';
 import request from 'supertest';
 import { AuthRoute } from '@/routes';
-import { testpgDataSource } from '@databases';
+import { pgDataSource } from '@databases';
 import { RegisterUserRequestDto } from '@dtos';
 import { UserEntity } from '@entities';
 
@@ -9,11 +9,11 @@ const app = new App([new AuthRoute()]);
 const authRoute = new AuthRoute();
 
 beforeEach(async () => {
-  await testpgDataSource.initialize();
+  await pgDataSource.initialize();
 });
 
 afterEach(async () => {
-  await testpgDataSource.destroy();
+  await pgDataSource.destroy();
 });
 
 describe('Testing Authentication Endpoints', () => {

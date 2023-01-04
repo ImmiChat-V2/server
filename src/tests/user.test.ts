@@ -1,7 +1,7 @@
 import App from '@/app';
 import request from 'supertest';
 import { UserRoute } from '@/routes';
-import { testpgDataSource } from '@databases';
+import { pgDataSource } from '@databases';
 import { AuthService } from '@/services';
 import { BaseUserResponseDTO } from '@/dtos';
 const userRoute = new UserRoute();
@@ -24,11 +24,11 @@ const token = authService.createToken(tempUser, 'access');
 const cookie = authService.createCookie(token, 'access');
 
 beforeEach(async () => {
-  await testpgDataSource.initialize();
+  await pgDataSource.initialize();
 });
 
 afterEach(async () => {
-  await testpgDataSource.destroy();
+  await pgDataSource.destroy();
 });
 
 describe('Testing User Endpoints', () => {
