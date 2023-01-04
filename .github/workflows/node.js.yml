@@ -13,12 +13,12 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     env:
-      tDB_HOST: ohio-postgres.render.com
-      tDB_DATABASE: immi
-      tDB_USER: immi_user
-      tDB_PASSWORD: 728u0NaBqjkKDthf1Kf3BamuFHPnCMdM
-      tDB_PORT: 5432
-      tDB_DROPSCHEMA: true
+      DB_HOST: ohio-postgres.render.com
+      DB_DATABASE: immi
+      DB_USER: immi_user
+      DB_PASSWORD: 728u0NaBqjkKDthf1Kf3BamuFHPnCMdM
+      DB_PORT: 5432
+      DB_DROPSCHEMA: true
       ACCESS_TOKEN_SECRET_KEY: asfsadf
       REFRESH_TOKEN_SECRET_KEY: njkvnfa
     steps:
