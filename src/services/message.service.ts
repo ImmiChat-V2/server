@@ -7,7 +7,7 @@ class MessageService {
   public async getChatroomMessages(id: ObjectId): Promise<BaseMessageDto[]> {
     const chatroom = model('Chatroom', Chatroom);
     const findMessages: BaseChatroomDto = await chatroom.findOne({ id });
-    if (!findMessages.messages) throw new HttpException(404, 'No Messages');
+    if (!findMessages) throw new HttpException(404, 'Chatroom does not exist');
     return findMessages.messages;
   }
 }
