@@ -9,11 +9,12 @@ const testpgDataSource = new DataSource({
   username: tDB_USER,
   password: tDB_PASSWORD,
   database: tDB_DATABASE,
-  dropSchema: JSON.parse(DB_DROPSCHEMA),
+  dropSchema: DB_DROPSCHEMA as unknown as boolean,
   synchronize: true,
   logging: false,
   entities: [join(__dirname, '../entities/sql/*.entity{.ts,.js}')],
   migrations: [join(__dirname, '../**/*.migration{.ts,.js}')],
+  ssl: true,
 } as DataSourceOptions);
 
 export default testpgDataSource;
