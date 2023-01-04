@@ -10,6 +10,6 @@ export type BaseChatroomDto = {
 
 export type CreateChatroomDto = {
   userId: number;
-  receiverId: number;
+  receiverIds: number[];
   isGroup: boolean;
 };
