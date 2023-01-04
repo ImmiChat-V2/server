@@ -14,11 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DB_HOST : ohio-postgres.render.com
-      DB_DATABASE : ImmiChat
+      DB_DATABASE : immichat-test
       DB_USER : immi_user
       DB_PASSWORD : 728u0NaBqjkKDthf1Kf3BamuFHPnCMdM
       DB_PORT : 5432
-      DB_DROPSCHEMA : true
+      DB_DROPSCHEMA : false
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
