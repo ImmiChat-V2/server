@@ -13,6 +13,7 @@ export const {
   DB_DROPSCHEMA,
   mDB_HOST,
   mDB_PORT,
+  tDB_DROPSCHEMA,
   tDB_HOST,
   tDB_PORT,
   tDB_USER,

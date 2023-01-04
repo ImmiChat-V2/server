@@ -1,6 +1,6 @@
 import { join } from 'path';
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { tDB_HOST, tDB_PORT, tDB_USER, tDB_PASSWORD, tDB_DATABASE, DB_DROPSCHEMA } from '@/config';
+import { tDB_HOST, tDB_PORT, tDB_USER, tDB_PASSWORD, tDB_DATABASE, tDB_DROPSCHEMA } from '@/config';
 
 const testpgDataSource = new DataSource({
   type: 'postgres',
@@ -9,7 +9,7 @@ const testpgDataSource = new DataSource({
   username: tDB_USER,
   password: tDB_PASSWORD,
   database: tDB_DATABASE,
-  dropSchema: DB_DROPSCHEMA as unknown as boolean,
+  dropSchema: tDB_DROPSCHEMA as unknown as boolean,
   synchronize: true,
   logging: false,
   entities: [join(__dirname, '../entities/sql/*.entity{.ts,.js}')],
