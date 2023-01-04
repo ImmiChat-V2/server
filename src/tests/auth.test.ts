@@ -22,6 +22,14 @@ afterEach(async () => {
   await pgDataSource.destroy();
 });
 
+beforeEach(async () => {
+  await pgDataSource.initialize();
+});
+
+afterEach(async () => {
+  await pgDataSource.destroy();
+});
+
 describe('Testing Authentication Endpoints', () => {
   beforeAll(async () => {
     await pgDataSource.initialize();
