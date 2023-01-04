@@ -14,6 +14,7 @@ const authService = new AuthService();
 const testCookie = authService.createTestCookie();
 beforeEach(async () => {
   await pgDataSource.initialize();
+  console.log('pgDataSource connected');
 });
 
 afterEach(async () => {
