@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DB_HOST : ohio-postgres.render.com
-      DB_DATABASE : immichat-test
+      DB_DATABASE : immi
       DB_USER : immi_user
       DB_PASSWORD : 728u0NaBqjkKDthf1Kf3BamuFHPnCMdM
       DB_PORT : 5432
