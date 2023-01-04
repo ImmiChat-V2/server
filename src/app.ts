@@ -59,7 +59,7 @@ class App {
 
   private async initializeDataSource() {
     try {
-      await testpgDataSource.initialize();
+      await pgDataSource.initialize();
     } catch (error) {
       console.error(error);
     }

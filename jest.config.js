@@ -4,6 +4,7 @@ require('dotenv').config({ path: '.env.test.local' })
 
 module.exports = {
   preset: 'ts-jest',
+  setupFiles: ['dotenv/config'],
   testEnvironment: 'node',
   roots: ['<rootDir>/src'],
   transform: {
