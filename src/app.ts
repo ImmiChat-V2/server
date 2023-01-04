@@ -10,12 +10,8 @@ import { NODE_ENV, PORT, ORIGIN, CREDENTIALS } from '@config';
 import { Routes } from '@/interfaces';
 import { ErrorMiddleware } from '@/middlewares';
 import { pgDataSource, testpgDataSource, mongoDataSource } from '@/databases';
-import { NextHandleFunction } from 'connect';
 
 class App {
-  use(arg0: NextHandleFunction) {
-    throw new Error('Method not implemented.');
-  }
   public readonly app: express.Application;
   public readonly env: string;
   public readonly port: string;
