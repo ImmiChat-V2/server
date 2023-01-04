@@ -13,11 +13,11 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     env:
-      DB_HOST : ohio-postgres.render.com
-      DB_DATABASE : immi
-      DB_USER : immi_user
-      DB_PASSWORD : 728u0NaBqjkKDthf1Kf3BamuFHPnCMdM
-      DB_PORT : 5432
+      tDB_HOST : ohio-postgres.render.com
+      tDB_DATABASE : immi
+      tDB_USER : immi_user
+      tDB_PASSWORD : 728u0NaBqjkKDthf1Kf3BamuFHPnCMdM
+      tDB_PORT : 5432
       DB_DROPSCHEMA : false
     steps:
     - uses: actions/checkout@v3
