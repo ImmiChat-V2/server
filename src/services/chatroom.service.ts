@@ -7,7 +7,6 @@ class ChatroomService {
   public async createChatroom({ userId, receiverIds, isGroup }: CreateChatroomDto): Promise<void> {
     const chatroom = model('Chatroom', Chatroom);
     const userList = [userId].concat(receiverIds);
-    console.log(userList);
     const checkExist = await chatroom.exists({ users: userList });
     if (checkExist) throw new HttpException(409, 'Chatroom Exists');
     await new chatroom({
