@@ -6,9 +6,9 @@ import { model, ObjectId } from 'mongoose';
 class MessageService {
   public async getChatroomMessages(id: ObjectId): Promise<BaseMessageDto[]> {
     const chatroom = model('Chatroom', Chatroom);
-    const findMessages: BaseChatroomDto = await chatroom.findOne({ id });
-    if (!findMessages) throw new HttpException(404, 'Chatroom does not exist');
-    return findMessages.messages;
+    const findChatroom: BaseChatroomDto = await chatroom.findOne({ id });
+    if (!findChatroom) throw new HttpException(404, 'Chatroom does not exist');
+    return findChatroom.messages;
   }
 }
 
