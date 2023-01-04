@@ -34,8 +34,7 @@ afterEach(async () => {
 describe('Testing User Endpoints', () => {
   describe('[GET] /users', () => {
     it('successfully get all users', async () => {
-      const response = await request(app.getServer()).get(`${userRoute.path}`).set('Cookie', [cookie]);
-      expect(response.statusCode).toBe(200);
+      return await request(app.getServer()).get(`${userRoute.path}`).set('Cookie', [cookie]).expect(200);
     });
   });
 });
