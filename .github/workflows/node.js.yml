@@ -19,6 +19,8 @@ jobs:
       tDB_PASSWORD: 728u0NaBqjkKDthf1Kf3BamuFHPnCMdM
       tDB_PORT: 5432
       tDB_DROPSCHEMA: true
+      ACCESS_TOKEN_SECRET_KEY: asfsadf
+      REFRESH_TOKEN_SECRET_KEY: njkvnfa
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
