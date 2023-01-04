@@ -13,15 +13,15 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     env:
-      DB_HOST: ohio-postgres.render.com
-      DB_DATABASE: immi
-      DB_USER: immi_user
-      DB_PASSWORD: 728u0NaBqjkKDthf1Kf3BamuFHPnCMdM
-      DB_PORT: 5432
-      DB_DROPSCHEMA: true
-      DB_SSL: true
-      ACCESS_TOKEN_SECRET_KEY: asfsadf
-      REFRESH_TOKEN_SECRET_KEY: njkvnfa
+      DB_HOST: { secrets.DB_HOST }
+      DB_DATABASE: { secrets.DB_DATABASE }
+      DB_USER: { secrets.DB_USER }
+      DB_PASSWORD: { secrets.DB_PASSWORD }
+      DB_PORT: { secrets.DB_PORT }
+      DB_DROPSCHEMA: { secrets.DB_DROPSCHEMA }
+      DB_SSL: { secrets.DB_SSL }
+      ACCESS_TOKEN_SECRET_KEY: { secrets.ACCESS_TOKEN_SECRET_KEY }
+      REFRESH_TOKEN_SECRET_KEY: { secrets.REFRESH_TOKEN_SECRET_KEY }
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
