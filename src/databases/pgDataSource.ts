@@ -9,7 +9,7 @@ const pgDataSource = new DataSource({
   username: DB_USER,
   password: DB_PASSWORD,
   database: DB_DATABASE,
-  dropSchema: DB_DROPSCHEMA as unknown as boolean,
+  dropSchema: JSON.parse(DB_DROPSCHEMA),
   synchronize: true,
   logging: false,
   ssl: DB_SSL,
