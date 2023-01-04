@@ -10,6 +10,7 @@ const authRoute = new AuthRoute();
 
 beforeEach(async () => {
   await pgDataSource.initialize();
+  console.log('pgDataSource connected');
 });
 
 afterEach(async () => {
