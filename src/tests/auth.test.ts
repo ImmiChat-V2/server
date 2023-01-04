@@ -1,17 +1,22 @@
 import App from '@/app';
 import request from 'supertest';
 import { AuthRoute } from '@/routes';
-import { pgDataSource, testpgDataSource } from '@databases';
+import { pgDataSource } from '@databases';
 import { RegisterUserRequestDto } from '@dtos';
 import { UserEntity } from '@entities';
 
 const app = new App([new AuthRoute()]);
 const authRoute = new AuthRoute();
 
+beforeEach(async () => {
+  await pgDataSource.initialize();
+});
+
+afterEach(async () => {
+  await pgDataSource.destroy();
+});
+
 describe('Testing Authentication Endpoints', () => {
-  beforeAll(async () => {
-    await testpgDataSource.initialize();
-  });
   describe('[POST] /register', () => {
     const userData: RegisterUserRequestDto = {
       email: `test@email.com`,
@@ -32,8 +37,5 @@ describe('Testing Authentication Endpoints', () => {
       UserEntity.findOne = jest.fn().mockReturnValue(true);
       return request(app.getServer()).post(`${authRoute.path}register`).send(userData).expect(409);
     });
-  });
-  afterAll(async () => {
-    await testpgDataSource.destroy();
   });
 });
