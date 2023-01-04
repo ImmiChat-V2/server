@@ -9,7 +9,7 @@ const testpgDataSource = new DataSource({
   username: tDB_USER,
   password: tDB_PASSWORD,
   database: tDB_DATABASE,
-  dropSchema: tDB_DROPSCHEMA as unknown as boolean,
+  dropSchema: JSON.parse(tDB_DROPSCHEMA),
   synchronize: true,
   logging: false,
   entities: [join(__dirname, '../entities/sql/*.entity{.ts,.js}')],
