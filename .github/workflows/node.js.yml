@@ -18,6 +18,7 @@ jobs:
       DB_USERNAME : immi_user
       DB_PASSWORD : 728u0NaBqjkKDthf1Kf3BamuFHPnCMdM
       DB_PORT : 5432
+      DB_DROPSCHEMA : false
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
