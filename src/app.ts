@@ -9,7 +9,7 @@ import cookieParser from 'cookie-parser';
 import { NODE_ENV, PORT, ORIGIN, CREDENTIALS } from '@config';
 import { Routes } from '@/interfaces';
 import { ErrorMiddleware } from '@/middlewares';
-import { pgDataSource, mongoDataSource } from '@/databases';
+import { pgDataSource, testpgDataSource, mongoDataSource } from '@/databases';
 
 class App {
   public readonly app: express.Application;
@@ -59,7 +59,7 @@ class App {
 
   private async initializeDataSource() {
     try {
-      await pgDataSource.initialize();
+      await testpgDataSource.initialize();
     } catch (error) {
       console.error(error);
     }

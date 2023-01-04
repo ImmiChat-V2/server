@@ -13,12 +13,13 @@ const authService = new AuthService();
 
 const testCookie = authService.createTestCookie();
 beforeEach(async () => {
-  await pgDataSource.initialize();
-  console.log('pgDataSource connected');
+  testpgDataSource.initialize().then(() => {
+    console.log('testing data source connected');
+  });
 });
 
 afterEach(async () => {
-  await pgDataSource.destroy();
+  await testpgDataSource.destroy();
 });
 
 describe('Testing Authentication Endpoints', () => {
