@@ -1,5 +1,6 @@
 import App from '@/app';
 import { AuthRoute } from '@/routes';
+import { AuthService } from '@/services';
 import { pgDataSource } from '@databases';
 import { LoginUserRequestDto, RegisterUserRequestDto } from '@dtos';
 import { UserEntity } from '@entities';
@@ -8,7 +9,9 @@ import request from 'supertest';
 
 const app = new App([new AuthRoute()]);
 const authRoute = new AuthRoute();
+const authService = new AuthService();
 
+const testCookie = authService.createTestCookie();
 beforeEach(async () => {
   await pgDataSource.initialize();
 });
@@ -57,6 +60,11 @@ describe('Testing Authentication Endpoints', () => {
       UserEntity.findOne = jest.fn().mockReturnValue(true);
       bcrypt.compare = jest.fn().mockReturnValue(false);
       return request(app.getServer()).post(`${authRoute.path}login`).send(userData).expect(409);
+    });
+  });
+  describe('[POST] /logout', () => {
+    it('successfully authenticates user', () => {
+      return request(app.getServer()).post(`${authRoute.path}logout`).set('Cookie', [testCookie]).expect(200);
     });
   });
 });
