@@ -13,3 +13,6 @@ export interface TokenData {
 export interface RequestWithUser extends Request {
   user: AuthenticateUserRequestDto;
 }
+
+export type TokenType = 'access' | 'refresh' | 'shortSpanTestAccess' | 'shortSpanTestRefresh'
+export type CookieType = 'access' | 'refresh'
