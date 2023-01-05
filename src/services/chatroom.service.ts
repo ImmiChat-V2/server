@@ -8,7 +8,7 @@ class ChatroomService {
     const chatroom = model('Chatroom', ChatroomSchema);
     const userList = [userId].concat(receiverIds);
     const checkExist = await chatroom.exists({ users: userList });
-    if (checkExist) throw new HttpException(409, 'Chatroom Exists');
+    if (checkExist) throw new HttpException(409, 'Chatroom exists');
     await new chatroom({
       isGroup: isGroup,
       users: userList,
