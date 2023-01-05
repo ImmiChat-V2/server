@@ -19,7 +19,7 @@ class ChatroomService {
   public async getAllChatrooms(userId: number): Promise<BaseChatroomDto[]> {
     const chatroom = model('Chatroom', ChatroomSchema);
     const getAllChat: BaseChatroomDto[] = await chatroom.find({ users: { $in: userId } });
-    if (getAllChat.length === 0) throw new HttpException(404, 'No Chats found');
+    if (getAllChat.length === 0) throw new HttpException(404, 'No chats found');
     return getAllChat;
   }
 }
