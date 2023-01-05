@@ -4,7 +4,7 @@ import { HttpException } from '@/exceptions';
 import { model } from 'mongoose';
 
 class ChatroomService {
-  public async createChatroom({ userId, receiverIds, isGroup }: gCreateChatroomDto): Promise<void> {
+  public async createChatroom({ userId, receiverIds, isGroup }: CreateChatroomDto): Promise<void> {
     const chatroom = model('Chatroom', ChatroomSchema);
     const userList = [userId].concat(receiverIds);
     const checkExist = await chatroom.exists({ users: userList });
