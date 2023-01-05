@@ -16,14 +16,12 @@ const testRefreshCookie = authService.createTestCookie('refresh', 'refresh');
 const testAccessCookieShortSpan = authService.createTestCookie('shortSpanTestAccess', 'access');
 const testRefreshCookieShortSpan = authService.createTestCookie('shortSpanTestRefresh', 'access');
 
-//Time out is set to ensure that short span cookies will expire
-setTimeout(() => {}, 1500);
-
 beforeEach(async () => {
   await pgDataSource.initialize();
 });
 
 afterEach(async () => {
+  setTimeout(() => {}, 500);
   await pgDataSource.destroy();
 });
 

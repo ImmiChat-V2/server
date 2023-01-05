@@ -19,8 +19,8 @@ class AuthService extends Repository<UserEntity> {
     const [expiresIn, secretKey] = (() => {
       if (type === 'access') return ['600000', ACCESS_TOKEN_SECRET_KEY];
       else if (type === 'refresh') return ['30 days', REFRESH_TOKEN_SECRET_KEY];
-      else if (type === 'shortSpanTestAccess') return ['1000', ACCESS_TOKEN_SECRET_KEY];
-      else return ['1000', REFRESH_TOKEN_SECRET_KEY];
+      else if (type === 'shortSpanTestAccess') return ['0', ACCESS_TOKEN_SECRET_KEY];
+      else return ['0', REFRESH_TOKEN_SECRET_KEY];
     })();
     return { expiresIn, token: sign({ ...data }, secretKey, { expiresIn }) };
   }
