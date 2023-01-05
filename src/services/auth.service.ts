@@ -66,6 +66,20 @@ class AuthService extends Repository<UserEntity> {
     const refreshTokenCookie = this.createCookie(refreshToken, 'refresh');
     return { accessTokenCookie, refreshTokenCookie, data: userResponse };
   }
+  public createTestCookie() {
+    const mockUser: BaseUserResponseDTO = {
+      id: 1,
+      email: 'test@email.com',
+      firstName: 'test',
+      lastName: 'test',
+      language: 'language',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    const testToken = this.createToken(mockUser, 'access');
+    const testCookie = this.createCookie(testToken, 'access');
+    return testCookie;
+  }
 }
 
 export default AuthService;
