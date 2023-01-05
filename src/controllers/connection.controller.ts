@@ -19,7 +19,7 @@ class ConnectionController {
       const senderId = req.user.id;
       const receiverId = Number(req.params.user_id);
       const data = await this.connectionService.sendConnectionRequest({ senderId, receiverId });
-      return res.status(201).json({ data });
+      return res.status(201).json({ data, message: 'Connection request sent.' });
     } catch (error) {
       next(error);
     }
@@ -29,7 +29,7 @@ class ConnectionController {
       const senderId = Number(req.params.user_id);
       const receiverId = req.user.id;
       const data = await this.connectionService.acceptConnectionRequest({ senderId, receiverId });
-      return res.status(201).json({ data });
+      return res.status(201).json({ data, message: 'Connection accepted.' });
     } catch (error) {
       next(error);
     }
