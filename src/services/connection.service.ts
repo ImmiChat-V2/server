@@ -1,6 +1,7 @@
 import { ConnectionsEntity } from '@/entities';
-import { GetUserConnectionsResponseDto } from '@/dtos';
-import { pgDataSource } from '@/databases';
+import { BaseConnectionsDto, GetUserConnectionsResponseDto, CUDConnectionRequestDto } from '@/dtos';
+import { HttpException } from '@/exceptions';
+import { updateAndReturn, deleteAndReturn } from '@/utils/queryBuilderUtils';
 
 class ConnectionService {
   public async getUserConnections(userId: number): Promise<GetUserConnectionsResponseDto> {
@@ -22,6 +23,44 @@ class ConnectionService {
       return { id, connected, connectionInfo };
     });
     return userConnections;
+  }
+  public async sendConnectionRequest(data: CUDConnectionRequestDto): Promise<BaseConnectionsDto> {
+    const { senderId, receiverId } = data;
+    const connectionRequest = await ConnectionsEntity.findOne({
+      where: [
+        { senderId, receiverId },
+        { senderId: receiverId, receiverId: senderId },
+      ],
+    });
+    if (connectionRequest) throw new HttpException(409, 'This connection already exists');
+    const newRequest: BaseConnectionsDto = await ConnectionsEntity.create({ ...data, connected: false }).save();
+    return newRequest;
+  }
+
+  public async acceptConnectionRequest(data: CUDConnectionRequestDto): Promise<BaseConnectionsDto> {
+    const { senderId, receiverId } = data;
+    const connectionRequest = await ConnectionsEntity.findOne({
+      where: { senderId, receiverId },
+    });
+    if (!connectionRequest) throw new HttpException(404, "This connection doesn't exist");
+    const { id, connected } = connectionRequest;
+    if (connected) throw new HttpException(409, 'Connection already exists');
+    const acceptedConnectionRequest = await updateAndReturn<BaseConnectionsDto, { connected: boolean }>(id, { connected: true }, ConnectionsEntity);
+    return acceptedConnectionRequest;
+  }
+
+  public async removeConnection(data: CUDConnectionRequestDto): Promise<BaseConnectionsDto> {
+    const { senderId, receiverId } = data;
+    const connection = await ConnectionsEntity.findOne({
+      where: [
+        { senderId, receiverId },
+        { senderId: receiverId, receiverId: senderId },
+      ],
+    });
+    if (!connection) throw new HttpException(404, "This connection doesn't exist");
+    const { id } = connection;
+    const removedConnection = await deleteAndReturn<BaseConnectionsDto>(id, ConnectionsEntity);
+    return removedConnection;
   }
 }
 

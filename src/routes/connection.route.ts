@@ -14,6 +14,9 @@ class ConnectionRoute implements Routes {
 
   private initializeRoutes() {
     this.router.get(`/users/:user_id${this.path}`, AuthMiddleware, this.connectionController.getUserConnections);
+    this.router.post(`/users/:user_id${this.path}`, AuthMiddleware, this.connectionController.sendConnectionRequest);
+    this.router.put(`/users/:user_id${this.path}`, AuthMiddleware, this.connectionController.acceptConnectionRequest);
+    this.router.delete(`/users/:user_id${this.path}`, AuthMiddleware, this.connectionController.removeConnection);
   }
 }
 
