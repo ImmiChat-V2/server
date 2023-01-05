@@ -11,7 +11,7 @@ class MessageService {
     return findChatroom.messages;
   }
 
-  public async createChatroomMessage(id: ObjectId, userId: number, messageData: CreateMessageDto): Promise<void> {
+  public async createChatroomMessage({ id, userId, messageData }: { id: ObjectId; userId: number; messageData: CreateMessageDto }): Promise<void> {
     const chatroom = model('Chatroom', ChatroomSchema);
     const message = model('Message', MessageSchema);
     const findChatroom = await chatroom.findOne({ id });
