@@ -39,7 +39,7 @@ class ConnectionController {
       const senderId = req.user.id;
       const receiverId = Number(req.params.user_id);
       const data = await this.connectionService.removeConnection({ senderId, receiverId });
-      return res.status(200).json({ data });
+      return res.status(200).json({ data, message: 'Connection removed.' });
     } catch (error) {
       next(error);
     }
