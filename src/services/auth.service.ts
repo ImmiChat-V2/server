@@ -14,12 +14,12 @@ class AuthService extends Repository<UserEntity> {
     super();
   }
 
-  public createToken(data: BaseUserResponseDTO, type: 'access' | 'refresh'): TokenData {
+  public createToken(data: BaseUserResponseDTO, type: 'access' | 'refresh' | 'shortSpanTestAccess' | 'shortSpanTestRefresh'): TokenData {
     const [expiresIn, secretKey] = (() => {
-      if (type === 'access') {
-        return ['600000', ACCESS_TOKEN_SECRET_KEY];
-      }
-      return ['30 days', REFRESH_TOKEN_SECRET_KEY];
+      if (type === 'access') return ['600000', ACCESS_TOKEN_SECRET_KEY];
+      else if (type === 'refresh') return ['30 days', REFRESH_TOKEN_SECRET_KEY];
+      else if (type === 'shortSpanTestAccess') return ['1000', ACCESS_TOKEN_SECRET_KEY];
+      else return ['1000', REFRESH_TOKEN_SECRET_KEY];
     })();
     return { expiresIn, token: sign({ ...data }, secretKey, { expiresIn }) };
   }
@@ -66,7 +66,7 @@ class AuthService extends Repository<UserEntity> {
     const refreshTokenCookie = this.createCookie(refreshToken, 'refresh');
     return { accessTokenCookie, refreshTokenCookie, data: userResponse };
   }
-  public createTestCookie() {
+  public createTestCookie(tokenType: 'access' | 'refresh' | 'shortSpanTestAccess' | 'shortSpanTestRefresh', cookieType: 'access' | 'refresh') {
     const mockUser: BaseUserResponseDTO = {
       id: 1,
       email: 'test@email.com',
@@ -76,9 +76,9 @@ class AuthService extends Repository<UserEntity> {
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-    const testToken = this.createToken(mockUser, 'access');
-    const testCookie = this.createCookie(testToken, 'access');
-    return testCookie;
+    const testToken = this.createToken(mockUser, tokenType);
+    if (cookieType === 'access') return this.createCookie(testToken, 'access');
+    return this.createCookie(testToken, 'refresh');
   }
 }
 
