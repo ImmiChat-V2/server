@@ -1,7 +1,7 @@
 import { ConnectionsEntity } from '@/entities';
-import { BaseConnectionsDto, GetUserConnectionsResponseDto, SendOrAcceptConnectionRequestDto } from '@/dtos';
+import { BaseConnectionsDto, GetUserConnectionsResponseDto, CUDConnectionRequestDto } from '@/dtos';
 import { HttpException } from '@/exceptions';
-import { updateAndReturn } from '@/utils/queryBuilderUtils';
+import { updateAndReturn, deleteAndReturn } from '@/utils/queryBuilderUtils';
 
 class ConnectionService {
   public async getUserConnections(userId: number): Promise<GetUserConnectionsResponseDto> {
@@ -24,7 +24,7 @@ class ConnectionService {
     });
     return userConnections;
   }
-  public async sendConnectionRequest(data: SendOrAcceptConnectionRequestDto): Promise<BaseConnectionsDto> {
+  public async sendConnectionRequest(data: CUDConnectionRequestDto): Promise<BaseConnectionsDto> {
     const { senderId, receiverId } = data;
     const connectionRequest = await ConnectionsEntity.findOne({
       where: [
@@ -37,7 +37,7 @@ class ConnectionService {
     return newRequest;
   }
 
-  public async acceptConnectionRequest(data: SendOrAcceptConnectionRequestDto): Promise<BaseConnectionsDto> {
+  public async acceptConnectionRequest(data: CUDConnectionRequestDto): Promise<BaseConnectionsDto> {
     const { senderId, receiverId } = data;
     const connectionRequest = await ConnectionsEntity.findOne({
       where: { senderId, receiverId },
@@ -47,6 +47,20 @@ class ConnectionService {
     if (connected) throw new HttpException(409, 'Connection already exists');
     const acceptedConnectionRequest = await updateAndReturn<BaseConnectionsDto, { connected: boolean }>(id, { connected: true }, ConnectionsEntity);
     return acceptedConnectionRequest;
+  }
+
+  public async removeConnection(data: CUDConnectionRequestDto): Promise<BaseConnectionsDto> {
+    const { senderId, receiverId } = data;
+    const connection = await ConnectionsEntity.findOne({
+      where: [
+        { senderId, receiverId },
+        { senderId: receiverId, receiverId: senderId },
+      ],
+    });
+    if (!connection) throw new HttpException(404, "This connection doesn't exist");
+    const { id } = connection;
+    const removedConnection = await deleteAndReturn<BaseConnectionsDto>(id, ConnectionsEntity);
+    return removedConnection;
   }
 }
 
