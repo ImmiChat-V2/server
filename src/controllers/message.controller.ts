@@ -21,8 +21,8 @@ class MessageController {
     try {
       const id = req.params.chat_id as unknown as ObjectId;
       const userId = req.user.id;
-      const message: CreateMessageDto = req.body;
-      await this.messageService.createChatroomMessage(id, userId, message);
+      const messageData: CreateMessageDto = req.body;
+      await this.messageService.createChatroomMessage({ id, userId, messageData });
       res.status(200).json({ message: 'Message sent' });
     } catch (error) {
       next(error);

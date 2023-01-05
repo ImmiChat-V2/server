@@ -11,5 +11,5 @@ export {
 } from './users.dto';
 export { BaseConnectionsDto, GetUserConnectionsResponseDto } from './connections.dto';
 export { BasePostOfFeedDTO } from './feed.dto';
-export { BaseChatroomDto } from './chatrooms.dto';
+export { BaseChatroomDto, CreateChatroomDto } from './chatrooms.dto';
 export { BaseMessageDto, CreateMessageDto } from './messages.dto';
