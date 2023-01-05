@@ -1,9 +1,10 @@
 import App from '@/app';
-import request from 'supertest';
 import { AuthRoute } from '@/routes';
 import { pgDataSource } from '@databases';
-import { RegisterUserRequestDto } from '@dtos';
+import { LoginUserRequestDto, RegisterUserRequestDto } from '@dtos';
 import { UserEntity } from '@entities';
+import bcrypt from 'bcrypt';
+import request from 'supertest';
 
 const app = new App([new AuthRoute()]);
 const authRoute = new AuthRoute();
@@ -33,9 +34,29 @@ describe('Testing Authentication Endpoints', () => {
       });
       return request(app.getServer()).post(`${authRoute.path}register`).send(userData).expect(201);
     });
-    it('respond with a 409 status code if the email already exists', () => {
+    it('responds with a 409 status code if the email already exists', () => {
       UserEntity.findOne = jest.fn().mockReturnValue(true);
       return request(app.getServer()).post(`${authRoute.path}register`).send(userData).expect(409);
+    });
+  });
+  describe('[POST] /login', () => {
+    const userData: LoginUserRequestDto = {
+      email: `test@email.com`,
+      password: 'password',
+    };
+    it('successfully authenticates user', () => {
+      UserEntity.findOne = jest.fn().mockReturnValue(true);
+      bcrypt.compare = jest.fn().mockReturnValue(true);
+      return request(app.getServer()).post(`${authRoute.path}login`).send(userData).expect(200);
+    });
+    it("responds with a 404 status code if user doesn't exist", () => {
+      UserEntity.findOne = jest.fn().mockReturnValue(false);
+      return request(app.getServer()).post(`${authRoute.path}login`).send(userData).expect(404);
+    });
+    it("responds with a 409 status code if passwords didn't match", () => {
+      UserEntity.findOne = jest.fn().mockReturnValue(true);
+      bcrypt.compare = jest.fn().mockReturnValue(false);
+      return request(app.getServer()).post(`${authRoute.path}login`).send(userData).expect(409);
     });
   });
 });
