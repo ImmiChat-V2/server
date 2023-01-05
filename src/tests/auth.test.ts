@@ -13,27 +13,15 @@ const authService = new AuthService();
 
 const testCookie = authService.createTestCookie();
 beforeEach(async () => {
-  pgDataSource.initialize().then(() => {
-    console.log('testing data source connected');
-  });
-});
-
-afterEach(async () => {
-  await pgDataSource.destroy();
-});
-
-beforeEach(async () => {
   await pgDataSource.initialize();
 });
 
 afterEach(async () => {
   await pgDataSource.destroy();
+  await new Promise<void>(resolve => setTimeout(() => resolve(), 500));
 });
 
 describe('Testing Authentication Endpoints', () => {
-  beforeAll(async () => {
-    await pgDataSource.initialize();
-  });
   describe('[POST] /register', () => {
     const userData: RegisterUserRequestDto = {
       email: `test@email.com`,
