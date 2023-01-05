@@ -23,7 +23,7 @@ class MessageController {
       const userId = req.user.id;
       const message: CreateMessageDto = req.body;
       await this.messageService.createChatroomMessage(id, userId, message);
-      res.status(200).json({ message: 'Message Sent' });
+      res.status(200).json({ message: 'Message sent' });
     } catch (error) {
       next(error);
     }
