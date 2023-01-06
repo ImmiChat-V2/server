@@ -23,7 +23,6 @@ const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFun
     req.user = userInfo;
     return next();
   } catch (error) {
-    console.error(error);
   }
 
   try {

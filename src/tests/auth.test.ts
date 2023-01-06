@@ -11,12 +11,17 @@ const app = new App([new AuthRoute()]);
 const authRoute = new AuthRoute();
 const authService = new AuthService();
 
-const testCookie = authService.createTestCookie();
+const testAccessCookie = authService.createTestCookie('access', 'access');
+const testRefreshCookie = authService.createTestCookie('refresh', 'refresh');
+const testAccessCookieShortSpan = authService.createTestCookie('shortSpanTestAccess', 'access');
+const testRefreshCookieShortSpan = authService.createTestCookie('shortSpanTestRefresh', 'access');
+
 beforeEach(async () => {
   await pgDataSource.initialize();
 });
 
 afterEach(async () => {
+  setTimeout(() => {}, 500);
   await pgDataSource.destroy();
 });
 
@@ -68,7 +73,31 @@ describe('Testing Authentication Endpoints', () => {
   });
   describe('[POST] /logout', () => {
     it('successfully authenticates user', () => {
-      return request(app.getServer()).post(`${authRoute.path}logout`).set('Cookie', [testCookie]).expect(200);
+      return request(app.getServer()).post(`${authRoute.path}logout`).set('Cookie', [testAccessCookie, testRefreshCookie]).expect(200);
+    });
+  });
+  describe('[POST] /validate-authentication', () => {
+    it('successfully validates a user with valid tokens', () => {
+      return request(app.getServer())
+        .post(`${authRoute.path}validate-authentication`)
+        .set('Cookie', [testAccessCookie, testRefreshCookie])
+        .expect(200);
+    });
+
+    it('successfully validates a user with valid refresh token and expired access token', () => {
+      return request(app.getServer())
+        .post(`${authRoute.path}validate-authentication`)
+        .set('Cookie', [testAccessCookieShortSpan, testRefreshCookie])
+        .expect(200);
+    });
+    it('returns 401 status code if access and refresh tokens are expired', () => {
+      return request(app.getServer())
+        .post(`${authRoute.path}validate-authentication`)
+        .set('Cookie', [testAccessCookieShortSpan, testRefreshCookieShortSpan])
+        .expect(401);
+    });
+    it('returns 401 status code if both access and refresh tokens are missing', () => {
+      return request(app.getServer()).post(`${authRoute.path}validate-authentication`).expect(401);
     });
   });
 });

@@ -6,6 +6,7 @@ import { UserEntity } from '@/entities';
 import { HttpException } from '@/exceptions';
 import { RegisterUserRequestDto, BaseUserResponseDTO, BaseUserDto, LoginUserRequestDto } from '@/dtos';
 import { ACCESS_TOKEN_SECRET_KEY, REFRESH_TOKEN_SECRET_KEY } from '@/config';
+import { CookieType, TokenType } from '@/interfaces/auth.interface';
 
 class AuthService extends Repository<UserEntity> {
   constructor() {
@@ -14,17 +15,17 @@ class AuthService extends Repository<UserEntity> {
     super();
   }
 
-  public createToken(data: BaseUserResponseDTO, type: 'access' | 'refresh'): TokenData {
+  public createToken(data: BaseUserResponseDTO, type: TokenType): TokenData {
     const [expiresIn, secretKey] = (() => {
-      if (type === 'access') {
-        return ['600000', ACCESS_TOKEN_SECRET_KEY];
-      }
-      return ['30 days', REFRESH_TOKEN_SECRET_KEY];
+      if (type === 'access') return ['600000', ACCESS_TOKEN_SECRET_KEY];
+      else if (type === 'refresh') return ['30 days', REFRESH_TOKEN_SECRET_KEY];
+      else if (type === 'shortSpanTestAccess') return ['0', ACCESS_TOKEN_SECRET_KEY];
+      else return ['0', REFRESH_TOKEN_SECRET_KEY];
     })();
     return { expiresIn, token: sign({ ...data }, secretKey, { expiresIn }) };
   }
 
-  public createCookie(tokenData: TokenData, type: 'access' | 'refresh'): string {
+  public createCookie(tokenData: TokenData, type: CookieType): string {
     const { token, expiresIn } = tokenData;
     const tokenType = type === 'access' ? 'AccessToken' : 'RefreshToken';
     return `${tokenType}=${token}; HttpOnly; Max-Age=${expiresIn};`;
@@ -66,7 +67,7 @@ class AuthService extends Repository<UserEntity> {
     const refreshTokenCookie = this.createCookie(refreshToken, 'refresh');
     return { accessTokenCookie, refreshTokenCookie, data: userResponse };
   }
-  public createTestCookie() {
+  public createTestCookie(tokenType: TokenType, cookieType: CookieType) {
     const mockUser: BaseUserResponseDTO = {
       id: 1,
       email: 'test@email.com',
@@ -76,9 +77,9 @@ class AuthService extends Repository<UserEntity> {
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-    const testToken = this.createToken(mockUser, 'access');
-    const testCookie = this.createCookie(testToken, 'access');
-    return testCookie;
+    const testToken = this.createToken(mockUser, tokenType);
+    if (cookieType === 'access') return this.createCookie(testToken, 'access');
+    return this.createCookie(testToken, 'refresh');
   }
 }
 
