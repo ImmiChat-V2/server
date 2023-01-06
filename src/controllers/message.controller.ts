@@ -16,6 +16,18 @@ class MessageController {
       next(error);
     }
   };
+
+  public createChatroomMessage = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      const id = req.params.chat_id as unknown as ObjectId;
+      const userId = req.user.id;
+      const messageData: CreateMessageDto = req.body;
+      await this.messageService.createChatroomMessage({ id, userId, messageData });
+      res.status(200).json({ message: 'Message sent' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default MessageController;

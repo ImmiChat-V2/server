@@ -20,6 +20,10 @@ afterEach(async () => {
   await pgDataSource.destroy();
 });
 
+afterAll(async () => {
+  await new Promise<void>(resolve => setTimeout(() => resolve(), 500));
+});
+
 describe('Testing Authentication Endpoints', () => {
   describe('[POST] /register', () => {
     const userData: RegisterUserRequestDto = {
