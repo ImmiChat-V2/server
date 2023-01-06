@@ -12,7 +12,7 @@ const pgDataSource = new DataSource({
   dropSchema: JSON.parse(DB_DROPSCHEMA),
   synchronize: true,
   logging: false,
-  ssl: DB_SSL,
+  ssl: JSON.parse(DB_SSL),
   entities: [join(__dirname, '../entities/sql/*.entity{.ts,.js}')],
   migrations: [join(__dirname, '../**/*.migration{.ts,.js}')],
 } as DataSourceOptions);
