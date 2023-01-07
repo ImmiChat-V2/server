@@ -1,4 +1,4 @@
-import { BaseUserDto, BasePostDto } from '@/dtos';
+import { BaseUserDto, BasePostDto, BaseUserResponseDTO } from '@/dtos';
 import { UserEntity, PostEntity } from '@/entities';
 import { UpdateUserRequestDto } from '@/dtos/users.dto';
 import { HttpException } from '@/exceptions';
@@ -19,11 +19,12 @@ class UserService {
     return posts;
   }
 
-  public async getSpecificUserFromDB(userId: number): Promise<BaseUserDto> {
+  public async getSpecificUserFromDB(userId: number): Promise<BaseUserResponseDTO> {
     const user: BaseUserDto = await UserEntity.findOne({ where: { id: userId } });
-    if (!user) throw new HttpException(409, `USER WITH ID ${userId} DOES NOT EXIST`);
+    if (!user) throw new HttpException(409, `User with id ${userId} does not exist`);
+    const { password, ...userWithoutPass } = user;
 
-    return user;
+    return userWithoutPass;
   }
 
   public async updateUserFromDB(userId: number, userData: UpdateUserRequestDto): Promise<BaseUserDto> {

@@ -23,11 +23,6 @@ beforeEach(async () => {
 afterEach(async () => {
   setTimeout(() => {}, 500);
   await pgDataSource.destroy();
-  await new Promise<void>(resolve => setTimeout(() => resolve(), 500));
-});
-
-afterAll(async () => {
-  await new Promise<void>(resolve => setTimeout(() => resolve(), 500));
 });
 
 describe('Testing Authentication Endpoints', () => {
@@ -40,15 +35,15 @@ describe('Testing Authentication Endpoints', () => {
       language: 'language',
     };
     it('successfully registers a user', () => {
-      UserEntity.findOne = jest.fn().mockReturnValue(null);
-      UserEntity.save = jest.fn().mockReturnValue({
+      UserEntity.findOne = jest.fn().mockImplementation(() => null);
+      UserEntity.save = jest.fn().mockImplementation(() => ({
         id: 1,
         ...userData,
-      });
+      }));
       return request(app.getServer()).post(`${authRoute.path}register`).send(userData).expect(201);
     });
     it('responds with a 409 status code if the email already exists', () => {
-      UserEntity.findOne = jest.fn().mockReturnValue(true);
+      UserEntity.findOne = jest.fn().mockImplementation(() => true);
       return request(app.getServer()).post(`${authRoute.path}register`).send(userData).expect(409);
     });
   });
@@ -58,17 +53,17 @@ describe('Testing Authentication Endpoints', () => {
       password: 'password',
     };
     it('successfully authenticates user', () => {
-      UserEntity.findOne = jest.fn().mockReturnValue(true);
-      bcrypt.compare = jest.fn().mockReturnValue(true);
+      UserEntity.findOne = jest.fn().mockImplementation(() => true);
+      bcrypt.compare = jest.fn().mockImplementation(() => true);
       return request(app.getServer()).post(`${authRoute.path}login`).send(userData).expect(200);
     });
     it("responds with a 404 status code if user doesn't exist", () => {
-      UserEntity.findOne = jest.fn().mockReturnValue(false);
+      UserEntity.findOne = jest.fn().mockImplementation(() => false);
       return request(app.getServer()).post(`${authRoute.path}login`).send(userData).expect(404);
     });
     it("responds with a 409 status code if passwords didn't match", () => {
-      UserEntity.findOne = jest.fn().mockReturnValue(true);
-      bcrypt.compare = jest.fn().mockReturnValue(false);
+      UserEntity.findOne = jest.fn().mockImplementation(() => true);
+      bcrypt.compare = jest.fn().mockImplementation(() => false);
       return request(app.getServer()).post(`${authRoute.path}login`).send(userData).expect(409);
     });
   });
