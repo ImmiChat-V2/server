@@ -19,8 +19,9 @@ afterEach(async () => {
 
 describe('Testing User Endpoints', () => {
   describe('[GET] /users', () => {
+    const path = `${userRoute.path}`;
     it('successfully get all users', async () => {
-      return await sendTestRequestWithCookie({ app: server, path: `${userRoute.path}`, expectedStatusCode: 200 });
+      return await sendTestRequestWithCookie({ app: server, path, expectedStatusCode: 200 });
     });
   });
   describe('[GET] /users/:id', () => {
