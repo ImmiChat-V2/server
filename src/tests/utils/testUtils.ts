@@ -1,7 +1,6 @@
 import { AuthService } from '@/services';
 import request from 'supertest';
 import { Express } from 'express';
-import App from '@/app';
 
 const authService = new AuthService();
 const testAccessCookie = authService.createTestCookie('access', 'access');
