@@ -4,6 +4,7 @@ import { HttpException } from '@/exceptions';
 import { updateAndReturn, deleteAndReturn } from '@/utils/queryBuilderUtils';
 
 class ConnectionService {
+  /* jscpd:ignore-start */
   public async getUserConnections(userId: number): Promise<GetUserConnectionsResponseDto> {
     const connections = await ConnectionsEntity.find({
       select: {
@@ -24,6 +25,26 @@ class ConnectionService {
     });
     return userConnections;
   }
+
+  public async getAuthUserConnections(userId: number) {
+    const connections = await ConnectionsEntity.find({
+      select: {
+        sender: { id: true, firstName: true, lastName: true, profilePic: true },
+        receiver: { id: true, firstName: true, lastName: true, profilePic: true },
+        id: true,
+        connected: true,
+      },
+      relations: { sender: true, receiver: true },
+      where: [{ sender: { id: userId } }, { receiver: { id: userId } }],
+    });
+    const userConnections = connections.map(({ id, connected, sender, receiver }) => {
+      const status = sender.id === userId ? 'sender' : 'receiver';
+      const connectionInfo = sender.id === userId ? receiver : sender;
+      return { id, status, connected, connectionInfo };
+    });
+    return userConnections;
+  }
+  /* jscpd:ignore-end */
   public async sendConnectionRequest(data: CUDConnectionRequestDto): Promise<BaseConnectionsDto> {
     const { senderId, receiverId } = data;
     const connectionRequest = await ConnectionsEntity.findOne({

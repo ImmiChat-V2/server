@@ -21,6 +21,7 @@ beforeEach(async () => {
 });
 
 afterEach(async () => {
+  setTimeout(() => 500);
   await pgDataSource.destroy();
 });
 
