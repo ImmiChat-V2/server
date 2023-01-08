@@ -13,6 +13,7 @@ class ChatroomRoute implements Routes {
   }
 
   private initializeRoutes() {
+    this.router.get(`${this.path}`, AuthMiddleware, this.chatroomController.getAllChatrooms);
     this.router.post(`${this.path}`, AuthMiddleware, this.chatroomController.createChatroom);
   }
 }
