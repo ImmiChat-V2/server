@@ -7,8 +7,10 @@ class ConnectionController {
 
   public getUserConnections = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
+      const authUserId = req.user.id;
       const id = Number(req.params.user_id);
-      const data = await this.connectionService.getUserConnections(id);
+
+      const data = authUserId === id ? await this.connectionService.getAuthUserConnections(id) : await this.connectionService.getUserConnections(id);
       return res.status(200).json({ data });
     } catch (error) {
       next(error);
