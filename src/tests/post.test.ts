@@ -1,8 +1,8 @@
 import App from '@/app';
 import { pgDataSource } from '@/databases';
 import { PostRoute } from '@/routes';
-import { PostEntity } from '@/entities';
 import { sendTestRequestWithCookie } from './utils/testUtils';
+import { PostEntity } from '@/entities';
 
 const postRoute = new PostRoute();
 const app = new App([postRoute]);
