@@ -8,6 +8,7 @@ export {
   AuthenticateUserRequestDto,
   UsersLikedCommentsDto,
   UsersLikedPostDto,
+  UpdateUserRequestDto,
 } from './users.dto';
 export { BaseConnectionsDto, GetUserConnectionsResponseDto, CUDConnectionRequestDto } from './connections.dto';
 export { BasePostOfFeedDTO } from './feed.dto';

@@ -2,8 +2,9 @@ import App from '@/app';
 import { UserRoute } from '@/routes';
 import { pgDataSource } from '@databases';
 import { UserEntity } from '@/entities';
-import { BaseUserResponseDTO } from '@/dtos';
+import { BaseUserResponseDTO, UpdateUserRequestDto } from '@/dtos';
 import { sendTestRequestWithCookie } from './utils/testUtils';
+import { updateAndReturn } from '@/utils/queryBuilderUtils';
 
 const userRoute = new UserRoute();
 const app = new App([userRoute]);
@@ -42,8 +43,48 @@ describe('Testing User Endpoints', () => {
       UserEntity.findOne = jest.fn().mockImplementation(() => userData);
       return await sendTestRequestWithCookie({ app: server, path, expectedStatusCode: 200 });
     });
-    it('returns 409 status code if user is not found', async () => {
+    it('responds with a 409 status code if user is not found', async () => {
       UserEntity.findOne = jest.fn().mockImplementation(() => false);
+      return await sendTestRequestWithCookie({ app: server, path, expectedStatusCode: 409 });
+    });
+  });
+  describe('[PUT] /users/:id', () => {
+    const userData: BaseUserResponseDTO = {
+      id: 1,
+      firstName: 'firstName',
+      lastName: 'lastName',
+      email: 'test@email.com',
+      language: 'chinese',
+      dateOfBirth: null,
+      profilePic: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    const updatedUserData: UpdateUserRequestDto = {
+      id: userData.id,
+      firstName: 'FirstName',
+      lastName: 'LastName',
+      language: 'spanish'
+    }
+  
+    const path = `${userRoute.path}/${userData.id}`;
+    it('successfully gets a specific user', async () => {
+      UserEntity.findOne = jest.fn().mockImplementation(() => userData)
+      return await sendTestRequestWithCookie({ app: server, path, expectedStatusCode: 200})
+    })
+    it('successfully updates information of a specific user', async () => {
+      // let info = updateAndReturn<BaseUserResponseDTO, UpdateUserRequestDto>(updatedUserData.id, userData, UserEntity) 
+      // info = jest.fn().mockImplementation(() => userData)
+      // UserEntity.update(userData.id, {...updatedUserData})
+      UserEntity.update = jest.fn().mockImplementation(() => ({
+        id: userData.id,
+        ...updatedUserData
+      }))
+      // UserEntity.createQueryBuilder().update().where({ id: userData.id }).set(updatedUserData).returning('*').execute() ;
+      return await sendTestRequestWithCookie({ app: server, path, expectedStatusCode: 200})
+    });
+    it('responds with a 409 status code if user is not found', async () => {
+      UserEntity.findOne = jest.fn().mockImplementation(() => false)
       return await sendTestRequestWithCookie({ app: server, path, expectedStatusCode: 409 });
     });
   });
