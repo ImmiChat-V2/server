@@ -6,6 +6,7 @@ export type BaseUserDto = {
   readonly lastName: string;
   readonly language: string;
   readonly profilePic?: string;
+  readonly coverPic?: string;
   readonly dateOfBirth?: Date;
   readonly updatedAt: Date;
   readonly createdAt: Date;
