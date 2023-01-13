@@ -31,7 +31,7 @@ describe('Testing Post Endpoints', () => {
       content: 'Hello',
       categoryName: 'All',
     };
-    const path = `${postRoute.path}/${[postData.id]}`;
+    const path = `${postRoute.path}/${postData.id}`;
     it('successfully gets a single post', async () => {
       PostEntity.findOne = jest.fn().mockImplementation(() => postData);
       return await sendTestRequestWithCookie({ app: server, path, expectedStatusCode: 200 });
