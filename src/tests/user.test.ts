@@ -1,8 +1,8 @@
 import App from '@/app';
 import { UserRoute } from '@/routes';
 import { pgDataSource } from '@databases';
-import { UserEntity } from '@/entities';
-import { BaseUserResponseDTO } from '@/dtos';
+import { UserEntity, PostEntity } from '@/entities';
+import { BaseUserResponseDTO, BasePostDto } from '@/dtos';
 import { sendTestRequestWithCookie } from './utils/testUtils';
 
 const userRoute = new UserRoute();
@@ -45,6 +45,34 @@ describe('Testing User Endpoints', () => {
     it('returns 409 status code if user is not found', async () => {
       UserEntity.findOne = jest.fn().mockImplementation(() => false);
       return await sendTestRequestWithCookie({ app: server, path, expectedStatusCode: 409 });
+    });
+  });
+  describe('[GET] /users/:user_id/posts', () => {
+    const userPostsData: BasePostDto[] = [
+      {
+        id: 1,
+        userId: 1,
+        content: 'Hello World 1',
+        categoryName: 'Testing',
+      },
+      {
+        id: 2,
+        userId: 1,
+        content: 'Hello World 2',
+        categoryName: 'Testing',
+      },
+      {
+        id: 3,
+        userId: 1,
+        content: 'Hello World 3',
+        categoryName: 'Testing',
+      },
+    ];
+    const path = `${userRoute.path}/1/posts`;
+
+    it('successfully got all posts made by specified user', async () => {
+      PostEntity.find = jest.fn().mockImplementation(() => userPostsData);
+      return await sendTestRequestWithCookie({ app: server, path, expectedStatusCode: 200 });
     });
   });
 });
