@@ -4,6 +4,8 @@ export type BasePostDto = {
   readonly userId: number;
   readonly content: string;
   readonly categoryName: string;
+  readonly createdAt: Date;
+  readonly updatedAt: Date;
 };
 
 export type UpdatePostRequestDto = {
