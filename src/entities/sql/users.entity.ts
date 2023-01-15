@@ -27,6 +27,9 @@ class UserEntity extends BaseEntity {
   @Column({ nullable: true })
   profilePic: string;
 
+  @Column({ nullable: true })
+  coverPic: string;
+
   @Column()
   @CreateDateColumn()
   createdAt: Date;
