@@ -14,7 +14,7 @@ export type UpdatePostRequestDto = {
   readonly categoryName?: string;
 };
 
-export type CreatePostRequestDto = Omit<BasePostDto, 'id'>;
+export type CreatePostRequestDto = Omit<BasePostDto, 'id' | 'createdAt' | 'updatedAt'>;
 export type DeletePostRequestDto = Pick<BasePostDto, 'id' | 'userId'>;
 
 export type LikePostDto = Pick<BasePostDto, 'id' | 'userId'>;
