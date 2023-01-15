@@ -3,7 +3,7 @@ import { UserRoute } from '@/routes';
 import { pgDataSource } from '@databases';
 import { UserEntity } from '@/entities';
 import { BaseUserResponseDTO } from '@/dtos';
-import { sendTestRequestWithCookie } from './utils/testUtils';
+import { requestWithCookie } from './utils/testUtils';
 
 const userRoute = new UserRoute();
 const app = new App([userRoute]);
@@ -21,7 +21,7 @@ describe('Testing User Endpoints', () => {
   describe('[GET] /users', () => {
     const path = `${userRoute.path}`;
     it('successfully get all users', async () => {
-      return await sendTestRequestWithCookie({ app: server, path, expectedStatusCode: 200 });
+      return await requestWithCookie({ app: server, path }).expect(200);
     });
   });
   describe('[GET] /users/:id', () => {
@@ -40,11 +40,11 @@ describe('Testing User Endpoints', () => {
 
     it('successfully gets a specific user', async () => {
       UserEntity.findOne = jest.fn().mockImplementation(() => userData);
-      return await sendTestRequestWithCookie({ app: server, path, expectedStatusCode: 200 });
+      return await requestWithCookie({ app: server, path }).expect(200);
     });
     it('returns 409 status code if user is not found', async () => {
       UserEntity.findOne = jest.fn().mockImplementation(() => false);
-      return await sendTestRequestWithCookie({ app: server, path, expectedStatusCode: 409 });
+      return await requestWithCookie({ app: server, path }).expect(409);
     });
   });
 });

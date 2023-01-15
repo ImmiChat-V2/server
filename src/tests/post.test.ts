@@ -1,8 +1,7 @@
 import App from '@/app';
 import { pgDataSource } from '@/databases';
 import { PostRoute } from '@/routes';
-import { sendTestRequestWithCookie } from './utils/testUtils';
-import { PostEntity } from '@/entities';
+import { requestWithCookie } from './utils/testUtils';
 
 const postRoute = new PostRoute();
 const app = new App([postRoute]);
@@ -20,7 +19,7 @@ describe('Testing Post Endpoints', () => {
   describe('[GET] /posts', () => {
     const path = `${postRoute.path}`;
     it('successfully get all posts', async () => {
-      return await sendTestRequestWithCookie({ app: server, path, expectedStatusCode: 200 });
+      return await requestWithCookie({ app: server, path }).expect(200);
     });
   });
 });
