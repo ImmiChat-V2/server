@@ -15,7 +15,7 @@ export const requestWithCookie = ({ app, path }: RequestWithCookieType) => {
   return request(app).get(path).set('Cookie', [testAccessCookie]);
 };
 
-const userSeedData: RegisterUserRequestDto[] = [
+export const userSeedData: RegisterUserRequestDto[] = [
   {
     email: 'test1@gmail.com',
     password: '123',
@@ -38,14 +38,14 @@ const userSeedData: RegisterUserRequestDto[] = [
     language: 'Chinese',
   },
 ];
-const postSeedData: CreatePostRequestDto[] = [
+export const postSeedData: CreatePostRequestDto[] = [
   { userId: 1, content: 'Post 1', categoryName: 'All' },
   { userId: 1, content: 'Post 2', categoryName: 'All' },
   { userId: 1, content: 'Post 3', categoryName: 'All' },
   { userId: 2, content: 'Post 4', categoryName: 'All' },
 ];
 
-const commentSeedData: CreateCommentRequestDto[] = [
+export const commentSeedData: CreateCommentRequestDto[] = [
   { userId: 1, postId: 1, content: 'comment on post 1' },
   { userId: 1, postId: 4, content: 'comment on post 4' },
   { userId: 2, postId: 2, content: 'comment on post 2' },
