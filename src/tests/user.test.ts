@@ -3,7 +3,7 @@ import { UserRoute } from '@/routes';
 import { pgDataSource } from '@databases';
 import { UserEntity } from '@/entities';
 import { BaseUserResponseDTO } from '@/dtos';
-import { sendTestRequestWithCookie } from './utils/testUtils';
+import { sendTestRequestWithCookie, seedingTest } from './utils/testUtils';
 
 const userRoute = new UserRoute();
 const app = new App([userRoute]);
@@ -11,6 +11,7 @@ const server = app.getServer();
 
 beforeEach(async () => {
   await pgDataSource.initialize();
+  await seedingTest();
 });
 
 afterEach(async () => {
