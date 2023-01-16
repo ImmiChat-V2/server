@@ -10,5 +10,5 @@ module.exports = {
     '^.+\\.tsx?$': 'ts-jest'
   },
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/src' }),
-  "testTimeout": 10000
+  testTimeout: 10000
 }
