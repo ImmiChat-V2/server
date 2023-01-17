@@ -13,7 +13,7 @@ class UserService {
   public async getPostsByUser(userId: number): Promise<BasePostDto[]> {
     const posts: BasePostDto[] = await PostEntity.find({
       where: {
-        id: userId,
+        userId,
       },
     });
     return posts;
