@@ -10,6 +10,9 @@ class FeedService {
         comments: { userId: true },
         user: { firstName: true, lastName: true, profilePic: true },
       },
+      order: {
+        updatedAt: 'DESC',
+      },
     })) as unknown as BasePostOfFeedDTO[];
     return feed;
   }
