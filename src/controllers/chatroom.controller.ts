@@ -6,7 +6,7 @@ import { BaseChatroomDto } from '@/dtos';
 class ChatroomController {
   private chatroomService = new ChatroomService();
 
-  public getAllChatrooms = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+  public createChatroom = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
       const userId = req.user.id;
       const receiverIds = req.body.receiverIds;
@@ -17,7 +17,7 @@ class ChatroomController {
       next(error);
     }
   };
-  public createChatroom = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+  public getAllChatrooms = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
       const userId = req.user.id;
       const data: BaseChatroomDto[] = await this.chatroomService.getAllChatrooms(userId);
