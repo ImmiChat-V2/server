@@ -14,7 +14,6 @@ import { pgDataSource } from '@/databases';
 class CommentService {
   public async getComments(): Promise<BaseCommentDto[]> {
     const comments: BaseCommentDto[] = await CommentEntity.find();
-    if (comments.length === 0) throw new HttpException(404, 'No Comments Found');
     return comments;
   }
 
