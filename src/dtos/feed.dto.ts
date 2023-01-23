@@ -13,3 +13,7 @@ type UserInfo = {
   readonly lastName: string;
   readonly profilePic?: string;
 };
+
+export type ProfileFeed = {
+  readonly userId?: number;
+};

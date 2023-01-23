@@ -7,7 +7,7 @@ class FeedController {
 
   public getFeed = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const data: BasePostOfFeedDTO[] = await this.feedService.getFeed(req.params.user_id ? +req.params.user_id : null);
+      const data: BasePostOfFeedDTO[] = await this.feedService.getFeed({ userId: Number(req.params.user_id) });
       res.status(200).json({ data });
     } catch (err) {
       next(err);
