@@ -13,7 +13,7 @@ class FeedRoute implements Routes {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}`, AuthMiddleware, this.feedController.getFeed);
+    this.router.get(`${this.path}/:user_id?`, AuthMiddleware, this.feedController.getFeed);
   }
 }
 

@@ -1,4 +1,4 @@
-import { BaseUserDto, BasePostDto, BaseUserResponseDTO, BasePostOfFeedDTO } from '@/dtos';
+import { BaseUserDto, BasePostDto, BaseUserResponseDTO } from '@/dtos';
 import { UpdateUserRequestDto } from '@/dtos/users.dto';
 import UserService from '@/services/users.service';
 import { NextFunction, Request, Response } from 'express';
@@ -18,7 +18,7 @@ class UsersController {
   public getPostsByUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const userId = Number(req.params.user_id);
-      const data: BasePostOfFeedDTO[] = await this.usersService.getPostsByUser(userId);
+      const data: BasePostDto[] = await this.usersService.getPostsByUser(userId);
       res.status(200).json({ data });
     } catch (error) {
       next(error);

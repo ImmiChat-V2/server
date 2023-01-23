@@ -1,4 +1,4 @@
-import { BaseUserDto, BasePostDto, BaseUserResponseDTO, BasePostOfFeedDTO } from '@/dtos';
+import { BaseUserDto, BasePostDto, BaseUserResponseDTO } from '@/dtos';
 import { UserEntity, PostEntity } from '@/entities';
 import { UpdateUserRequestDto } from '@/dtos/users.dto';
 import { HttpException } from '@/exceptions';
@@ -10,19 +10,10 @@ class UserService {
     return users;
   }
 
-  public async getPostsByUser(userId: number): Promise<BasePostOfFeedDTO[]> {
-    const posts: BasePostOfFeedDTO[] = await PostEntity.find({
-      relations: ['likes', 'comments', 'user'],
+  public async getPostsByUser(userId: number): Promise<BasePostDto[]> {
+    const posts: BasePostDto[] = await PostEntity.find({
       where: {
         userId,
-      },
-      select: {
-        likes: { id: true },
-        comments: { userId: true },
-        user: { firstName: true, lastName: true, profilePic: true },
-      },
-      order: {
-        updatedAt: 'DESC',
       },
     });
     return posts;

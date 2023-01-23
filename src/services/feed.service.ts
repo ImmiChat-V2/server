@@ -2,9 +2,12 @@ import { BasePostOfFeedDTO } from '@/dtos';
 import { PostEntity } from '@/entities';
 
 class FeedService {
-  public async getFeed(): Promise<BasePostOfFeedDTO[]> {
+  public async getFeed(userId?: number): Promise<BasePostOfFeedDTO[]> {
     const feed: BasePostOfFeedDTO[] = (await PostEntity.find({
       relations: ['likes', 'comments', 'user'],
+      where: {
+        ...(userId && { userId }),
+      },
       select: {
         likes: { id: true },
         comments: { userId: true },
