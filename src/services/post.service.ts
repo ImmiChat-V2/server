@@ -1,4 +1,4 @@
-import { PostEntity } from '@/entities';
+import { CommentEntity, PostEntity } from '@/entities';
 import {
   CreatePostRequestDto,
   BasePostDto,
