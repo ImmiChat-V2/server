@@ -10,6 +10,98 @@ paths:
       responses:
         200:
           description: 'OK'
+
+  /register:
+    post:
+      tags:
+        - Auth route
+      summary: Register user and return user without password and set refresh and access token.
+      parameters:
+        - in: body
+          name: register
+          description: Register user model
+          schema:
+            type: object
+            required:
+              - email
+              - password
+              - firstName
+              - lastName
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+              firstName:
+                type: string
+              lastName:
+                type: string
+              language:
+                type: string
+              profilePic:
+                type: string
+              coverPic:
+                type: string
+              dateOfBirth:
+                type: string
+                format: date
+
+      responses:
+        201:
+          description: 'Success'
+        409:
+          description: 'This email already exists'
+
+  /login:
+    post:
+      tags:
+        - Auth route
+      summary: Login
+      parameters:
+        - in: body
+          name: login
+          description: Login with email and password
+          schema:
+            type: object
+            required:
+              - email
+              - password
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+
+      responses:
+        200:
+          description: 'Success, logged in'
+        404:
+          description: 'This email does not exist'
+
+  /logout:
+    post:
+      tags:
+        - Auth route
+      summary: Logout expires access and refresh token
+      responses:
+        200:
+          description: 'Success, logged out'
+        401:
+          description: 'Authentication token missing'
+        404:
+          description: 'This email does not exist'
+
+  /validate-authentication:
+    post:
+      tags:
+        - Auth route
+      summary: Validate Authentication
+      responses:
+        200:
+          description: 'Authenticated'
+        401:
+          description: 'Authentication token missing'
+
 schemes:
   - https
   - http
