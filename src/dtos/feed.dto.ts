@@ -16,4 +16,5 @@ type UserInfo = {
 
 export type ProfileFeed = {
   readonly userId?: number;
+  readonly categoryName?: string;
 };
