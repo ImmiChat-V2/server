@@ -1,9 +1,7 @@
 import App from '@/app';
 import { UserRoute } from '@/routes';
 import { pgDataSource } from '@databases';
-import { UserEntity } from '@/entities';
-import { BaseUserResponseDTO } from '@/dtos';
-import { requestWithCookie } from './utils/testUtils';
+import { requestWithCookie, seedingTest, userSeedData } from './utils/testUtils';
 
 const userRoute = new UserRoute();
 const app = new App([userRoute]);
@@ -11,6 +9,7 @@ const server = app.getServer();
 
 beforeEach(async () => {
   await pgDataSource.initialize();
+  await seedingTest();
 });
 
 afterEach(async () => {
@@ -21,29 +20,22 @@ describe('Testing User Endpoints', () => {
   describe('[GET] /users', () => {
     const path = `${userRoute.path}`;
     it('successfully get all users', async () => {
-      return await requestWithCookie({ app: server, path }).expect(200);
+      return await requestWithCookie({ app: server, path })
+        .expect(200)
+        .expect(res => res.body.data.length === userSeedData.length);
     });
   });
   describe('[GET] /users/:id', () => {
-    const userData: BaseUserResponseDTO = {
-      id: 1,
-      firstName: 'firstName',
-      lastName: 'lastName',
-      email: 'test@email.com',
-      language: 'chinese',
-      dateOfBirth: null,
-      profilePic: null,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-    const path = `${userRoute.path}/${userData.id}`;
-
+    const userEmail = userSeedData[0].email;
+    const path = `${userRoute.path}/1`;
     it('successfully gets a specific user', async () => {
-      UserEntity.findOne = jest.fn().mockImplementation(() => userData);
-      return await requestWithCookie({ app: server, path }).expect(200);
+      return await requestWithCookie({ app: server, path })
+        .expect(200)
+        .expect(res => res.body.data.email === userEmail);
     });
     it('returns 409 status code if user is not found', async () => {
-      UserEntity.findOne = jest.fn().mockImplementation(() => false);
+      const userId = userSeedData.length + 1;
+      const path = `${userRoute.path}/${userId}`;
       return await requestWithCookie({ app: server, path }).expect(409);
     });
   });
